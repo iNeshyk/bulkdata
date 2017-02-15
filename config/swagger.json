@@ -1,0 +1,392 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a Bulkdata API",
+        "version": "1.0.1",
+        "title": "Bulkdata API for waybils and analysis",
+        "contact": {
+            "email": "ineshyk@gmail.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "tags": [
+        {
+            "name": "developers",
+            "description": "Operations available to regular developers"
+        }
+    ],
+    "schemes": [
+        "https",
+        "http"
+    ],
+    "paths": {
+        "/waybills": {
+            "get": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "get all waybills to you account",
+                "operationId": "getWaybills",
+                "description": "By passing in the appropriate options, you can get\navailable updated waybills in the system\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "description": "pass an optional id for looking up current waybill",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "uid"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "maximum number of records to return",
+                        "required": false,
+                        "type": "integer",
+                        "format": "int32",
+                        "minimum": 0,
+                        "maximum": 50
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "search results matching criteria",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Waybill"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "adds an waybill",
+                "operationId": "addWaybill",
+                "description": "Adds an waybill to the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "waybill",
+                        "description": "Waybill to add",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Waybill"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "waybill created"
+                    },
+                    "400": {
+                        "description": "invalid input, object invalid"
+                    },
+                    "409": {
+                        "description": "an existing waybill already exists"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Waybill": {
+            "type": "object",
+            "required": [
+                "EntryGUID",
+                "EntryType",
+                "Source",
+                "BarCode",
+                "RFID",
+                "VehicleType",
+                "VehicleStateNo",
+                "TrailerStateNo",
+                "WaybillNo",
+                "WaybillDate",
+                "PostingDate",
+                "ShipmentDate",
+                "OwnerStateName",
+                "OwnerStateRegCode",
+                "ShippingAgentStateName",
+                "ShippingAgentStateRegCode",
+                "OrderAgentStateName",
+                "OrderAgentStateRegCode",
+                "ConsignorName",
+                "ConsignorRegCode",
+                "ConsigneeName",
+                "ConsigneeRegCode",
+                "ShipmentLocationName",
+                "ShipmentNAVLocationCode",
+                "ShipmentLocationAdress",
+                "DestinationLocationName",
+                "DestinationNAVLocationCode",
+                "DestinationLocationAdress",
+                "ShipmentRWStationCode",
+                "ShipmentRWStationName",
+                "DestinationRWStationCode",
+                "DestinationRWStationName",
+                "ItemGUID",
+                "ItemName",
+                "ItemNavCode",
+                "GrossWeight",
+                "VehicleWeight",
+                "NetWeight",
+                "ShipmentMethod",
+                "StandardWeightElevator",
+                "ConsignorWeight"
+            ],
+            "properties": {
+                "EntryGUID": {
+                    "type": "string",
+                    "format": "uuid",
+                    "uniqueItems": true,
+                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                },
+                "EntryType": {
+                    "type": "boolean"
+                },
+                "Source": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "example": "01.Myrgorod"
+                },
+                "BarCode": {
+                    "type": "string",
+                    "maxLength": 13,
+                    "example": "2010000000123"
+                },
+                "RFID": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "example": "0123456789"
+                },
+                "VehicleType": {
+                    "type": "boolean"
+                },
+                "VehicleStateNo": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "АВ4567СХ"
+                },
+                "TrailerStateNo": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "ВП2812СМ"
+                },
+                "WaybillNo": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "9678711"
+                },
+                "WaybillDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-04-23T18:25:43.511Z"
+                },
+                "PostingDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-04-23T18:25:43.511Z"
+                },
+                "ShipmentDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-04-23T18:25:43.511Z"
+                },
+                "OwnerStateName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Дружба НОВА ТОВ"
+                },
+                "OwnerStateRegCode": {
+                    "type": "string",
+                    "maxLength": 8,
+                    "example": "31333767",
+                    "description": "EDRPOU code"
+                },
+                "ShippingAgentStateName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "ФОП Поляков"
+                },
+                "ShippingAgentStateRegCode": {
+                    "type": "string",
+                    "maxLength": 8,
+                    "example": "78425984",
+                    "description": "EDRPOU code"
+                },
+                "OrderAgentStateName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Дружба НОВА ТОВ"
+                },
+                "OrderAgentStateRegCode": {
+                    "type": "string",
+                    "maxLength": 8,
+                    "example": "31333767",
+                    "description": "EDRPOU code"
+                },
+                "ConsignorName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Миргородська дільниця"
+                },
+                "ConsignorRegCode": {
+                    "type": "string",
+                    "maxLength": 8,
+                    "example": "05581898",
+                    "description": "EDRPOU code"
+                },
+                "ConsigneeName": {
+                    "type": "string",
+                    "minLength": 5,
+                    "maxLength": 100,
+                    "example": "Линовицька дільниця"
+                },
+                "ConsigneeRegCode": {
+                    "type": "string",
+                    "maxLength": 8,
+                    "example": "31834605",
+                    "description": "EDRPOU code"
+                },
+                "ShipmentLocationName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "ООО Миргородський елеватор",
+                    "description": "Name of shipment location"
+                },
+                "ShipmentNAVLocationCode": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "",
+                    "description": "Shipment location name in MS Navision system"
+                },
+                "ShipmentLocationAdress": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 400,
+                    "example": "",
+                    "description": "Полтавська обл., м. Миргород, вул. Петрівська, 15"
+                },
+                "DestinationLocationName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "ООО Тис зеро",
+                    "description": "Name of destination location"
+                },
+                "DestinationNAVLocationCode": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "",
+                    "description": "Destination location name in MS Navision system"
+                },
+                "DestinationLocationAdress": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
+                    "description": "Name of destination location"
+                },
+                "ShipmentRWStationCode": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "example": "447801"
+                },
+                "ShipmentRWStationName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 200,
+                    "example": "МИРГОРОД"
+                },
+                "DestinationRWStationCode": {
+                    "type": "string",
+                    "maxLength": 6,
+                    "example": "403002"
+                },
+                "DestinationRWStationName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 200,
+                    "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )"
+                },
+                "ItemGUID": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 32,
+                    "example": "КУК3КЛ",
+                    "description": "Items article"
+                },
+                "ItemName": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "Кукурудза 3 класу кормові потреби"
+                },
+                "ItemNavCode": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 15,
+                    "example": "",
+                    "description": "Items ID in MS Navision system"
+                },
+                "GrossWeight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 95010
+                },
+                "VehicleWeight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 25010
+                },
+                "NetWeight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 70000
+                },
+                "ShipmentMethod": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 15,
+                    "example": "",
+                    "description": "Code of shipment method"
+                },
+                "StandardWeightElevator": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 69800
+                },
+                "ConsignorWeight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 69860
+                }
+            }
+        }
+    }
+}
