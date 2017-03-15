@@ -1,6 +1,6 @@
 'use strict';
 
-const shchema = require('../lib/mssql/schema.js');
+const schema = require('../lib/mssql/schema.js');
 const config  = require('../config/swagger.json');
 const Promise = require('promise');
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
       vals.push(`B.${field}`);
     });
 
-    shchema.t010_Bulkdata_fields().forEach(
+    schema.t010_Bulkdata_fields().forEach(
       function(field){
         set.push(`A.${field} = B.${field}`);
         cols.push(field)
@@ -61,7 +61,7 @@ module.exports = {
       MERGE INTO t010_Bulkdata AS A
       USING (
          SELECT *
-      FROM OPENJSON(@json2) WITH (${shchema.t010_Bulkdata()})) B
+      FROM OPENJSON(@json2) WITH (${schema.t010_Bulkdata()})) B
       ON (A.EntryGUID = B.EntryGUID)
      WHEN MATCHED THEN
          UPDATE SET ${set.join(' , ')}

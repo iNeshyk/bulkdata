@@ -121,39 +121,31 @@ waybills inactive
             let userID   = '1';
             let hashBody = [];
             let usersEntryGuid = [];
-            var fillHashBody = function(body){
-              body.forEach(function (element){
-                for(let k in element){
-                    hashBody.push({'EntryGUID':element.EntryGUID,'Sha1KeyValue':sha1(k+element[k]),'Key':k,'Value':element[k]});
-                }
-              })
-            };
 
-            var fillBody = function(body){
-              body.forEach(function (row){
-                  row['EntryInsertDate']   = new Date();
-                  row['EntryInsertUserID'] = userID;
-                })
-            };
+            for (let i in body) {
+              let element = body[i];
+              element['EntryInsertDate']   = new Date();
+              element['EntryInsertUserID'] = userID;
 
-            var addWaybills = function(){
-              db.req(q.addWaybills(body,hashBody,userID),{},function(data, err){
-                  if (err) {
-                    res.status(505);
-                    res.send(err);
-                  }else{
-                    res.send(data);
-                  }
-                })
-            };
+              for(let k in element) {
+                hashBody.push({
+                  EntryGUID: element.EntryGUID,
+                  Sha1KeyValue: sha1(k+element[k]),
+                  Key: k,
+                  Value: element[k]
+                });
+              }
+            }
 
-            var pHashBody = Promise.denodeify(fillHashBody);
-
-            pHashBody(body)
-              .then(fillBody(body))
-              .then(addWaybills())
-              .nodeify(callback);
-
+            db.req(q.addWaybills(body, hashBody, userID), {}, function(data, err) {
+              if (err) {
+                res.status(505);
+                res.send(err);
+              } else {
+                res.send(data);
+              }
+              callback();
+            });
         },
         400: function (req, res, callback) {
             /**
