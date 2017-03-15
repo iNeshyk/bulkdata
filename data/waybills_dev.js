@@ -1,7 +1,9 @@
 'use strict';
 var Mockgen = require('./mockgen.js');
-const db = require('../lib/mssql');
-const q  = require('./queries');
+var Promise = require('promise');
+var db = require('../lib/mssql');
+var q  = require('./queries');
+var sha1 = require('sha1');
 /**
  * Operations on /waybills
  */
@@ -28,15 +30,15 @@ available updated waybills in the system
                 response: '200'
             }, callback);
             */
-            db.req(q.getWaybills(req.query.id, req.query.limit),{},function(data, err){
-              if (err) {
-                res.status(505);
-                res.send(err);
-              }else{
-                res.send(data);
-              }
-            });
-
+            let userID = '1';
+            db.req(q.getWaybills(userID, req.query.id, req.query.limit), {}, function(data, err){
+                  if (err) {
+                    res.status(505);
+                    res.send(err);
+                  }else{
+                    res.send(data);
+                  }
+                });
         },
         400: function (req, res, callback) {
             /**
@@ -49,6 +51,50 @@ available updated waybills in the system
                 response: '400'
             }, callback);
             */
+        }
+    },
+    /**
+     * summary: set waybills inactive
+     * description: By passing in the appropriate options, you can set
+waybills inactive
+
+     * parameters: waybillKey
+     * produces: application/json
+     * responses: 200, 400
+     * operationId: pushWaybills
+     */
+    patch: {
+        200: function (req, res, callback) {
+            /**
+             * Using mock data generator module.
+             * Replace this by actual data for the api.
+             */
+
+            // Mockgen().responses({
+            //     path: '/waybills',
+            //     operation: 'patch',
+            //     response: '200'
+            // }, callback);
+            let userID = '1';
+            db.req(q.patchWaybills(userID, req.body), {}, function(data, err){
+                  if (err) {
+                    res.status(505);
+                    res.send(err);
+                  }else{
+                    res.send(data);
+                  }
+                });
+        },
+        400: function (req, res, callback) {
+            /**
+             * Using mock data generator module.
+             * Replace this by actual data for the api.
+             */
+            // Mockgen().responses({
+            //     path: '/waybills',
+            //     operation: 'patch',
+            //     response: '400'
+            // }, callback);
         }
     },
     /**
@@ -71,14 +117,43 @@ available updated waybills in the system
                 response: '201'
             }, callback);
             */
-            db.req(q.addWaybills(req.body),{},function(data, err){
-              if (err) {
-                res.status(505);
-                res.send(err);
-              }else{
-                res.send(data);
-              }
-            });
+            let body     = req.body;
+            let userID   = '1';
+            let hashBody = [];
+            let usersEntryGuid = [];
+            var fillHashBody = function(body){
+              body.forEach(function (element){
+                for(let k in element){
+                    hashBody.push({'EntryGUID':element.EntryGUID,'Sha1KeyValue':sha1(k+element[k]),'Key':k,'Value':element[k]});
+                }
+              })
+            };
+
+            var fillBody = function(body){
+              body.forEach(function (row){
+                  row['EntryInsertDate']   = new Date();
+                  row['EntryInsertUserID'] = userID;
+                })
+            };
+
+            var addWaybills = function(){
+              db.req(q.addWaybills(body,hashBody,userID),{},function(data, err){
+                  if (err) {
+                    res.status(505);
+                    res.send(err);
+                  }else{
+                    res.send(data);
+                  }
+                })
+            };
+
+            var pHashBody = Promise.denodeify(fillHashBody);
+
+            pHashBody(body)
+              .then(fillBody(body))
+              .then(addWaybills())
+              .nodeify(callback);
+
         },
         400: function (req, res, callback) {
             /**

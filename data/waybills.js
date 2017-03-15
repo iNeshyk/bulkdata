@@ -39,6 +39,40 @@ available updated waybills in the system
         }
     },
     /**
+     * summary: set waybills inactive
+     * description: By passing in the appropriate options, you can set
+waybills inactive
+
+     * parameters: waybillKey
+     * produces: application/json
+     * responses: 200, 400
+     * operationId: pushWaybills
+     */
+    patch: {
+        200: function (req, res, callback) {
+            /**
+             * Using mock data generator module.
+             * Replace this by actual data for the api.
+             */
+            Mockgen().responses({
+                path: '/waybills',
+                operation: 'patch',
+                response: '200'
+            }, callback);
+        },
+        400: function (req, res, callback) {
+            /**
+             * Using mock data generator module.
+             * Replace this by actual data for the api.
+             */
+            Mockgen().responses({
+                path: '/waybills',
+                operation: 'patch',
+                response: '400'
+            }, callback);
+        }
+    },
+    /**
      * summary: adds an waybill
      * description: Adds an waybill to the system
      * parameters: waybill

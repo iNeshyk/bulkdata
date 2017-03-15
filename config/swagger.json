@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -72,6 +72,44 @@
                     }
                 }
             },
+            "patch": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "set waybills inactive",
+                "operationId": "pushWaybills",
+                "description": "By passing in the appropriate options, you can set\nwaybills inactive\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "waybillKey",
+                        "description": "Waybill to incative",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/WaybillKey"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "search results matching criteria",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/WaybillKey"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "bad input parameter"
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "developers"
@@ -113,6 +151,20 @@
         }
     },
     "definitions": {
+        "WaybillKey": {
+            "type": "object",
+            "required": [
+                "EntryGUID"
+            ],
+            "properties": {
+                "EntryGUID": {
+                    "type": "string",
+                    "format": "uuid",
+                    "uniqueItems": true,
+                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                }
+            }
+        },
         "Waybill": {
             "type": "object",
             "required": [
@@ -282,14 +334,14 @@
                 "ShipmentNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
-                    "example": "",
+                    "example": "NAV12",
                     "description": "Shipment location name in MS Navision system"
                 },
                 "ShipmentLocationAdress": {
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 400,
-                    "example": "",
+                    "example": "NAV31",
                     "description": "Полтавська обл., м. Миргород, вул. Петрівська, 15"
                 },
                 "DestinationLocationName": {
@@ -302,7 +354,7 @@
                 "DestinationNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
-                    "example": "",
+                    "example": "NAV14",
                     "description": "Destination location name in MS Navision system"
                 },
                 "DestinationLocationAdress": {
@@ -351,7 +403,7 @@
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 15,
-                    "example": "",
+                    "example": "NAV57",
                     "description": "Items ID in MS Navision system"
                 },
                 "GrossWeight": {
@@ -373,7 +425,7 @@
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 15,
-                    "example": "",
+                    "example": "FCA",
                     "description": "Code of shipment method"
                 },
                 "StandardWeightElevator": {
