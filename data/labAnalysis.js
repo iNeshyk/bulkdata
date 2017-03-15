@@ -1,18 +1,18 @@
 'use strict';
 var Mockgen = require('./mockgen.js');
 /**
- * Operations on /waybills
+ * Operations on /labAnalysis
  */
 module.exports = {
     /**
-     * summary: get all waybills to you account
+     * summary: get all lab analysis to you account
      * description: By passing in the appropriate options, you can get
-available updated waybills in the system
+available updated laboratory abalysis in the system
 
      * parameters: id, limit
      * produces: application/json
      * responses: 200, 400
-     * operationId: getWaybills
+     * operationId: getlabAnalysis
      */
     get: {
         200: function (req, res, callback) {
@@ -21,7 +21,7 @@ available updated waybills in the system
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'get',
                 response: '200'
             }, callback);
@@ -32,7 +32,7 @@ available updated waybills in the system
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'get',
                 response: '400'
             }, callback);
@@ -41,12 +41,12 @@ available updated waybills in the system
     /**
      * summary: set waybills inactive
      * description: By passing in the appropriate options, you can set
-waybills inactive
+lab analys inactive
 
-     * parameters: waybillKey
+     * parameters: labAnalysKey
      * produces: application/json
      * responses: 200, 400
-     * operationId: pushWaybills
+     * operationId: pushLabAnalysis
      */
     patch: {
         200: function (req, res, callback) {
@@ -55,7 +55,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'patch',
                 response: '200'
             }, callback);
@@ -66,7 +66,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'patch',
                 response: '400'
             }, callback);
@@ -74,11 +74,11 @@ waybills inactive
     },
     /**
      * summary: adds an waybill
-     * description: Adds an waybill to the system
-     * parameters: waybill
+     * description: Adds an laboratory analysis to the system
+     * parameters: labAnalys
      * produces: application/json
      * responses: 201, 400, 409
-     * operationId: addWaybill
+     * operationId: addLabAnalysis
      */
     post: {
         201: function (req, res, callback) {
@@ -87,7 +87,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'post',
                 response: '201'
             }, callback);
@@ -98,7 +98,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'post',
                 response: '400'
             }, callback);
@@ -109,19 +109,19 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'post',
                 response: '409'
             }, callback);
         }
     },
     /**
-     * summary: delete an waybill
-     * description: Delete an waybill from the system
-     * parameters: delWaybill
+     * summary: delete an lab analys
+     * description: Delete an laboratory analys from the system
+     * parameters: delLabAnalys
      * produces: application/json
      * responses: 201, 400
-     * operationId: delWaybill
+     * operationId: delLabAnalys
      */
     delete: {
         201: function (req, res, callback) {
@@ -130,7 +130,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'delete',
                 response: '201'
             }, callback);
@@ -141,7 +141,7 @@ waybills inactive
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/waybills',
+                path: '/labAnalysis',
                 operation: 'delete',
                 response: '400'
             }, callback);

@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.0.4",
+        "version": "1.0.2",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -147,202 +147,6 @@
                         "description": "an existing waybill already exists"
                     }
                 }
-            },
-            "delete": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an waybill",
-                "operationId": "delWaybill",
-                "description": "Delete an waybill from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delWaybill",
-                        "description": "Waybill to delet",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "waybill deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    }
-                }
-            }
-        },
-        "/labAnalysis": {
-            "get": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "get all lab analysis to you account",
-                "operationId": "getlabAnalysis",
-                "description": "By passing in the appropriate options, you can get\navailable updated laboratory abalysis in the system\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "id",
-                        "description": "pass an optional id for looking up current lab analys",
-                        "required": false,
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "uid"
-                        }
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "maximum number of records to return",
-                        "required": false,
-                        "type": "integer",
-                        "format": "int32",
-                        "minimum": 0,
-                        "maximum": 50
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalys"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "set waybills inactive",
-                "operationId": "pushLabAnalysis",
-                "description": "By passing in the appropriate options, you can set\nlab analys inactive\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "labAnalysKey",
-                        "description": "Laboratory analys to incative",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "adds an waybill",
-                "operationId": "addLabAnalysis",
-                "description": "Adds an laboratory analysis to the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "labAnalys",
-                        "description": "Laboratory analysis to add",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalys"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "lab analysis created"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "409": {
-                        "description": "an existing analysis already exists"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an lab analys",
-                "operationId": "delLabAnalys",
-                "description": "Delete an laboratory analys from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delLabAnalys",
-                        "description": "Laboratory analys to delete",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "laboratory analys deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    }
-                }
             }
         }
     },
@@ -367,9 +171,44 @@
                 "EntryGUID",
                 "EntryType",
                 "Source",
+                "BarCode",
+                "RFID",
                 "VehicleType",
+                "VehicleStateNo",
+                "TrailerStateNo",
+                "WaybillNo",
+                "WaybillDate",
+                "PostingDate",
+                "ShipmentDate",
+                "OwnerStateName",
+                "OwnerStateRegCode",
+                "ShippingAgentStateName",
+                "ShippingAgentStateRegCode",
+                "OrderAgentStateName",
+                "OrderAgentStateRegCode",
+                "ConsignorName",
+                "ConsignorRegCode",
+                "ConsigneeName",
+                "ConsigneeRegCode",
+                "ShipmentLocationName",
+                "ShipmentNAVLocationCode",
+                "ShipmentLocationAdress",
+                "DestinationLocationName",
+                "DestinationNAVLocationCode",
+                "DestinationLocationAdress",
+                "ShipmentRWStationCode",
+                "ShipmentRWStationName",
+                "DestinationRWStationCode",
+                "DestinationRWStationName",
                 "ItemGUID",
-                "ItemName"
+                "ItemName",
+                "ItemNavCode",
+                "GrossWeight",
+                "VehicleWeight",
+                "NetWeight",
+                "ShipmentMethod",
+                "StandardWeightElevator",
+                "ConsignorWeight"
             ],
             "properties": {
                 "EntryGUID": {
@@ -495,14 +334,14 @@
                 "ShipmentNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
-                    "example": "NAV64",
+                    "example": "NAV12",
                     "description": "Shipment location name in MS Navision system"
                 },
                 "ShipmentLocationAdress": {
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 400,
-                    "example": "NAV56",
+                    "example": "NAV31",
                     "description": "Полтавська обл., м. Миргород, вул. Петрівська, 15"
                 },
                 "DestinationLocationName": {
@@ -515,7 +354,7 @@
                 "DestinationNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
-                    "example": "NAV22",
+                    "example": "NAV14",
                     "description": "Destination location name in MS Navision system"
                 },
                 "DestinationLocationAdress": {
@@ -564,7 +403,7 @@
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 15,
-                    "example": "NAV5",
+                    "example": "NAV57",
                     "description": "Items ID in MS Navision system"
                 },
                 "GrossWeight": {
@@ -586,7 +425,7 @@
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 15,
-                    "example": "NAV1",
+                    "example": "FCA",
                     "description": "Code of shipment method"
                 },
                 "StandardWeightElevator": {
@@ -598,178 +437,6 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 69860
-                }
-            }
-        },
-        "LabAnalysKey": {
-            "type": "object",
-            "required": [
-                "FormID"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456"
-                }
-            }
-        },
-        "LabAnalys": {
-            "type": "object",
-            "required": [
-                "FormID",
-                "TransportShipmentID"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456"
-                },
-                "TransportShipmentID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
-                },
-                "No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "ЭЛ01-0004534566",
-                    "description": "Document №"
-                },
-                "Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-15T18:25:43.511Z"
-                },
-                "ScanCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "0123456789123",
-                    "description": "Document bacode"
-                },
-                "HarvestYear": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-01-01T00:00:00.000Z"
-                },
-                "WaybillNo": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 30,
-                    "example": "ЭЛ01-20170315-001",
-                    "description": "Document №"
-                },
-                "WaybillDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-14T14:40:43.511Z"
-                },
-                "Certificate1No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "12345678910",
-                    "description": "Document №"
-                },
-                "Certificate1Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-10T14:40:43.511Z"
-                },
-                "Certificate2No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "0123456789012",
-                    "description": "Document №"
-                },
-                "Certificate2Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-09T14:40:43.511Z"
-                },
-                "CertificateWeightGMO": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 10
-                },
-                "Qualities": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/LabAnalysLine"
-                    }
-                }
-            }
-        },
-        "LabAnalysLine": {
-            "type": "object",
-            "required": [
-                "FormID",
-                "AnalisysCode",
-                "AnalisysName",
-                "ValueType",
-                "UOM",
-                "Value",
-                "ParentAnalisysCode",
-                "Inclusion",
-                "ShowinLabes"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456"
-                },
-                "AnalisysCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 50,
-                    "example": "Влажность",
-                    "description": "Quality ID"
-                },
-                "AnalisysName": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "Влажность",
-                    "description": "Quality ID"
-                },
-                "ValueType": {
-                    "type": "boolean"
-                },
-                "UOM": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "%",
-                    "description": "Quality UOM"
-                },
-                "Value": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "13",
-                    "description": "Value"
-                },
-                "ParentAnalisysCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 50,
-                    "example": "",
-                    "description": "Parent quality ID"
-                },
-                "Inclusion": {
-                    "type": "boolean"
-                },
-                "ShowinLabes": {
-                    "type": "boolean"
                 }
             }
         }

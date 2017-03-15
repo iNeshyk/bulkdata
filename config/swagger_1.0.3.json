@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.0.4",
+        "version": "1.0.3",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -147,41 +147,6 @@
                         "description": "an existing waybill already exists"
                     }
                 }
-            },
-            "delete": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an waybill",
-                "operationId": "delWaybill",
-                "description": "Delete an waybill from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delWaybill",
-                        "description": "Waybill to delet",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "waybill deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    }
-                }
             }
         },
         "/labAnalysis": {
@@ -306,41 +271,6 @@
                     },
                     "409": {
                         "description": "an existing analysis already exists"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an lab analys",
-                "operationId": "delLabAnalys",
-                "description": "Delete an laboratory analys from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delLabAnalys",
-                        "description": "Laboratory analys to delete",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "laboratory analys deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
                     }
                 }
             }
@@ -515,7 +445,7 @@
                 "DestinationNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
-                    "example": "NAV22",
+                    "example": "NAV122",
                     "description": "Destination location name in MS Navision system"
                 },
                 "DestinationLocationAdress": {

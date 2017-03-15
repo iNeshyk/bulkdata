@@ -1,19 +1,19 @@
 'use strict';
-var dataProvider = require('../data/waybills_dev.js');
+var dataProvider = require('../data/labAnalysis_dev.js');
 /**
- * Operations on /waybills
+ * Operations on /labAnalysis
  */
 module.exports = {
     /**
-     * summary: get all waybills to you account
+     * summary: get all lab analysis to you account
      * description: By passing in the appropriate options, you can get
-available updated waybills in the system
+available updated laboratory abalysis in the system
 
      * parameters: id, limit
      * produces: application/json
      * responses: 200, 400
      */
-    get: function getWaybills(req, res, next) {
+    get: function getlabAnalysis(req, res, next) {
         /**
          * Get the data for response 200
          * For response `default` status 200 is used.
@@ -31,13 +31,13 @@ available updated waybills in the system
     /**
      * summary: set waybills inactive
      * description: By passing in the appropriate options, you can set
-waybills inactive
+lab analys inactive
 
-     * parameters: waybillKey
+     * parameters: labAnalysKey
      * produces: application/json
      * responses: 200, 400
      */
-    patch: function pushWaybills(req, res, next) {
+    patch: function pushLabAnalysis(req, res, next) {
         /**
          * Get the data for response 200
          * For response `default` status 200 is used.
@@ -54,12 +54,12 @@ waybills inactive
     },
     /**
      * summary: adds an waybill
-     * description: Adds an waybill to the system
-     * parameters: waybill
+     * description: Adds an laboratory analysis to the system
+     * parameters: labAnalys
      * produces: application/json
      * responses: 201, 400, 409
      */
-    post: function addWaybill(req, res, next) {
+    post: function addLabAnalysis(req, res, next) {
         /**
          * Get the data for response 201
          * For response `default` status 200 is used.
@@ -75,13 +75,13 @@ waybills inactive
         });
     },
     /**
-     * summary: delete an waybill
-     * description: Delete an waybill from the system
-     * parameters: delWaybill
+     * summary: delete an lab analys
+     * description: Delete an laboratory analys from the system
+     * parameters: delLabAnalys
      * produces: application/json
      * responses: 201, 400
      */
-    delete: function delWaybill(req, res, next) {
+    delete: function delLabAnalys(req, res, next) {
         /**
          * Get the data for response 201
          * For response `default` status 200 is used.
