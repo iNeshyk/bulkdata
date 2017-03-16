@@ -9,7 +9,7 @@ module.exports = {
      * description: By passing in the appropriate options, you can get
 available updated waybills in the system
 
-     * parameters: id, limit
+     * parameters: sourceID, id, limit
      * produces: application/json
      * responses: 200, 400
      */
@@ -33,7 +33,7 @@ available updated waybills in the system
      * description: By passing in the appropriate options, you can set
 waybills inactive
 
-     * parameters: waybillKey
+     * parameters: sourceID, waybillKey
      * produces: application/json
      * responses: 200, 400
      */

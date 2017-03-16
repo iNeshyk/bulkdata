@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.0.6",
+        "version": "1.0.5",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -91,14 +91,6 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
                     {
                         "in": "body",
                         "name": "waybillKey",
@@ -268,13 +260,6 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current laboratory analysis",
-                        "required": true,
-                        "type": "string"
-                    },
                     {
                         "in": "body",
                         "name": "labAnalysKey",

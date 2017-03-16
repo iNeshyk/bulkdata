@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.0.6",
+        "version": "1.0.4",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -35,14 +35,6 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
                     {
                         "in": "query",
                         "name": "id",
@@ -91,14 +83,6 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
                     {
                         "in": "body",
                         "name": "waybillKey",
@@ -214,14 +198,6 @@
                 "parameters": [
                     {
                         "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current laboratory analysis",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
-                    {
-                        "in": "query",
                         "name": "id",
                         "description": "pass an optional id for looking up current lab analys",
                         "required": false,
@@ -268,13 +244,6 @@
                     "application/json"
                 ],
                 "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current laboratory analysis",
-                        "required": true,
-                        "type": "string"
-                    },
                     {
                         "in": "body",
                         "name": "labAnalysKey",

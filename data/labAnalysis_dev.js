@@ -31,7 +31,7 @@ available updated laboratory abalysis in the system
             //     response: '200'
             // }, callback);
             let userID = '1';
-            db.req(q.getLabAnalysis(userID, req.query.id, req.query.limit), {}, function(data, err){
+            db.req(q.getLabAnalysis(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -73,8 +73,7 @@ lab analys inactive
             //     operation: 'patch',
             //     response: '200'
             // }, callback);
-            let userID = '1';
-            db.req(q.patchLabAnalysis(userID, req.body), {}, function(data, err){
+            db.req(q.patchLabAnalysis(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -115,7 +114,6 @@ lab analys inactive
             //     response: '201'
             // }, callback);
             let body     = req.body;
-            let userID   = '1';
             let hashBody = [];
             let usersEntryGuid = [];
 
@@ -134,7 +132,7 @@ lab analys inactive
               }
             }
 
-            db.req(q.addLabAnalysis(body, hashBody, userID), {}, function(data, err) {
+            db.req(q.addLabAnalysis(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);

@@ -9,7 +9,7 @@ module.exports = {
      * description: By passing in the appropriate options, you can get
 available updated laboratory abalysis in the system
 
-     * parameters: id, limit
+     * parameters: sourceID, id, limit
      * produces: application/json
      * responses: 200, 400
      * operationId: getlabAnalysis
@@ -43,7 +43,7 @@ available updated laboratory abalysis in the system
      * description: By passing in the appropriate options, you can set
 lab analys inactive
 
-     * parameters: labAnalysKey
+     * parameters: sourceID, labAnalysKey
      * produces: application/json
      * responses: 200, 400
      * operationId: pushLabAnalysis

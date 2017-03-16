@@ -31,8 +31,7 @@ available updated waybills in the system
                 response: '200'
             }, callback);
             */
-            let userID = '1';
-            db.req(q.getWaybills(userID, req.query.id, req.query.limit), {}, function(data, err){
+            db.req(q.getWaybills(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -77,7 +76,7 @@ waybills inactive
             //     response: '200'
             // }, callback);
             let userID = '1';
-            db.req(q.patchWaybills(userID, req.body), {}, function(data, err){
+            db.req(q.patchWaybills(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -119,7 +118,6 @@ waybills inactive
             }, callback);
             */
             let body     = req.body;
-            let userID   = '1';
             let hashBody = [];
             let usersEntryGuid = [];
 
@@ -138,7 +136,7 @@ waybills inactive
               }
             }
 
-            db.req(q.addWaybills(body, hashBody, userID), {}, function(data, err) {
+            db.req(q.addWaybills(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);
