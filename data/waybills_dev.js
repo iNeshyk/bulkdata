@@ -124,7 +124,7 @@ waybills inactive
             for (let i in body) {
               let element = body[i];
               element['EntryInsertDate']   = new Date();
-              element['EntryInsertUserID'] = userID;
+              element['EntryInsertUserID'] = '';
               element['Active'] = 1;
               for(let k in element) {
                 hashBody.push({
