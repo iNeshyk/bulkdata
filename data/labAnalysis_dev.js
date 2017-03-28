@@ -129,6 +129,7 @@ lab analys inactive
                     Key: k,
                     Value: element[k]
                   });
+                }
               }
             }
 
