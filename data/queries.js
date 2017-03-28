@@ -16,7 +16,7 @@ module.exports = {
     let q = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD ${where}
     INNER JOIN t005_UserData AS UD
     ON BD.EntryGUID = UD.EntryGUID
-    AND UD.UserID = ${userID}
+    AND UD.UserID = '${userID}'
     AND UD.Active = 1
     AND UD.RecordType = 'W'`;
     //console.log(q);
@@ -77,7 +77,7 @@ module.exports = {
         WHERE
           t005_UserData.EntryGUID = jt.EntryGUID
           AND t005_UserData.RecordType = 'W'
-          AND t005_UserData.UserID = ${userID}`;
+          AND t005_UserData.UserID = '${userID}'`;
     return q;
   },
   getLabAnalysis: (userID , id, limit) => {
@@ -92,7 +92,7 @@ module.exports = {
     let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD ${where}
     INNER JOIN t005_UserData AS UD
     ON BD.FormID = UD.EntryGUID
-    AND UD.UserID = ${userID}
+    AND UD.UserID = '${userID}'
     AND UD.Active = 1
     AND UD.RecordType = 'L'`;
     //console.log(q);
@@ -178,7 +178,7 @@ module.exports = {
         WHERE
           t005_UserData.EntryGUID = jt.FormID
           AND t005_UserData.RecordType = 'L'
-          AND t005_UserData.UserID = ${userID}`;
+          AND t005_UserData.UserID = '${userID}'`;
     return q;
   },
   delLabAnalysis: (labAnalysis) => {

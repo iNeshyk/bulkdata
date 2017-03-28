@@ -30,7 +30,6 @@ available updated laboratory abalysis in the system
             //     operation: 'get',
             //     response: '200'
             // }, callback);
-            let userID = '1';
             db.req(q.getLabAnalysis(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -123,12 +122,13 @@ lab analys inactive
               element['EntryInsertUserID'] = ' ';
               element['Active'] = 1;
               for(let k in element) {
-                hashBody.push({
-                  EntryGUID: element.EntryGUID,
-                  Sha1KeyValue: sha1(k+element[k]),
-                  Key: k,
-                  Value: element[k]
-                });
+                if((k==='DestinationLocationName') || (k==='FormID')){
+                  hashBody.push({
+                    EntryGUID: element.EntryGUID,
+                    Sha1KeyValue: sha1(k+element[k]),
+                    Key: k,
+                    Value: element[k]
+                  });
               }
             }
 

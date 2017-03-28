@@ -75,7 +75,6 @@ waybills inactive
             //     operation: 'patch',
             //     response: '200'
             // }, callback);
-            let userID = '1';
             db.req(q.patchWaybills(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -127,15 +126,18 @@ waybills inactive
               element['EntryInsertUserID'] = '';
               element['Active'] = 1;
               for(let k in element) {
-                hashBody.push({
-                  EntryGUID: element.EntryGUID,
-                  Sha1KeyValue: sha1(k+element[k]),
-                  Key: k,
-                  Value: element[k]
-                });
+                //set in config
+                if((k==='DestinationLocationName') || (k==='EntryGUID')){
+                  hashBody.push({
+                    EntryGUID: element.EntryGUID,
+                    Sha1KeyValue: sha1(k+element[k]),
+                    Key: k,
+                    Value: element[k]
+                  });
+                }
               }
             }
-
+            console.log(hashBody);
             db.req(q.addWaybills(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);

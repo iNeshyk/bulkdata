@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.1.0",
+        "version": "1.0.6",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -409,14 +409,6 @@
                     "uniqueItems": true,
                     "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
                 },
-                "Complex": {
-                    "type": "boolean",
-                    "description": "Comlex flag"
-                },
-                "ComplexID": {
-                    "type": "boolean",
-                    "description": "567687ee-2311-4b01-32f4-d701748f0851"
-                },
                 "EntryType": {
                     "type": "boolean"
                 },
@@ -430,15 +422,10 @@
                     "maxLength": 13,
                     "example": "2010000000123"
                 },
-                "NFC": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "01-01-18-94"
-                },
                 "RFID": {
                     "type": "string",
-                    "maxLength": 24,
-                    "example": "E2005120360301271270944B"
+                    "maxLength": 10,
+                    "example": "0123456789"
                 },
                 "VehicleType": {
                     "type": "boolean"
@@ -633,98 +620,15 @@
                     "example": "NAV1",
                     "description": "Code of shipment method"
                 },
+                "StandardWeightElevator": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 69800
+                },
                 "ConsignorWeight": {
                     "type": "integer",
                     "format": "int32",
                     "example": 69860
-                },
-                "TruckModel": {
-                    "type": "string",
-                    "minLength": 3,
-                    "maxLength": 15,
-                    "example": "КАМАЗ",
-                    "description": "Truck model"
-                },
-                "Seals": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "464565,3464364,3252352",
-                    "description": "List of seal"
-                },
-                "DriverID": {
-                    "type": "string",
-                    "minLength": 8,
-                    "maxLength": 9,
-                    "example": "РМА201869",
-                    "description": "Driver ID"
-                },
-                "DriverName": {
-                    "type": "string",
-                    "minLength": 4,
-                    "maxLength": 100,
-                    "example": "Кобальский Петро Васильович",
-                    "description": "Driver First and Last name"
-                },
-                "Field1Name": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "901813145809",
-                    "description": "Field name"
-                },
-                "Field1Type": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "example": "Поле",
-                    "description": "Type of fields (Склад, Поле, Ток)"
-                },
-                "Field1Adress": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
-                    "description": "Field adress"
-                },
-                "Field1Percent": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 80,
-                    "description": "Percent of volume it a truck"
-                },
-                "Field1Mositure": {
-                    "type": "number",
-                    "format": "doble",
-                    "example": 14.3,
-                    "description": "Percent of moisture"
-                },
-                "Field2Name": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "901813145809",
-                    "description": "Field name"
-                },
-                "Field2Type": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "example": "Поле",
-                    "description": "Type of fields (Склад, Поле, Ток)"
-                },
-                "Field2Adress": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
-                    "description": "Field adress"
-                },
-                "Field2Percent": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 20,
-                    "description": "Percent of volume it a truck"
-                },
-                "Field2Mositure": {
-                    "type": "number",
-                    "format": "doble",
-                    "example": 15.6,
-                    "description": "Percent of moisture"
                 }
             }
         },
