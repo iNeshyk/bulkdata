@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.1",
+        "version": "1.1.0",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -16,10 +16,6 @@
         {
             "name": "developers",
             "description": "Operations available to regular developers"
-        },
-        {
-            "name": "all",
-            "description": "Operations available to all requests"
         }
     ],
     "schemes": [
@@ -27,28 +23,6 @@
         "http"
     ],
     "paths": {
-        "/ping": {
-            "get": {
-                "tags": [
-                    "all",
-                    "developers"
-                ],
-                "summary": "check service alive status",
-                "operationId": "ping",
-                "description": "Checking service status\n",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "alive = true"
-                    },
-                    "400": {
-                        "description": "alive = false"
-                    }
-                }
-            }
-        },
         "/waybills": {
             "get": {
                 "tags": [
