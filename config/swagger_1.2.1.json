@@ -440,10 +440,8 @@
                     "description": "Comlex flag"
                 },
                 "ComplexID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "567687ee-2311-4b01-32f4-d701748f0851"
+                    "type": "boolean",
+                    "description": "567687ee-2311-4b01-32f4-d701748f0851"
                 },
                 "EntryType": {
                     "type": "boolean"
