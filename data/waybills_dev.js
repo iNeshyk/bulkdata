@@ -137,7 +137,6 @@ waybills inactive
                 }
               }
             }
-            console.log(hashBody);
             db.req(q.addWaybills(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);

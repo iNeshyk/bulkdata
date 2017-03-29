@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.4",
+        "version": "1.2.2",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -435,12 +435,6 @@
                     "uniqueItems": true,
                     "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
                 },
-                "OwnerEntryGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": false,
-                    "example": "f390f1ee-6c54-4b01-90e6-d701748f0812"
-                },
                 "Complex": {
                     "type": "boolean",
                     "description": "Comlex flag"
@@ -517,7 +511,7 @@
                 },
                 "OwnerStateRegCode": {
                     "type": "string",
-                    "maxLength": 12,
+                    "maxLength": 8,
                     "example": "31333767",
                     "description": "EDRPOU code"
                 },
@@ -528,7 +522,7 @@
                 },
                 "ShippingAgentStateRegCode": {
                     "type": "string",
-                    "maxLength": 12,
+                    "maxLength": 8,
                     "example": "78425984",
                     "description": "EDRPOU code"
                 },
@@ -539,7 +533,7 @@
                 },
                 "OrderAgentStateRegCode": {
                     "type": "string",
-                    "maxLength": 12,
+                    "maxLength": 8,
                     "example": "31333767",
                     "description": "EDRPOU code"
                 },
@@ -550,7 +544,7 @@
                 },
                 "ConsignorRegCode": {
                     "type": "string",
-                    "maxLength": 12,
+                    "maxLength": 8,
                     "example": "05581898",
                     "description": "EDRPOU code"
                 },
@@ -561,7 +555,7 @@
                 },
                 "ConsigneeRegCode": {
                     "type": "string",
-                    "maxLength": 12,
+                    "maxLength": 8,
                     "example": "31834605",
                     "description": "EDRPOU code"
                 },
@@ -603,7 +597,7 @@
                 },
                 "ShipmentRWStationCode": {
                     "type": "string",
-                    "maxLength": 10,
+                    "maxLength": 6,
                     "example": "447801"
                 },
                 "ShipmentRWStationName": {
@@ -613,7 +607,7 @@
                 },
                 "DestinationRWStationCode": {
                     "type": "string",
-                    "maxLength": 10,
+                    "maxLength": 6,
                     "example": "403002"
                 },
                 "DestinationRWStationName": {
