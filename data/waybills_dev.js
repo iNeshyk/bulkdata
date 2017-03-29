@@ -124,7 +124,6 @@ waybills inactive
               let element = body[i];
               element['EntryInsertDate']   = new Date();
               element['EntryInsertUserID'] = '';
-              element['Active'] = 1;
               for(let k in element) {
                 //set in config
                 if((k==='DestinationLocationName') || (k==='EntryGUID')){
