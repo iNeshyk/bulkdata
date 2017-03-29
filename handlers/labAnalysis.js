@@ -1,5 +1,5 @@
 'use strict';
-var dataProvider = require('../data/labAnalysis_dev.js');
+var dataProvider = require('../data/labAnalysis.js');
 /**
  * Operations on /labAnalysis
  */

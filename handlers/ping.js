@@ -1,5 +1,5 @@
 'use strict';
-var dataProvider = require('../data/ping_dev.js');
+var dataProvider = require('../data/ping.js');
 /**
  * Operations on /ping
  */
@@ -8,7 +8,7 @@ module.exports = {
      * summary: check service alive status
      * description: Checking service status
 
-     * parameters:
+     * parameters: 
      * produces: application/json
      * responses: 200, 400
      */

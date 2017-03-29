@@ -435,6 +435,12 @@
                     "uniqueItems": true,
                     "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
                 },
+                "OwnerEntryGUID": {
+                    "type": "string",
+                    "format": "uuid",
+                    "uniqueItems": true,
+                    "example": "f490f1ee-6c54-4b01-90e6-d701748f0842"
+                },
                 "Complex": {
                     "type": "boolean",
                     "description": "Comlex flag"
