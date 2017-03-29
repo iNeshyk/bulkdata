@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.1",
+        "version": "1.2.2",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -448,6 +448,9 @@
                 "EntryType": {
                     "type": "boolean"
                 },
+                "Active": {
+                    "type": "boolean"
+                },
                 "Source": {
                     "type": "string",
                     "maxLength": 20,
@@ -455,8 +458,8 @@
                 },
                 "BarCode": {
                     "type": "string",
-                    "maxLength": 13,
-                    "example": "2010000000123"
+                    "maxLength": 14,
+                    "example": "20100000001234"
                 },
                 "NFC": {
                     "type": "string",
@@ -547,7 +550,6 @@
                 },
                 "ConsigneeName": {
                     "type": "string",
-                    "minLength": 5,
                     "maxLength": 100,
                     "example": "Линовицька дільниця"
                 },
@@ -559,7 +561,6 @@
                 },
                 "ShipmentLocationName": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 100,
                     "example": "ООО Миргородський елеватор",
                     "description": "Name of shipment location"
@@ -572,14 +573,12 @@
                 },
                 "ShipmentLocationAdress": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 400,
                     "example": "NAV56",
                     "description": "Полтавська обл., м. Миргород, вул. Петрівська, 15"
                 },
                 "DestinationLocationName": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 100,
                     "example": "ООО Тис зеро",
                     "description": "Name of destination location"
@@ -592,7 +591,6 @@
                 },
                 "DestinationLocationAdress": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 100,
                     "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
                     "description": "Name of destination location"
@@ -604,7 +602,6 @@
                 },
                 "ShipmentRWStationName": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 200,
                     "example": "МИРГОРОД"
                 },
@@ -615,26 +612,22 @@
                 },
                 "DestinationRWStationName": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 200,
                     "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )"
                 },
                 "ItemGUID": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 32,
                     "example": "КУК3КЛ",
                     "description": "Items article"
                 },
                 "ItemName": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 100,
                     "example": "Кукурудза 3 класу кормові потреби"
                 },
                 "ItemNavCode": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 15,
                     "example": "NAV5",
                     "description": "Items ID in MS Navision system"
@@ -656,7 +649,6 @@
                 },
                 "ShipmentMethod": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 15,
                     "example": "NAV1",
                     "description": "Code of shipment method"
@@ -668,28 +660,24 @@
                 },
                 "TruckModel": {
                     "type": "string",
-                    "minLength": 3,
                     "maxLength": 15,
                     "example": "КАМАЗ",
                     "description": "Truck model"
                 },
                 "Seals": {
                     "type": "string",
-                    "minLength": 0,
                     "maxLength": 100,
                     "example": "464565,3464364,3252352",
                     "description": "List of seal"
                 },
                 "DriverID": {
                     "type": "string",
-                    "minLength": 8,
                     "maxLength": 9,
                     "example": "РМА201869",
                     "description": "Driver ID"
                 },
                 "DriverName": {
                     "type": "string",
-                    "minLength": 4,
                     "maxLength": 100,
                     "example": "Кобальский Петро Васильович",
                     "description": "Driver First and Last name"
