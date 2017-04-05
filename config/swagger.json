@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.4",
+        "version": "1.2.5",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -207,7 +207,7 @@
                     {
                         "in": "body",
                         "name": "delWaybill",
-                        "description": "Waybill to delet",
+                        "description": "Waybill to delete",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -426,7 +426,8 @@
                 "Source",
                 "VehicleType",
                 "ItemGUID",
-                "ItemName"
+                "ItemName",
+                "DestinationNAVLocationCode"
             ],
             "properties": {
                 "EntryGUID": {
@@ -768,7 +769,9 @@
             "type": "object",
             "required": [
                 "FormID",
-                "TransportShipmentID"
+                "TransportShipmentID",
+                "Active",
+                "DestinationNAVLocationCode"
             ],
             "properties": {
                 "FormID": {
@@ -782,6 +785,15 @@
                     "format": "uuid",
                     "uniqueItems": true,
                     "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+                },
+                "Active": {
+                    "type": "boolean"
+                },
+                "DestinationNAVLocationCode": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "NAV22",
+                    "description": "Destination location name in MS Navision system"
                 },
                 "No": {
                     "type": "string",
@@ -862,12 +874,7 @@
                 "FormID",
                 "AnalisysCode",
                 "AnalisysName",
-                "ValueType",
-                "UOM",
-                "Value",
-                "ParentAnalisysCode",
-                "Inclusion",
-                "ShowinLabes"
+                "ValueType"
             ],
             "properties": {
                 "FormID": {

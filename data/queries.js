@@ -130,6 +130,10 @@ module.exports = {
     var cols = [];
     var vals = [];
 
+    var setLines  = [];
+    var colsLines = [];
+    var valsLines = [];
+
     //create JSON {UserID, EntryGuid, Active}
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
     INSERT INTO t005_UserData
@@ -165,8 +169,28 @@ module.exports = {
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
          INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
-    let q = q1+'\n  \n'+q2;
-      //console.log(q);
+
+    schema.t020_LabAnalysisLines_fields().forEach(
+           function(field){
+             setLines.push(`A.${field} = B.${field}`);
+             colsLines.push(field)
+             valsLines.push(`B.${field}`);
+           }
+         );
+
+    let q3=`  MERGE INTO t020_LabAnalysisLines AS A
+           USING (
+              SELECT *
+           FROM OPENJSON(@json2,'$.Qualities') WITH (${schema.t020_LabAnalysisLines()})) B
+           ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
+          WHEN MATCHED THEN
+              UPDATE SET ${setLines.join(' , ')}
+          WHEN NOT MATCHED THEN
+              INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
+
+    let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
+
+    //console.log(q);
     return q;
 
   },
