@@ -120,9 +120,8 @@ lab analys inactive
               let element = body[i];
               element['EntryInsertDate']   = new Date();
               element['EntryInsertUserID'] = ' ';
-              element['Active'] = 1;
               for(let k in element) {
-                if((k==='DestinationLocationName') || (k==='FormID')){
+                if((k==='DestinationNAVLocationCode') || (k==='FormID')){
                   hashBody.push({
                     EntryGUID: element.EntryGUID,
                     Sha1KeyValue: sha1(k+element[k]),
