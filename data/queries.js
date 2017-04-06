@@ -180,8 +180,9 @@ module.exports = {
 
     let q3=`  MERGE INTO t020_LabAnalysisLines AS A
            USING (
-              SELECT *
-           FROM OPENJSON(@json2,'$.Qualities') WITH (${schema.t020_LabAnalysisLines()})) B
+              SELECT LabAnalysisLines.*
+           FROM OPENJSON(@json2) WITH (FormID nchar(36), Qualities nvarchar(max) AS JSON) AS LabAnalysis
+            CROSS APPLY OPENJSON(Qualities) WITH(${schema.t020_LabAnalysisLines()}) AS LabAnalysisLines) B
            ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
           WHEN MATCHED THEN
               UPDATE SET ${setLines.join(' , ')}
@@ -190,7 +191,7 @@ module.exports = {
 
     let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
 
-    //console.log(q);
+    console.log(q);
     return q;
 
   },
