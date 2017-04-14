@@ -214,17 +214,16 @@ module.exports = {
       jt.FormID AS EntryGUID,
       1 AS Active,
       'L' AS RecordType
-    FROM OPENJSON(@json1) WITH (EntryGUID char(36)) AS jt
+    FROM OPENJSON(@json1) WITH (FormID char(36)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON uc.Active = 1
       AND uc.RecordType = 'L'
     GROUP BY
       uc.UserID,
-      jt.EntryGUID; `;
-    let q2 = `declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis)}'
-      UPDATE t015_LabAnalysis
-        SET Active = 0 FROM OPENJSON(@json2)
-          WITH (EntryGUID char(36)) AS jt
+      jt.FormID; `;
+    let q2 = `UPDATE t015_LabAnalysis
+        SET Active = 0 FROM OPENJSON(@json1)
+          WITH (FormID char(36)) AS jt
         WHERE
           t015_LabAnalysis.FormID = jt.FormID`;
 
