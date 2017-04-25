@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.7",
+        "version": "1.2.6",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -771,7 +771,7 @@
                 "FormID",
                 "TransportShipmentID",
                 "Active",
-                "ConsigneeRegCode"
+                "DestinationNAVLocationCode"
             ],
             "properties": {
                 "FormID": {
@@ -789,7 +789,7 @@
                 "Active": {
                     "type": "boolean"
                 },
-                "ConsigneeRegCode": {
+                "DestinationNAVLocationCode": {
                     "type": "string",
                     "maxLength": 15,
                     "example": "NAV22",
