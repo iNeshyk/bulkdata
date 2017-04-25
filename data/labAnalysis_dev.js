@@ -123,7 +123,7 @@ lab analys inactive
               for(let k in element) {
                 if((k==='ConsigneeRegCode') || (k==='FormID')){
                   hashBody.push({
-                    EntryGUID: element.EntryGUID,
+                    EntryGUID: element.FormID,
                     Sha1KeyValue: sha1(k+element[k]),
                     Key: k,
                     Value: element[k]

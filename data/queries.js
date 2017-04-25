@@ -191,7 +191,7 @@ module.exports = {
 
     let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
 
-    console.log(q);
+    //console.log(q);
     return q;
 
   },
