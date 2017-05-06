@@ -677,7 +677,7 @@
                     "example": "65206",
                     "description": "Truck model type"
                 },
-                "VechicleType": {
+                "TruckVechicleType": {
                     "type": "string",
                     "maxLength": 15,
                     "example": "полуприцеп",

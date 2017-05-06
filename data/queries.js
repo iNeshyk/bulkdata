@@ -3,6 +3,13 @@
 const schema = require('../lib/mssql/schema.js');
 const config  = require('../config/swagger.json');
 const Promise = require('promise');
+
+function replacer(key, value){
+  if(typeof value == "string"){
+    value = value.replace("'","");
+  }
+  return value;
+}
 module.exports = {
   getWaybills: (userID , id, limit) => {
     if (!limit) {
@@ -54,7 +61,7 @@ module.exports = {
       }
     );
 
-    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(waybills)}'
+    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(waybills, replacer)}'
       MERGE INTO t010_Bulkdata AS A
       USING (
          SELECT *
@@ -70,7 +77,7 @@ module.exports = {
 
   },
   patchWaybills: (userID, waybills) => {
-    let q = `declare @json nvarchar(max) = '${JSON.stringify(waybills)}'
+    let q = `declare @json nvarchar(max) = '${JSON.stringify(waybills,replacer)}'
       UPDATE t005_UserData
         SET Active = 0 FROM OPENJSON(@json)
           WITH (EntryGUID char(36)) AS jt
@@ -159,7 +166,7 @@ module.exports = {
       }
     );
 
-    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis)}'
+    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       MERGE INTO t015_LabAnalysis AS A
       USING (
          SELECT *
@@ -196,7 +203,7 @@ module.exports = {
 
   },
   patchLabAnalysis: (userID, labAnalysis) => {
-    let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis)}'
+    let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       UPDATE t005_UserData
         SET Active = 0 FROM OPENJSON(@json)
           WITH (FormID char(36)) AS jt
@@ -239,4 +246,5 @@ module.exports = {
     let q = `SELECT Sha1KeyValue FROM t003_UserConfig WHERE Active = 1`;
     return q;
   }
+
 }
