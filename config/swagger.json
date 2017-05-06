@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.7",
+        "version": "1.2.8",
         "title": "Bulkdata API for waybils and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -671,6 +671,18 @@
                     "example": "КАМАЗ",
                     "description": "Truck model"
                 },
+                "TruckModelType": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "65206",
+                    "description": "Truck model type"
+                },
+                "VechicleType": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "полуприцеп",
+                    "description": "Vechicle type"
+                },
                 "Seals": {
                     "type": "string",
                     "maxLength": 100,
@@ -688,6 +700,12 @@
                     "maxLength": 100,
                     "example": "Кобальский Петро Васильович",
                     "description": "Driver First and Last name"
+                },
+                "DriverPhone": {
+                    "type": "string",
+                    "maxLength": 13,
+                    "example": "+380979003639",
+                    "description": "Driver phone number"
                 },
                 "Field1Name": {
                     "type": "string",
