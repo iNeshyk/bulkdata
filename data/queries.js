@@ -13,7 +13,7 @@ function replacer(key, value){
 module.exports = {
   getWaybills: (userID , id, limit) => {
     if (!limit) {
-      limit = '100';
+      limit = '500';
     }
     let where = '';
     if (id) {
@@ -87,24 +87,6 @@ module.exports = {
           AND t005_UserData.UserID = '${userID}'`;
     return q;
   },
-  getLabAnalysis: (userID , id, limit) => {
-    if (!limit) {
-      limit = '100';
-    }
-    let where = '';
-    if (id) {
-      where = ` WHERE FormID IN (${id}) `;
-    }
-
-    let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD ${where}
-    INNER JOIN t005_UserData AS UD
-    ON BD.FormID = UD.EntryGUID
-    AND UD.UserID = '${userID}'
-    AND UD.Active = 1
-    AND UD.RecordType = 'L'`;
-    //console.log(q);
-    return q;
-  },
   delWaybills: (waybills) => {
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(waybills)}'
     INSERT INTO t005_UserData
@@ -128,6 +110,26 @@ module.exports = {
           t010_Bulkdata.EntryGUID = jt.EntryGUID`;
 
     let q = q1+'\n  \n'+q2;
+    //console.log(q);
+    return q;
+  },
+  getLabAnalysis: (userID , id, limit) => {
+    if (!limit) {
+      limit = '500';
+    }
+    let where = '';
+    if (id) {
+      where = ` WHERE FormID IN (${id}) `;
+    }
+
+    let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD ${where}
+    INNER JOIN t005_UserData AS UD
+      ON BD.FormID = UD.EntryGUID
+      AND UD.UserID = '${userID}'
+      AND UD.Active = 1
+      AND UD.RecordType = 'L'
+    LEFT JOIN t020_LabAnalysisLines AS L
+      ON BD.FormID = L.FormID`;
     //console.log(q);
     return q;
   },

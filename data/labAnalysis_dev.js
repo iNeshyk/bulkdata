@@ -20,16 +20,8 @@ available updated laboratory abalysis in the system
      * operationId: getlabAnalysis
      */
     get: {
+
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'get',
-            //     response: '200'
-            // }, callback);
             db.req(q.getLabAnalysis(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -40,15 +32,7 @@ available updated laboratory abalysis in the system
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'get',
-            //     response: '400'
-            // }, callback);
+
         }
     },
     /**
@@ -63,15 +47,7 @@ lab analys inactive
      */
     patch: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'patch',
-            //     response: '200'
-            // }, callback);
+
             db.req(q.patchLabAnalysis(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -82,15 +58,7 @@ lab analys inactive
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'patch',
-            //     response: '400'
-            // }, callback);
+
         }
     },
     /**
@@ -103,15 +71,7 @@ lab analys inactive
      */
     post: {
         201: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'post',
-            //     response: '201'
-            // }, callback);
+
             let body     = req.body;
             let hashBody = [];
             let usersEntryGuid = [];
@@ -144,26 +104,10 @@ lab analys inactive
 
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'post',
-            //     response: '400'
-            // }, callback);
+
         },
         409: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'post',
-            //     response: '409'
-            // }, callback);
+
         }
     },
     /**
@@ -176,16 +120,7 @@ lab analys inactive
      */
     delete: {
         201: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/labAnalysis',
-            //     operation: 'delete',
-            //     response: '201'
-            // }, callback);
-            db.req(q.delLabAnalysis(req.body), {}, function(data, err){
+          db.req(q.delLabAnalysis(req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -195,15 +130,7 @@ lab analys inactive
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/labAnalysis',
-                operation: 'delete',
-                response: '400'
-            }, callback);
+
         }
     }
 };

@@ -126,7 +126,7 @@ waybills inactive
               element['EntryInsertUserID'] = '';
               for(let k in element) {
                 //set in config
-                if((k==='ConsigneeRegCode') || (k==='EntryGUID')){
+                if((k==='ConsigneeRegCode') || (k==='EntryGUID') || (k==='OwnerStateRegCode') ){
                   hashBody.push({
                     EntryGUID: element.EntryGUID,
                     Sha1KeyValue: sha1(k+element[k]),
