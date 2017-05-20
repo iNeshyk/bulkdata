@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.8",
-        "title": "Bulkdata API for waybils and analysis",
+        "version": "1.2.9",
+        "title": "Bulkdata API for waybills and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
         },
@@ -427,7 +427,8 @@
                 "VehicleType",
                 "ItemGUID",
                 "ItemName",
-                "DestinationNAVLocationCode"
+                "ConsigneeRegCode",
+                "OwnerStateRegCode"
             ],
             "properties": {
                 "EntryGUID": {
@@ -691,7 +692,7 @@
                 },
                 "DriverID": {
                     "type": "string",
-                    "maxLength": 9,
+                    "maxLength": 12,
                     "example": "РМА201869",
                     "description": "Driver ID"
                 },
@@ -806,6 +807,12 @@
                 },
                 "Active": {
                     "type": "boolean"
+                },
+                "OwnerStateRegCode": {
+                    "type": "string",
+                    "maxLength": 12,
+                    "example": "31333767",
+                    "description": "EDRPOU code"
                 },
                 "ConsigneeRegCode": {
                     "type": "string",
