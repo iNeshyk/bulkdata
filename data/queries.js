@@ -17,7 +17,7 @@ module.exports = {
     }
     let where = '';
     if (id) {
-      where = ` WHERE EntryGUID IN (${id}) `;
+      where = ` WHERE BD.EntryGUID IN (${id}) `;
     }
 
     let q = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD
@@ -120,7 +120,7 @@ module.exports = {
     }
     let where = '';
     if (id) {
-      where = ` WHERE FormID IN (${id}) `;
+      where = ` WHERE BD.FormID IN (${id}) `;
     }
 
     let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD
