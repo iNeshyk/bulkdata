@@ -20,12 +20,13 @@ module.exports = {
       where = ` WHERE EntryGUID IN (${id}) `;
     }
 
-    let q = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD ${where}
+    let q = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD
     INNER JOIN t005_UserData AS UD
     ON BD.EntryGUID = UD.EntryGUID
     AND UD.UserID = '${userID}'
     AND UD.Active = 1
-    AND UD.RecordType = 'W'`;
+    AND UD.RecordType = 'W'
+    ${where}`;
     //console.log(q);
     return q;
   },
@@ -122,12 +123,13 @@ module.exports = {
       where = ` WHERE FormID IN (${id}) `;
     }
 
-    let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD ${where}
+    let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
+      ${where}
     LEFT JOIN t020_LabAnalysisLines AS L
       ON BD.FormID = L.FormID`;
     //console.log(q);
