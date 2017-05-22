@@ -13,7 +13,7 @@ function replacer(key, value){
 module.exports = {
   getWaybills: (userID , id, limit) => {
     if (!limit) {
-      limit = '500';
+      limit = '1000';
     }
     let where = '';
     if (id) {
