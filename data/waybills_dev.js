@@ -31,7 +31,7 @@ available updated waybills in the system
                 response: '200'
             }, callback);
             */
-            db.req(q.getWaybills(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
+            db.reqPool(q.getWaybills(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -75,7 +75,7 @@ waybills inactive
             //     operation: 'patch',
             //     response: '200'
             // }, callback);
-            db.req(q.patchWaybills(req.query.sourceID, req.body), {}, function(data, err){
+            db.reqPool(q.patchWaybills(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -136,7 +136,7 @@ waybills inactive
                 }
               }
             }
-            db.req(q.addWaybills(body, hashBody), {}, function(data, err) {
+            db.reqPool(q.addWaybills(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);
@@ -183,7 +183,7 @@ waybills inactive
             //     operation: 'delete',
             //     response: '201'
             // }, callback);
-            db.req(q.delWaybills(req.body), {}, function(data, err){
+            db.reqPool(q.delWaybills(req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);

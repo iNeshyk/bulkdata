@@ -22,7 +22,7 @@ available updated laboratory abalysis in the system
     get: {
 
         200: function (req, res, callback) {
-            db.req(q.getLabAnalysis(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
+            db.reqPool(q.getLabAnalysis(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -48,7 +48,7 @@ lab analys inactive
     patch: {
         200: function (req, res, callback) {
 
-            db.req(q.patchLabAnalysis(req.query.sourceID, req.body), {}, function(data, err){
+            db.reqPool(q.patchLabAnalysis(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);
@@ -92,7 +92,7 @@ lab analys inactive
               }
             }
 
-            db.req(q.addLabAnalysis(body, hashBody), {}, function(data, err) {
+            db.reqPool(q.addLabAnalysis(body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);
@@ -120,7 +120,7 @@ lab analys inactive
      */
     delete: {
         201: function (req, res, callback) {
-          db.req(q.delLabAnalysis(req.body), {}, function(data, err){
+          db.reqPool(q.delLabAnalysis(req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
                     res.send(err);

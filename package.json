@@ -23,7 +23,8 @@
     "swaggerize-express": "^4.0.0",
     "swaggerize-ui": "^1.0.1",
     "swagmock": "~0.0.2",
-    "tedious": "^1.15.0"
+    "tedious": "^1.15.0",
+    "tedious-connection-pool": "^1.0.5"
   },
   "devDependencies": {
     "eslint": "^2",
