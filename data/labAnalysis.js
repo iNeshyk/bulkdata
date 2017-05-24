@@ -123,7 +123,7 @@ lab analys inactive
      * responses: 201, 400
      * operationId: delLabAnalys
      */
-    delete: {
+    put: {
         201: function (req, res, callback) {
             /**
              * Using mock data generator module.
@@ -131,7 +131,7 @@ lab analys inactive
              */
             Mockgen().responses({
                 path: '/labAnalysis',
-                operation: 'delete',
+                operation: 'put',
                 response: '201'
             }, callback);
         },
@@ -142,7 +142,7 @@ lab analys inactive
              */
             Mockgen().responses({
                 path: '/labAnalysis',
-                operation: 'delete',
+                operation: 'put',
                 response: '400'
             }, callback);
         }

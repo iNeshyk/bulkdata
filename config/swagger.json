@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "This is a Bulkdata API",
-        "version": "1.2.9",
+        "version": "1.2.10",
         "title": "Bulkdata API for waybills and analysis",
         "contact": {
             "email": "ineshyk@gmail.com"
@@ -190,7 +190,7 @@
                     }
                 }
             },
-            "delete": {
+            "put": {
                 "tags": [
                     "developers"
                 ],
@@ -366,7 +366,7 @@
                     }
                 }
             },
-            "delete": {
+            "put": {
                 "tags": [
                     "developers"
                 ],

@@ -118,7 +118,7 @@ lab analys inactive
      * responses: 201, 400
      * operationId: delLabAnalys
      */
-    delete: {
+    put: {
         201: function (req, res, callback) {
           db.reqPool(q.delLabAnalysis(req.body), {}, function(data, err){
                   if (err) {

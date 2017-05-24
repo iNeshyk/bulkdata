@@ -172,7 +172,7 @@ waybills inactive
             */
         }
     },
-    delete: {
+    put: {
         201: function (req, res, callback) {
             /**
              * Using mock data generator module.

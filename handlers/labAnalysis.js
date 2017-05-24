@@ -81,13 +81,13 @@ lab analys inactive
      * produces: application/json
      * responses: 201, 400
      */
-    delete: function delLabAnalys(req, res, next) {
+    put: function delLabAnalys(req, res, next) {
         /**
          * Get the data for response 201
          * For response `default` status 200 is used.
          */
         var status = 201;
-        var provider = dataProvider['delete']['201'];
+        var provider = dataProvider['put']['201'];
         provider(req, res, function (err, data) {
             if (err) {
                 next(err);

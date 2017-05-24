@@ -123,7 +123,7 @@ waybills inactive
      * responses: 201, 400
      * operationId: delWaybill
      */
-    delete: {
+    put: {
         201: function (req, res, callback) {
             /**
              * Using mock data generator module.
@@ -131,7 +131,7 @@ waybills inactive
              */
             Mockgen().responses({
                 path: '/waybills',
-                operation: 'delete',
+                operation: 'put',
                 response: '201'
             }, callback);
         },
@@ -142,7 +142,7 @@ waybills inactive
              */
             Mockgen().responses({
                 path: '/waybills',
-                operation: 'delete',
+                operation: 'put',
                 response: '400'
             }, callback);
         }
