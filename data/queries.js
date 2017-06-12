@@ -202,7 +202,7 @@ module.exports = {
       USING (
          SELECT *
       FROM OPENJSON(@json2) WITH (${schema.t015_LabAnalysis()})) B
-      ON (A.FormID = B.FormID ANS A.TransportShipmentID = B.TransportShipmentID)
+      ON (A.FormID = B.FormID AND A.TransportShipmentID = B.TransportShipmentID)
      WHEN MATCHED THEN
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
