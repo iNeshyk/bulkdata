@@ -10,6 +10,32 @@ function replacer(key, value){
   }
   return value;
 }
+
+// function getSubscriptionTrigger(triggerType){
+//   //subscrition trigger v 2.0
+//   `MERGE INTO t005_UserData AS A
+//   USING(
+//   SELECT
+//     uc.UserID AS UserID,
+//     jt.EntryGUID AS EntryGUID,
+//     1 AS Active,
+//     '${triggerType}' AS RecordType
+//   FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
+//     INNER JOIN t003_UserConfig AS uc
+//     ON jt.Sha1KeyValue = uc.Sha1KeyValue
+//     AND uc.Active = 1
+//     AND uc.RecordType = '${triggerType}'
+//   GROUP BY
+//     uc.UserID,
+//     jt.EntryGUID) B
+//     ON (A.EntryGUID = B.EntryGUID AND A.UserID = B.UserID AND B.RecordType = '${triggerType}')
+//   WHEN MATCHED THEN
+//     UPDATE SET (????)
+//   WHEN NOT MATCHED THEN
+//     INSERT (????)
+//      `;
+// }
+
 module.exports = {
   getWaybills: (userID , id, limit) => {
     if (!limit) {
@@ -37,22 +63,23 @@ module.exports = {
     var cols = [];
     var vals = [];
 
+    //subscrition trigger v 1.0
     //create JSON {UserID, EntryGuid, Active}
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
-    INSERT INTO t005_UserData
-    SELECT
-      uc.UserID AS UserID,
-      jt.EntryGUID AS EntryGUID,
-      1 AS Active,
-      'W' AS RecordType
-    FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
-      INNER JOIN t003_UserConfig AS uc
-      ON jt.Sha1KeyValue = uc.Sha1KeyValue
-      AND uc.Active = 1
-      AND uc.RecordType = 'W'
-    GROUP BY
-      uc.UserID,
-      jt.EntryGUID; `;
+     INSERT INTO t005_UserData
+     SELECT
+       uc.UserID AS UserID,
+       jt.EntryGUID AS EntryGUID,
+       1 AS Active,
+       'W' AS RecordType
+     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
+       INNER JOIN t003_UserConfig AS uc
+       ON jt.Sha1KeyValue = uc.Sha1KeyValue
+       AND uc.Active = 1
+       AND uc.RecordType = 'W'
+     GROUP BY
+       uc.UserID,
+       jt.EntryGUID; `;
 
     schema.t010_Bulkdata_fields().forEach(
       function(field){

@@ -21,16 +21,6 @@ available updated waybills in the system
      */
     get: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-
-            Mockgen().responses({
-                path: '/waybills',
-                operation: 'get',
-                response: '200'
-            }, callback);
-            */
             db.reqPool(q.getWaybills(req.query.sourceID, req.query.id, req.query.limit), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -41,16 +31,6 @@ available updated waybills in the system
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-
-            Mockgen().responses({
-                path: '/waybills',
-                operation: 'get',
-                response: '400'
-            }, callback);
-            */
         }
     },
     /**
@@ -65,16 +45,6 @@ waybills inactive
      */
     patch: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-
-            // Mockgen().responses({
-            //     path: '/waybills',
-            //     operation: 'patch',
-            //     response: '200'
-            // }, callback);
             db.reqPool(q.patchWaybills(req.query.sourceID, req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -106,16 +76,6 @@ waybills inactive
      */
     post: {
         201: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-
-            Mockgen().responses({
-                path: '/waybills',
-                operation: 'post',
-                response: '201'
-            }, callback);
-            */
             let body     = req.body;
             let hashBody = [];
             let usersEntryGuid = [];
@@ -147,42 +107,13 @@ waybills inactive
             });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-
-            Mockgen().responses({
-                path: '/waybills',
-                operation: 'post',
-                response: '400'
-            }, callback);
-            */
 
         },
         409: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-
-            Mockgen().responses({
-                path: '/waybills',
-                operation: 'post',
-                response: '409'
-            }, callback);
-            */
         }
     },
     put: {
         201: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/waybills',
-            //     operation: 'delete',
-            //     response: '201'
-            // }, callback);
             db.reqPool(q.delWaybills(req.body), {}, function(data, err){
                   if (err) {
                     res.status(505);
@@ -193,15 +124,6 @@ waybills inactive
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/waybills',
-            //     operation: 'delete',
-            //     response: '400'
-            // }, callback);
         }
     }
 };
