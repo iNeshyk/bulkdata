@@ -222,7 +222,7 @@ module.exports = {
            FROM OPENJSON(@json2) WITH (FormID nchar(36), Qualities nvarchar(max) AS JSON) AS LabAnalysis
             CROSS APPLY OPENJSON(Qualities) WITH(${schema.t020_LabAnalysisLines()}) AS LabAnalysisLines) B
            ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
-          WHEN MATCHED THEN
+        WHEN MATCHED THEN
               UPDATE SET ${setLines.join(' , ')}
           WHEN NOT MATCHED THEN
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
