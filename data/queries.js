@@ -150,7 +150,7 @@ module.exports = {
       where = ` WHERE BD.FormID IN (${id}) `;
     }
 
-    let q = `SELECT TOP ${limit} * FROM t015_LabAnalysis AS BD
+    let q = `SELECT DISTINCT TOP ${limit} * FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
@@ -222,7 +222,7 @@ module.exports = {
            FROM OPENJSON(@json2) WITH (FormID nchar(36), Qualities nvarchar(max) AS JSON) AS LabAnalysis
             CROSS APPLY OPENJSON(Qualities) WITH(${schema.t020_LabAnalysisLines()}) AS LabAnalysisLines) B
            ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
-        WHEN MATCHED THEN
+          WHEN MATCHED THEN
               UPDATE SET ${setLines.join(' , ')}
           WHEN NOT MATCHED THEN
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
