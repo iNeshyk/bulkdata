@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - в модель LabAnalysis добавлены следующие поля: \"EntryType, ItemGUID, ItemName, ItemNAVCode, Certificate3No, CertificateDate, LabOperator\"",
-        "version": "1.2.12",
+        "description": "Новое в версии: - улучшена документация по моделям объектов Waybills, LabAlaisys, LabAnalisysLines; - в объект Waybill добавлены поля \"ConsignorGrossWeight, ConsignorVehicleWeight\"; - в объект LabAnalis добавлены поля \"Type\", удалены \"CertificateWeightGMO\";",
+        "version": "1.2.11",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -458,7 +458,7 @@
                 },
                 "EntryType": {
                     "type": "boolean",
-                    "description": "0-приход, 1 - расход"
+                    "description": "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален"
                 },
                 "Active": {
                     "type": "boolean",
@@ -936,53 +936,12 @@
                     "example": "2017-03-09T14:40:43.511Z",
                     "description": "Дата сертификата протокола ГМО."
                 },
-                "Certificate3No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "12345678910",
-                    "description": "Номер сертификата качества."
-                },
-                "Certificate3Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-10T14:40:43.511Z",
-                    "description": "Дата сертификата качества."
-                },
                 "Qualities": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/LabAnalysLine"
                     },
                     "description": "Таблица с качественными показателями."
-                },
-                "EntryType": {
-                    "type": "boolean",
-                    "description": "Вид движения 0-приход, 1 - расход"
-                },
-                "ItemGUID": {
-                    "type": "string",
-                    "maxLength": 32,
-                    "example": "КУК3КЛ",
-                    "description": "Индетификатотр груза."
-                },
-                "ItemName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Кукурудза 3 класу кормові потреби",
-                    "description": "Наименование груза."
-                },
-                "ItemNavCode": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "NAV5",
-                    "description": "Код груза из классификатора."
-                },
-                "LabOperator": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Васильева А.П.",
-                    "description": "ФИО Лаборанта, который провел анализ"
                 }
             }
         },
