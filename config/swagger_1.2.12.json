@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: - в модель LabAnalysis добавлены следующие поля: \"EntryType, ItemGUID, ItemName, ItemNAVCode, Certificate3No, CertificateDate, LabOperator\"",
-        "version": "1.2.13",
+        "version": "1.2.12",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -949,6 +949,13 @@
                     "example": "2017-03-10T14:40:43.511Z",
                     "description": "Дата сертификата качества."
                 },
+                "Qualities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/LabAnalysLine"
+                    },
+                    "description": "Таблица с качественными показателями."
+                },
                 "EntryType": {
                     "type": "boolean",
                     "description": "Вид движения 0-приход, 1 - расход"
@@ -976,13 +983,6 @@
                     "maxLength": 50,
                     "example": "Васильева А.П.",
                     "description": "ФИО Лаборанта, который провел анализ"
-                },
-                "Qualities": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/LabAnalysLine"
-                    },
-                    "description": "Таблица с качественными показателями."
                 }
             }
         },
