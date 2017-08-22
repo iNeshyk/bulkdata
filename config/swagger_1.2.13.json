@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: - в модель LabAnalysis добавлены следующие поля: \"EntryType, ItemGUID, ItemName, ItemNAVCode, Certificate3No, CertificateDate, LabOperator\"",
-        "version": "1.2.14",
+        "version": "1.2.13",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -650,7 +650,7 @@
                 },
                 "ItemGUID": {
                     "type": "string",
-                    "maxLength": 56,
+                    "maxLength": 32,
                     "example": "КУК3КЛ",
                     "description": "Индетификатотр груза."
                 },
@@ -955,7 +955,7 @@
                 },
                 "ItemGUID": {
                     "type": "string",
-                    "maxLength": 56,
+                    "maxLength": 32,
                     "example": "КУК3КЛ",
                     "description": "Индетификатотр груза."
                 },
