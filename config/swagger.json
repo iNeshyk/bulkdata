@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - в модель LabAnalysis добавлены следующие поля: \"EntryType, ItemGUID, ItemName, ItemNAVCode, Certificate3No, CertificateDate, LabOperator\"",
-        "version": "1.2.14",
+        "description": "Новое в версии: - в модель Waybills и LabAnalysis добавлены следующие поля: \"OwnerType, ConsignorType, ConsigneeType.\". В LabAnalysis добавлено поле \"ConsignorRegCode.\" Добавлена возможность подписки по этим полям.",
+        "version": "1.3.2",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -532,7 +532,14 @@
                     "type": "string",
                     "maxLength": 100,
                     "example": "Дружба НОВА ТОВ",
-                    "description": "Собственник груза. С чьей карточки списан груз или на чью карточку оприходован."
+                    "description": "Владелец груза. С чьей карточки списан груз или на чью карточку оприходован."
+                },
+                "OwnerType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
                 },
                 "OwnerStateRegCode": {
                     "type": "string",
@@ -576,6 +583,13 @@
                     "example": "05581898",
                     "description": "Код едрпоу предприятия отправителя (ИНН)."
                 },
+                "ConsignorType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+                },
                 "ConsigneeName": {
                     "type": "string",
                     "maxLength": 100,
@@ -587,6 +601,13 @@
                     "maxLength": 12,
                     "example": "31834605",
                     "description": "Код едрпоу предприятия получателя (ИНН)."
+                },
+                "ConsigneeType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
                 },
                 "ShipmentLocationName": {
                     "type": "string",
@@ -872,6 +893,12 @@
                     "example": "31333767",
                     "description": "Код едрпоу предприятия получателя (ИНН)."
                 },
+                "ConsignorRegCode": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "25255267",
+                    "description": "Код едрпоу предприятия отправителя (ИНН)."
+                },
                 "No": {
                     "type": "string",
                     "minLength": 0,
@@ -976,6 +1003,27 @@
                     "maxLength": 50,
                     "example": "Васильева А.П.",
                     "description": "ФИО Лаборанта, который провел анализ"
+                },
+                "OwnerType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
+                },
+                "ConsigneeType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+                },
+                "ConsignorType": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
                 },
                 "Qualities": {
                     "type": "array",
