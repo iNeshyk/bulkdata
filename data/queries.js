@@ -312,6 +312,47 @@ module.exports = {
     //console.log(q);
     return q;
   },
+  addTracks: (tracks) => {
+
+    var set  = [];
+    var cols = [];
+    var vals = [];
+
+    schema.t115_Track_fields().forEach(
+      function(field){
+        set.push(`A.${field} = B.${field}`);
+        cols.push(field)
+        vals.push(`B.${field}`);
+      }
+    );
+    //subscrition trigger v 1.0
+    //create JSON {UserID, EntryGuid, Active}
+    let q1=`declare @json2 nvarchar(max) = '${JSON.stringify(tracks, replacer)}'
+      MERGE INTO t115_Track AS A
+      USING (
+         SELECT *
+      FROM OPENJSON(@json2) WITH (${schema.t115_Track()})) B
+      ON (A.TrackID = B.TrackID)
+     WHEN MATCHED THEN
+         UPDATE SET ${set.join(' , ')}
+     WHEN NOT MATCHED THEN
+         INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
+
+      //console.log(q1);
+      return q1;
+
+  },
+  getTracks: (id) => {
+    let where = '';
+    var limit = 1;
+    if (id) {
+      where = ` WHERE BD.TrackID IN (${id}) `;
+    }
+    let q = `SELECT DISTINCT TOP ${limit} * FROM t115_Track AS BD
+      ${where} `;
+    //console.log(q);
+    return q;
+  },
   NOTUSED_getUsersEntryGuides: (userID) => {
       let q = `SELECT EntryGUID FROM t005_UserData WHERE UserID = ${userID} AND Active = 1`;
       return q;

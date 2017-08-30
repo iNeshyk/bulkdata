@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: Добавили поддержку ботов из CorezoID",
-        "version": "1.4.3",
+        "description": "Новое в версии: - в модель Waybills и LabAnalysis добавлены следующие поля: \"OwnerType, ConsignorType, ConsigneeType.\". В LabAnalysis добавлено поле \"ConsignorRegCode.\" Добавлена возможность подписки по этим полям.",
+        "version": "1.4.2",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -31,74 +31,6 @@
         "http"
     ],
     "paths": {
-        "/tracks": {
-            "get": {
-                "tags": [
-                    "corezoid"
-                ],
-                "summary": "get track by id",
-                "operationId": "getTrack",
-                "description": "Get trucks by id\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "id",
-                        "description": "pass an optional track id for looking up current tracks",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Track"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "corezoid"
-                ],
-                "summary": "Post track",
-                "operationId": "postTrack",
-                "description": "Post tracks from corezoid\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "track",
-                        "description": "Tracks",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Track"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ok"
-                    },
-                    "400": {
-                        "description": "error"
-                    }
-                }
-            }
-        },
         "/drivers": {
             "get": {
                 "tags": [
@@ -1273,73 +1205,6 @@
                     "maxLength": 15,
                     "example": "380975003434",
                     "description": "Основной номер телефона водителя"
-                }
-            }
-        },
-        "Track": {
-            "type": "object",
-            "required": [
-                "TrackID",
-                "TrackDate",
-                "DriverID",
-                "TruckID",
-                "ItemName"
-            ],
-            "properties": {
-                "TrackID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456",
-                    "description": "Уникальный идентификатор рейса"
-                },
-                "TrackDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-15T18:25:43.511Z"
-                },
-                "DriverID": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "САВ2341241",
-                    "description": "Серия и номер водительского удостоверения."
-                },
-                "TruckID": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "АВ4567СХ",
-                    "description": "номер транспортного средства"
-                },
-                "TruckID2": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "ВП1234ВВ",
-                    "description": "номер прицепа"
-                },
-                "ItemName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Кукурудза 3 класу кормові потреби",
-                    "description": "Наименование груза."
-                },
-                "Netto": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "24500",
-                    "description": "Предварительный вес рейса"
-                },
-                "DestinationName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
-                    "description": "Адрес склада-получателя."
-                },
-                "SenderName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "г. Винница",
-                    "description": "Адрес склада-отправителя."
                 }
             }
         }
