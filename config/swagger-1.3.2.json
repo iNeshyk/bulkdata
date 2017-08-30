@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: - в модель Waybills и LabAnalysis добавлены следующие поля: \"OwnerType, ConsignorType, ConsigneeType.\". В LabAnalysis добавлено поле \"ConsignorRegCode.\" Добавлена возможность подписки по этим полям.",
-        "version": "1.4.2",
+        "version": "1.3.2",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -13,10 +13,6 @@
         }
     },
     "tags": [
-        {
-            "name": "corezoid",
-            "description": "TEMP. For testing Bots in CorezoID"
-        },
         {
             "name": "developers",
             "description": "Operations available to regular developers"
@@ -31,74 +27,6 @@
         "http"
     ],
     "paths": {
-        "/drivers": {
-            "get": {
-                "tags": [
-                    "corezoid"
-                ],
-                "summary": "get all drivers",
-                "operationId": "getDrivers",
-                "description": "Get drivers data by phone name\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "phone",
-                        "description": "pass an optional driver phone for looking up current drivers",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Drivers"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "corezoid"
-                ],
-                "summary": "Post auth drivers from corezoid",
-                "operationId": "postDrivers",
-                "description": "Post drivers from corezoid\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "driver",
-                        "description": "Drivers",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Drivers"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "ok"
-                    },
-                    "400": {
-                        "description": "error"
-                    }
-                }
-            }
-        },
         "/ping": {
             "get": {
                 "tags": [
@@ -1174,37 +1102,6 @@
                 "ShowinLabes": {
                     "type": "boolean",
                     "description": "Признак отображения текущего показателя в печатной форме документа."
-                }
-            }
-        },
-        "Drivers": {
-            "type": "object",
-            "required": [
-                "DriverID",
-                "DriverName",
-                "Phone1"
-            ],
-            "properties": {
-                "DriverID": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "САВ2341241",
-                    "description": "Серия и номер водительского удостоверения."
-                },
-                "DriverName": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 200,
-                    "example": "Петрович А.В.",
-                    "description": "ФИО Водителя"
-                },
-                "Phone1": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 15,
-                    "example": "380975003434",
-                    "description": "Основной номер телефона водителя"
                 }
             }
         }

@@ -4,12 +4,14 @@ const schema = require('../lib/mssql/schema.js');
 const config  = require('../config/swagger.json');
 const Promise = require('promise');
 
+//_TODO: change to most effective function
 function replacer(key, value){
   if(typeof value == "string"){
     value = value.replace("'","");
   }
   return value;
 }
+//END_TODO: change to most effective function
 
 // function getSubscriptionTrigger(triggerType){
 //   //subscrition trigger v 2.0
@@ -266,6 +268,47 @@ module.exports = {
           t015_LabAnalysis.FormID = jt.FormID`;
 
     let q = q1+'\n  \n'+q2;
+    //console.log(q);
+    return q;
+  },
+  addDrivers: (drivers) => {
+
+    var set  = [];
+    var cols = [];
+    var vals = [];
+
+    schema.t110_Drivers_fields().forEach(
+      function(field){
+        set.push(`A.${field} = B.${field}`);
+        cols.push(field)
+        vals.push(`B.${field}`);
+      }
+    );
+    //subscrition trigger v 1.0
+    //create JSON {UserID, EntryGuid, Active}
+    let q1=`declare @json2 nvarchar(max) = '${JSON.stringify(drivers, replacer)}'
+      MERGE INTO t110_Drivers AS A
+      USING (
+         SELECT *
+      FROM OPENJSON(@json2) WITH (${schema.t110_Drivers()})) B
+      ON (A.DriverID = B.DriverID)
+     WHEN MATCHED THEN
+         UPDATE SET ${set.join(' , ')}
+     WHEN NOT MATCHED THEN
+         INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
+
+      //console.log(q);
+      return q1;
+
+  },
+  getDrivers: (phone) => {
+    let where = '';
+    var limit = 1;
+    if (phone) {
+      where = ` WHERE BD.Phone1 IN (${phone}) `;
+    }
+    let q = `SELECT DISTINCT TOP ${limit} * FROM t110_Drivers AS BD
+      ${where} `;
     //console.log(q);
     return q;
   },

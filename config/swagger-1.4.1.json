@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: - в модель Waybills и LabAnalysis добавлены следующие поля: \"OwnerType, ConsignorType, ConsigneeType.\". В LabAnalysis добавлено поле \"ConsignorRegCode.\" Добавлена возможность подписки по этим полям.",
-        "version": "1.4.2",
+        "version": "1.4.1",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -32,40 +32,6 @@
     ],
     "paths": {
         "/drivers": {
-            "get": {
-                "tags": [
-                    "corezoid"
-                ],
-                "summary": "get all drivers",
-                "operationId": "getDrivers",
-                "description": "Get drivers data by phone name\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "phone",
-                        "description": "pass an optional driver phone for looking up current drivers",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Drivers"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
             "post": {
                 "tags": [
                     "corezoid"
@@ -79,8 +45,8 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "driver",
-                        "description": "Drivers",
+                        "name": "waybillKey",
+                        "description": "Waybill to incative",
                         "schema": {
                             "type": "array",
                             "items": {
