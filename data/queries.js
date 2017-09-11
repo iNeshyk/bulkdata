@@ -8,6 +8,10 @@ const Promise = require('promise');
 function replacer(key, value){
   if(typeof value == "string"){
     value = value.replace("'","");
+    value = value.replace("'","");
+    value = value.replace("'","");
+    value = value.replace("`","");
+    value = value.replace("`","");
   }
   return value;
 }
@@ -67,7 +71,7 @@ module.exports = {
 
     //subscrition trigger v 1.0
     //create JSON {UserID, EntryGuid, Active}
-    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
+    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody, replacer)}'
      INSERT INTO t005_UserData
      SELECT
        uc.UserID AS UserID,
