@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: Добавили поддержку ботов из CorezoID",
-        "version": "1.4.3",
+        "version": "1.4.4",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -871,19 +871,19 @@
                 },
                 "TruckModel": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 50,
                     "example": "КАМАЗ",
                     "description": "Марка транспортного средства."
                 },
                 "TruckModelType": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 50,
                     "example": "65206",
                     "description": "Модель транспортного средства."
                 },
                 "TruckVechicleType": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 50,
                     "example": "полуприцеп",
                     "description": "Тип транспортного средства (автомобиль, вагон, тягач, полуприцеп, цистерна)."
                 },
