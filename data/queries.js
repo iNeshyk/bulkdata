@@ -233,8 +233,8 @@ module.exports = {
           WHEN NOT MATCHED THEN
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
 
-    let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
-
+    //let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
+    let q = q1+'\n  \n'+q2;
     //console.log(q);
     return q;
 
