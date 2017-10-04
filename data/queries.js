@@ -149,7 +149,7 @@ module.exports = {
   },
   getLabAnalysis: (userID , id, limit) => {
     if (!limit) {
-      limit = '500';
+      limit = '100';
     }
     let where = '';
     if (id) {
@@ -162,9 +162,7 @@ module.exports = {
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
-      ${where}
-    LEFT JOIN t020_LabAnalysisLines AS L
-      ON BD.FormID = L.FormID`;
+      ${where} `;
     //console.log(q);
     return q;
   },
