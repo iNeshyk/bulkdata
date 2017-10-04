@@ -670,7 +670,7 @@
                 },
                 "OwnerStateName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Дружба НОВА ТОВ",
                     "description": "Владелец груза. С чьей карточки списан груз или на чью карточку оприходован."
                 },
@@ -689,7 +689,7 @@
                 },
                 "ShippingAgentStateName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "ФОП Поляков",
                     "description": "Транспортно-экспедиционная организация, которая осуществляет (организовывает) перевозку."
                 },
@@ -701,7 +701,7 @@
                 },
                 "OrderAgentStateName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Дружба Нова, СТОВ",
                     "description": "Кто заказывает перевозку (оплачивает перевозчику за услуги). В основном для автоперевозок."
                 },
@@ -713,7 +713,7 @@
                 },
                 "ConsignorName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Миргородська дільниця",
                     "description": "Предприятие - отправитель груза."
                 },
@@ -732,7 +732,7 @@
                 },
                 "ConsigneeName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Линовицька дільниця",
                     "description": "Предприятие - получатель груза."
                 },
@@ -751,7 +751,7 @@
                 },
                 "ShipmentLocationName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "ООО Миргородський елеватор",
                     "description": "Склад-отправитель название."
                 },
@@ -769,7 +769,7 @@
                 },
                 "DestinationLocationName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "ООО Тис зеро",
                     "description": "Склад-получатель название."
                 },
@@ -781,7 +781,7 @@
                 },
                 "DestinationLocationAdress": {
                     "type": "string",
-                    "maxLength": 400,
+                    "maxLength": 100,
                     "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
                     "description": "Адрес склада-получателя."
                 },
@@ -817,7 +817,7 @@
                 },
                 "ItemName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Кукурудза 3 класу кормові потреби",
                     "description": "Наименование груза."
                 },
@@ -924,7 +924,7 @@
                 },
                 "Field1Adress": {
                     "type": "string",
-                    "maxLength": 400,
+                    "maxLength": 200,
                     "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
                     "description": "Адрес поля или тока."
                 },
@@ -953,7 +953,7 @@
                 },
                 "Field2Adress": {
                     "type": "string",
-                    "maxLength": 400,
+                    "maxLength": 200,
                     "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
                     "description": "Адрес поля или тока."
                 },
@@ -1317,7 +1317,7 @@
                 },
                 "ItemName": {
                     "type": "string",
-                    "maxLength": 200,
+                    "maxLength": 100,
                     "example": "Кукурудза 3 класу кормові потреби",
                     "description": "Наименование груза."
                 },
@@ -1329,7 +1329,7 @@
                 },
                 "DestinationName": {
                     "type": "string",
-                    "maxLength": 500,
+                    "maxLength": 100,
                     "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
                     "description": "Адрес склада-получателя."
                 },
