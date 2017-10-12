@@ -757,7 +757,7 @@
                 },
                 "ShipmentNAVLocationCode": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 100,
                     "example": "NAV64",
                     "description": "Склад-отправитель из классификатора NAV17."
                 },
@@ -775,7 +775,7 @@
                 },
                 "DestinationNAVLocationCode": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 100,
                     "example": "NAV22",
                     "description": "Склад-получатель из классификатора NAV17."
                 },
@@ -823,7 +823,7 @@
                 },
                 "ItemNavCode": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 100,
                     "example": "NAV5",
                     "description": "Код груза из классификатора."
                 },
@@ -1132,7 +1132,7 @@
                 },
                 "ItemNavCode": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 100,
                     "example": "NAV5",
                     "description": "Код груза из классификатора."
                 },
