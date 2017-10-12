@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: Добавили поддержку ботов из CorezoID",
-        "version": "1.4.5",
+        "description": "Новое в версии: Добавили поля DocumentNumber, DocumentDate",
+        "version": "1.4.6",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -643,6 +643,18 @@
                     "maxLength": 15,
                     "example": "ВП2812СМ",
                     "description": "номер прицепа"
+                },
+                "DocumentDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-04-23T18:25:43.511Z",
+                    "description": "Дата создания документа"
+                },
+                "DocumentNumber": {
+                    "type": "string",
+                    "maxLength": 30,
+                    "example": "ЭЛ01-20170101-001",
+                    "description": "Номер, сгенерированный при создании документа"
                 },
                 "WaybillNo": {
                     "type": "string",
