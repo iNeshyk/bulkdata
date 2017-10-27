@@ -179,7 +179,7 @@ module.exports = {
     //create JSON {UserID, EntryGuid, Active}
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
     INSERT INTO t005_UserData
-    SELECT
+    SELECT DISTINCT
       uc.UserID AS UserID,
       jt.EntryGUID AS EntryGUID,
       1 AS Active,
@@ -204,7 +204,7 @@ module.exports = {
     let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       MERGE INTO t015_LabAnalysis AS A
       USING (
-         SELECT *
+         SELECT DISTINCT *
       FROM OPENJSON(@json2) WITH (${schema.t015_LabAnalysis()})) B
       ON (A.FormID = B.FormID AND A.TransportShipmentID = B.TransportShipmentID)
      WHEN MATCHED THEN
@@ -224,16 +224,29 @@ module.exports = {
            USING (
               SELECT LabAnalysisLines.*
            FROM OPENJSON(@json2) WITH (FormID nchar(36), Qualities nvarchar(max) AS JSON) AS LabAnalysis
-            CROSS APPLY OPENJSON(Qualities) WITH(${schema.t020_LabAnalysisLines()}) AS LabAnalysisLines) B
+            CROSS APPLY OPENJSON(Qualities) WITH(${schema.t020_LabAnalysisLines()}) AS LabAnalysisLines
+            GROUP BY
+                  LabAnalysis.FormID,
+                  LabAnalysisLines.FormID,
+                  LabAnalysisLines.AnalisysCode,
+                  LabAnalysisLines.AnalisysName,
+                  LabAnalysisLines.ValueType,
+                  LabAnalysisLines.UOM,
+                  LabAnalysisLines.Value,
+                  LabAnalysisLines.Value2,
+                  LabAnalysisLines.ParentAnalisysCode,
+                  LabAnalysisLines.Inclusion,
+                  LabAnalysisLines.ShowinLabes) B
            ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
+
           WHEN MATCHED THEN
               UPDATE SET ${setLines.join(' , ')}
           WHEN NOT MATCHED THEN
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
 
-    //let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
-    let q = q1+'\n  \n'+q2;
-    //console.log(q);
+    let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
+    //let q = q1+'\n  \n'+q2;
+    //console.log(q3);
     return q;
 
   },
