@@ -156,14 +156,21 @@ module.exports = {
       where = ` WHERE BD.FormID IN (${id}) `;
     }
 
-    let q = `SELECT DISTINCT TOP ${limit} * FROM t015_LabAnalysis AS BD
+    let q = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
-      ${where} `;
+      ${where}`;
     //console.log(q);
+    return q;
+  },
+  getLabAnalysisLines:(FormID) =>{
+    let where = ` WHERE BD.FormID IN (${FormID}) `;
+    let q = `SELECT BD.* FROM t020_LabAnalysisLines AS BD
+            ${where}`;
+    console.log(q);
     return q;
   },
   addLabAnalysis: (labAnalysis, hashBody) => {

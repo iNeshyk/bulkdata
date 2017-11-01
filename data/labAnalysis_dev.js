@@ -26,8 +26,30 @@ available updated laboratory abalysis in the system
                   if (err) {
                     res.status(505);
                     res.send(err);
-                  }else{
-                    res.send(data);
+                  } else {
+                    var FormID = '';
+
+                    data.forEach(function (columns) {
+                        FormID = FormID+`'${columns.FormID}'`+',';
+                        columns.Qualities = [];
+                    });
+                    FormID = FormID.substring(0,FormID.length-1);
+                    console.log(FormID);
+                    db.reqPool(q.getLabAnalysisLines(FormID), {}, function(dataQ, err){
+                      if (err) {
+                        res.status(505);
+                        res.send(err);
+                      } else {
+                          dataQ.forEach(function (columnsQ) {
+                            data.forEach(function (columns) {
+                                if (columns.FormID === columnsQ.FormID){
+                                    columns.Qualities.push(columnsQ);
+                                }
+                            });
+                          });
+                          res.send(data);
+                      }
+                    });
                   }
                 });
         },
