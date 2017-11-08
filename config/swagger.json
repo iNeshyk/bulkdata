@@ -402,7 +402,7 @@
                 }
             }
         },
-        "/truckEvents": {
+        "/trackEvents": {
             "post": {
                 "tags": [
                     "developers"
@@ -895,7 +895,7 @@
                     "example": "2012-05-23T18:25:43.511Z",
                     "description": "Дата выезда транспортного средства"
                 },
-                "LastTruckEventID": {
+                "LastTrackEventID": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "UPLOAD",
@@ -903,7 +903,7 @@
                 },
                 "LastTrackEventName": {
                     "type": "string",
-                    "maxLength": 50,
+                    "maxLength": 0,
                     "example": "Выгрузка на элеваторе",
                     "description": "Наименование текущего статуса"
                 },

@@ -1,7 +1,7 @@
 'use strict';
-var dataProvider = require('../data/truckEvents_dev.js');
+var dataProvider = require('../data/trackEvents_dev.js');
 /**
- * Operations on /truckEvents
+ * Operations on /trackEvents
  */
 module.exports = {
     /**

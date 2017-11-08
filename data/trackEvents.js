@@ -1,7 +1,7 @@
 'use strict';
 var Mockgen = require('./mockgen.js');
 /**
- * Operations on /truckEvents
+ * Operations on /trackEvents
  */
 module.exports = {
     /**
@@ -21,7 +21,7 @@ states for the waybills
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/truckEvents',
+                path: '/trackEvents',
                 operation: 'post',
                 response: '201'
             }, callback);
@@ -32,7 +32,7 @@ states for the waybills
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/truckEvents',
+                path: '/trackEvents',
                 operation: 'post',
                 response: '400'
             }, callback);
@@ -43,7 +43,7 @@ states for the waybills
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/truckEvents',
+                path: '/trackEvents',
                 operation: 'post',
                 response: '409'
             }, callback);
