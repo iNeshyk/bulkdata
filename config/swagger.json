@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - Добавили таблицу статусов TruckEvents, поле LastTruckEventID, LastTruckEventName в модель Waybills. - Добавили новое поле в модель Waybills - Posted, обозначает проведение документа по учету, и возможность подписки по этому полю. - Добавили метод для помещения статусов /truckEvents/post. ",
-        "version": "1.5.2",
+        "description": "Новое в версии: - Добавили таблицу статусов TruckEvents, поле LastTruckEventID, LastTruckEventName в модель Waybills. - Добавили поля Departure - флаг выезда транспорта и DepartureDate - дата выезда транспорта. - Добавили новое поле в модель Waybills - Posted, обозначает проведение документа по учету, и возможность подписки по этому полю. - Добавили метод для помещения статусов /truckEvents/post. ",
+        "version": "1.5.3",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -884,6 +884,16 @@
                     "format": "doble",
                     "example": 15.6,
                     "description": "Влажность груза."
+                },
+                "Departure": {
+                    "type": "boolean",
+                    "description": "0-не выехал, 1 - выехал"
+                },
+                "DepartureDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-05-23T18:25:43.511Z",
+                    "description": "Дата выезда транспортного средства"
                 },
                 "LustTruckEventID": {
                     "type": "string",
