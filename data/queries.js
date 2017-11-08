@@ -292,7 +292,7 @@ module.exports = {
     //console.log(q);
     return q;
   },
-  addTruckEvents: (truckEvents) => {
+  addTrackEvents: (truckEvents) => {
 
     var set  = [];
     var cols = [];
@@ -320,7 +320,7 @@ module.exports = {
       //console.log(q1);
       return q1;
   },
-  getTruckEvents:(EntryGUID) =>{
+  getTrackEvents:(EntryGUID) =>{
     let where = ` WHERE BD.EntryGUID IN (${EntryGUID}) `;
     let q = `SELECT BD.* FROM t025_TruckEvents AS BD
             ${where}`;

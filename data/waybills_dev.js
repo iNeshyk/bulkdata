@@ -31,10 +31,10 @@ available updated waybills in the system
                     var EntryGUID = '';
                     data.forEach(function (columns) {
                         EntryGUID = EntryGUID+`'${columns.EntryGUID}'`+',';
-                        columns.TruckEvents = [];
+                        columns.TrackEvents = [];
                     });
                     EntryGUID = EntryGUID.substring(0,EntryGUID.length-1);
-                    db.reqPool(q.getTruckEvents(EntryGUID), {}, function(dataQ, err){
+                    db.reqPool(q.getTrackEvents(EntryGUID), {}, function(dataQ, err){
                       if (err) {
                         res.status(505);
                         res.send(err);
@@ -42,7 +42,7 @@ available updated waybills in the system
                           dataQ.forEach(function (columnsQ) {
                             data.forEach(function (columns) {
                                 if (columns.EntryGUID === columnsQ.EntryGUID){
-                                    columns.TruckEvents.push(columnsQ);
+                                    columns.TrackEvents.push(columnsQ);
                                 }
                             });
                           });
