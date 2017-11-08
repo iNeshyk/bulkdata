@@ -298,7 +298,7 @@ module.exports = {
     var cols = [];
     var vals = [];
 
-    schema.t025_TruckEvents_fields().forEach(
+    schema.t025_TrackEvents_fields().forEach(
       function(field){
         set.push(`A.${field} = B.${field}`);
         cols.push(field)
@@ -308,10 +308,10 @@ module.exports = {
     //subscrition trigger v 1.0
     //create JSON {UserID, EntryGuid, Active}
     let q1=`declare @json2 nvarchar(max) = '${JSON.stringify(truckEvents, replacer)}'
-      MERGE INTO t025_TruckEvents AS A
+      MERGE INTO t025_TrackEvents AS A
       USING (
          SELECT *
-      FROM OPENJSON(@json2) WITH (${schema.t025_TruckEvents()})) B
+      FROM OPENJSON(@json2) WITH (${schema.t025_TrackEvents()})) B
       ON (A.StateID = B.StateID AND A.EntryGUID = B.EntryGUID)
      WHEN MATCHED THEN
          UPDATE SET ${set.join(' , ')}
