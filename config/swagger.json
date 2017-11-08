@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии: - Добавили таблицу статусов TruckEvents, поле LastTruckEventID, LastTruckEventName в модель Waybills. - Добавили поля Departure - флаг выезда транспорта и DepartureDate - дата выезда транспорта. - Добавили новое поле в модель Waybills - Posted, обозначает проведение документа по учету, и возможность подписки по этому полю. - Добавили метод для помещения статусов /truckEvents/post. ",
-        "version": "1.5.3",
+        "version": "1.5.4",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -895,13 +895,13 @@
                     "example": "2012-05-23T18:25:43.511Z",
                     "description": "Дата выезда транспортного средства"
                 },
-                "LustTruckEventID": {
+                "LastTruckEventID": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "UPLOAD",
                     "description": "Идентификатор текущего статуса"
                 },
-                "LustTruckEventName": {
+                "LastTruckEventName": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "Выгрузка на элеваторе",
@@ -1191,18 +1191,18 @@
         "TruckEvenet": {
             "type": "object",
             "required": [
-                "StateID",
+                "EventID",
                 "EntryGUID",
                 "Date"
             ],
             "properties": {
-                "StateID": {
+                "EventID": {
                     "type": "string",
                     "maxLength": 100,
                     "example": "UPLOAD",
                     "description": "Уникальный идентификатор состояния."
                 },
-                "StateName": {
+                "EventName": {
                     "type": "string",
                     "minLength": 0,
                     "maxLength": 100,

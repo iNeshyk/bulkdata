@@ -107,7 +107,6 @@ waybills inactive
               element['EntryInsertDate']   = new Date();
               element['EntryInsertUserID'] = '';
               for(let k in element) {
-                //set in config
                 if((k==='ConsigneeRegCode') || (k==='EntryGUID') || (k==='OwnerStateRegCode') || (k==='OwnerType')
                       || (k==='ConsigneeType') || (k==='ConsignorType') || (k==='ConsignorRegCode') || (k==='EntryType')){
                   hashBody.push({
