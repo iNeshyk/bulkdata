@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: Добавили таблицу статусов States и поле CurrentState в модель Waybills",
-        "version": "1.5.1",
+        "description": "Новое в версии: - Добавили таблицу статусов TruckEvents, поле LastTruckEventID, LastTruckEventName в модель Waybills. - Добавили новое поле в модель Waybills - Posted, обозначает проведение документа по учету, и возможность подписки по этому полю. - Добавили метод для помещения статусов /truckEvents/post. ",
+        "version": "1.5.2",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -402,7 +402,7 @@
                 }
             }
         },
-        "/states": {
+        "/truckEvents": {
             "post": {
                 "tags": [
                     "developers"
@@ -424,7 +424,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/State"
+                                "$ref": "#/definitions/TruckEvenet"
                             }
                         }
                     }
@@ -885,24 +885,24 @@
                     "example": 15.6,
                     "description": "Влажность груза."
                 },
-                "CurrentStateID": {
+                "LustTruckEventID": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "UPLOAD",
                     "description": "Идентификатор текущего статуса"
                 },
-                "CurrentStateName": {
+                "LustTruckEventName": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "Выгрузка на элеваторе",
                     "description": "Наименование текущего статуса"
                 },
-                "States": {
+                "TruckEvents": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/State"
+                        "$ref": "#/definitions/TruckEvenet"
                     },
-                    "description": "Таблица с событиями."
+                    "description": "Таблица с событиями транспортного средства."
                 }
             }
         },
@@ -1178,7 +1178,7 @@
                 }
             }
         },
-        "State": {
+        "TruckEvenet": {
             "type": "object",
             "required": [
                 "StateID",
