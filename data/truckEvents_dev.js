@@ -1,5 +1,9 @@
 'use strict';
 var Mockgen = require('./mockgen.js');
+var Promise = require('promise');
+var db = require('../lib/mssql');
+var q  = require('./queries');
+var sha1 = require('sha1');
 /**
  * Operations on /truckEvents
  */
@@ -16,37 +20,25 @@ states for the waybills
      */
     post: {
         201: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/truckEvents',
-                operation: 'post',
-                response: '201'
-            }, callback);
+          db.reqPool(q.addTruckEvents(req.body), {}, function(data, err) {
+            if (err) {
+              res.status(505);
+              res.send(err);
+            } else {
+              res.send(data);
+            }
+            callback();
+          });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/truckEvents',
-                operation: 'post',
-                response: '400'
-            }, callback);
+          res.status(400);
+          res.send('OK');
+          callback();
         },
         409: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/truckEvents',
-                operation: 'post',
-                response: '409'
-            }, callback);
+          res.status(409);
+          res.send('OK');
+          callback();
         }
     }
 };

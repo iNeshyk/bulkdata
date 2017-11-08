@@ -26,7 +26,29 @@ available updated waybills in the system
                     res.status(505);
                     res.send(err);
                   }else{
-                    res.send(data);
+
+                    //join truckEvents to each Waybill object
+                    var EntryGUID = '';
+                    data.forEach(function (columns) {
+                        EntryGUID = EntryGUID+`'${columns.EntryGUID}'`+',';
+                        columns.TruckEvents = [];
+                    });
+                    EntryGUID = EntryGUID.substring(0,EntryGUID.length-1);
+                    db.reqPool(q.getTruckEvents(EntryGUID), {}, function(dataQ, err){
+                      if (err) {
+                        res.status(505);
+                        res.send(err);
+                      } else {
+                          dataQ.forEach(function (columnsQ) {
+                            data.forEach(function (columns) {
+                                if (columns.EntryGUID === columnsQ.EntryGUID){
+                                    columns.TruckEvents.push(columnsQ);
+                                }
+                            });
+                          });
+                          res.send(data);
+                      }
+                    });
                   }
                 });
         },
