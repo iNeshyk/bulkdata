@@ -903,7 +903,7 @@
                 },
                 "LastTrackEventName": {
                     "type": "string",
-                    "maxLength": 0,
+                    "maxLength": 100,
                     "example": "Выгрузка на элеваторе",
                     "description": "Наименование текущего статуса"
                 },

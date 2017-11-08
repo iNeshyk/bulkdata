@@ -1,5 +1,5 @@
 'use strict';
-var dataProvider = require('../data/waybills.js');
+var dataProvider = require('../data/waybills_dev.js');
 /**
  * Operations on /waybills
  */
