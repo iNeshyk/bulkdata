@@ -424,7 +424,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/TruckEvenet"
+                                "$ref": "#/definitions/TrackEvenet"
                             }
                         }
                     }
@@ -901,16 +901,16 @@
                     "example": "UPLOAD",
                     "description": "Идентификатор текущего статуса"
                 },
-                "LastTruckEventName": {
+                "LastTrackEventName": {
                     "type": "string",
                     "maxLength": 50,
                     "example": "Выгрузка на элеваторе",
                     "description": "Наименование текущего статуса"
                 },
-                "TruckEvents": {
+                "TrackEvents": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/TruckEvenet"
+                        "$ref": "#/definitions/TrackEvenet"
                     },
                     "description": "Таблица с событиями транспортного средства."
                 }
@@ -1188,7 +1188,7 @@
                 }
             }
         },
-        "TruckEvenet": {
+        "TrackEvenet": {
             "type": "object",
             "required": [
                 "EventID",
