@@ -20,7 +20,7 @@ states for the waybills
      */
     post: {
         201: function (req, res, callback) {
-          db.reqPool(q.addTruckEvents(req.body), {}, function(data, err) {
+          db.reqPool(q.addTrackEvents(req.body), {}, function(data, err) {
             if (err) {
               res.status(505);
               res.send(err);
