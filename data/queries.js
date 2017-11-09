@@ -322,7 +322,7 @@ module.exports = {
   },
   getTrackEvents:(EntryGUID) =>{
     let where = ` WHERE BD.EntryGUID IN (${EntryGUID}) `;
-    let q = `SELECT BD.* FROM t025_TruckEvents AS BD
+    let q = `SELECT BD.* FROM t025_TrackEvents AS BD
             ${where}`;
     return q;
   },
