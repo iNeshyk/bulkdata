@@ -312,7 +312,7 @@ module.exports = {
       USING (
          SELECT *
       FROM OPENJSON(@json2) WITH (${schema.t025_TrackEvents()})) B
-      ON (A.StateID = B.StateID AND A.EntryGUID = B.EntryGUID)
+      ON (A.StateID = B.EventID AND A.EntryGUID = B.EntryGUID)
      WHEN MATCHED THEN
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
