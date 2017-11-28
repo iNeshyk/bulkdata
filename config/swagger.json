@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - Добавили поля координат в объект TruckEvent - Lon, Lat; - Добавили поля координат в объект Waybill - LastLon и LastLat LastTruckEventID, LastTruckEventName в модель Waybills. ",
-        "version": "1.5.5",
+        "description": "Новое в версии: - Добавили поля гпуппы номенклатуры ItemGroupGUID, ItemGroupName;",
+        "version": "1.5.6",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -724,6 +724,18 @@
                     "maxLength": 200,
                     "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )",
                     "description": "Наименование станции получателя."
+                },
+                "ItemGroupGUID": {
+                    "type": "string",
+                    "maxLength": 56,
+                    "example": "КУКУРУДЗА",
+                    "description": "Индетификатотр группы груза."
+                },
+                "ItemGroupName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Кукурудза",
+                    "description": "Наименование группы груза (Культура, Пшеница, Соя)."
                 },
                 "ItemGUID": {
                     "type": "string",
