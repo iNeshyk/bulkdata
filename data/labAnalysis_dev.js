@@ -38,16 +38,17 @@ available updated laboratory abalysis in the system
                         res.status(505);
                         res.send(err);
                       } else {
-                          dataQ.forEach(function (columnsQ) {
-                            data.forEach(function (columns) {
-                                if (columns.FormID === columnsQ.FormID){
-                                  columnsQ.TransportShipmentID = columns.TransportShipmentID;
-                                  columns.Qualities.push(columnsQ);
-                                }
-
-                            });
-                          });
-                          res.send(data);
+                        for (var j = 0; j < data.length; j++) {
+                            for (var i = 0; i < dataQ.length; i++) {
+                              if (data[j].FormID === dataQ[i].FormID){
+                                //columns.Qualities.push({"TransportShipmentID":columns.TransportShipmentID});
+                                //columnsQ.TransportShipmentID = columns.TransportShipmentID;
+                                dataQ[i].TransportShipmentID = data[j].TransportShipmentID;
+                                data[j].Qualities.push(dataQ[i]);
+                              }
+                          }
+                        };
+                        res.send(data);
                       }
                     });
                   }
