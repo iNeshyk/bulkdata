@@ -41,14 +41,13 @@ available updated laboratory abalysis in the system
                         for (var j = 0; j < data.length; j++) {
                             for (var i = 0; i < dataQ.length; i++) {
                               if (data[j].FormID === dataQ[i].FormID){
-                                //columns.Qualities.push({"TransportShipmentID":columns.TransportShipmentID});
-                                //columnsQ.TransportShipmentID = columns.TransportShipmentID;
-                                var qi = dataQ[i];
+                                var qi = JSON.parse(JSON.stringify(dataQ[i]));
                                 qi.TransportShipmentID = data[j].TransportShipmentID;
                                 data[j].Qualities.push(qi);
                               }
                           }
                         };
+                        // console.log(data);
                         res.send(data);
                       }
                     });
