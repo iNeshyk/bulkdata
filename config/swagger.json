@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - Добавили поля гпуппы номенклатуры ItemGroupGUID, ItemGroupName;",
-        "version": "1.5.6",
+        "description": "Новое в версии: - Добавили поля гпуппы номенклатуры ItemGroupID, ItemGroupName;",
+        "version": "1.5.7",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -465,8 +465,6 @@
                 "EntryType",
                 "Source",
                 "VehicleType",
-                "ItemGUID",
-                "ItemName",
                 "ConsigneeRegCode",
                 "OwnerStateRegCode"
             ],
@@ -725,7 +723,7 @@
                     "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )",
                     "description": "Наименование станции получателя."
                 },
-                "ItemGroupGUID": {
+                "ItemGroupID": {
                     "type": "string",
                     "maxLength": 56,
                     "example": "КУКУРУДЗА",
@@ -737,10 +735,17 @@
                     "example": "Кукурудза",
                     "description": "Наименование группы груза (Культура, Пшеница, Соя)."
                 },
+                "ItemID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "КУК3КЛ",
+                    "description": "Индетификатотр груза."
+                },
                 "ItemGUID": {
                     "type": "string",
+                    "format": "uuid",
                     "maxLength": 56,
-                    "example": "КУК3КЛ",
+                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
                     "description": "Индетификатотр груза."
                 },
                 "ItemName": {
