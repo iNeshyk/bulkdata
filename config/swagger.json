@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - Добавили поля гпуппы номенклатуры ItemGroupID, ItemGroupName;",
-        "version": "1.5.7",
+        "description": "Новое в версии: - Добавили поле DriverSerial, перенесли туда логику поля DriverID. Теперь в DriverID хранится идентификатор НСИ; - Добавили поля VehicleID, TrailerID - идентификатор автомобиля и прицепа НСИ; - Добавиои поля VehicleTypeID, VehicleTypeName - идентифкатор и наименование типа транспортного средства; - Добавиои поля SubVehicleTypeID, SubVehicleTypeName - идентифкатор и наименование подтипа транспортного средства;",
+        "version": "1.5.8",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -534,11 +534,47 @@
                     "type": "boolean",
                     "description": "1=авто, 0-жд"
                 },
+                "VehicleTypeID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Уникальный идентификатор типа транспортного средства в НСИ"
+                },
+                "VehicleTypeName": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "Грузовой",
+                    "description": "Наименование типа транспортного средства"
+                },
+                "VehicleSubTypeID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Уникальный идентификатор подтипа транспортного средства в НСИ"
+                },
+                "VehicleSubTypeName": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "Самосвал",
+                    "description": "Наименование подтипа транспортного средства"
+                },
+                "VehicleID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Идентификатор транспортного средства в НСИ"
+                },
                 "VehicleStateNo": {
                     "type": "string",
                     "maxLength": 15,
                     "example": "АВ4567СХ",
                     "description": "номер транспортного средства"
+                },
+                "TrailerID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Идентификатор прицепа в НСИ"
                 },
                 "TrailerStateNo": {
                     "type": "string",
@@ -827,6 +863,12 @@
                     "description": "Перечень пломб (ЗПУ)."
                 },
                 "DriverID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Идентификатор водителя в системе НСИ"
+                },
+                "DriverSerial": {
                     "type": "string",
                     "maxLength": 12,
                     "example": "РМА201869",
