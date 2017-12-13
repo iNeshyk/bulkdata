@@ -33,6 +33,12 @@ available updated laboratory abalysis in the system
                         columns.Qualities = [];
                     });
                     FormID = FormID.substring(0,FormID.length-1);
+                    if(FormID){
+
+                    }
+                    if (FormID){
+
+
                     db.reqPool(q.getLabAnalysisLines(FormID), {}, function(dataQ, err){
                       if (err) {
                         res.status(505);
@@ -47,10 +53,13 @@ available updated laboratory abalysis in the system
                               }
                           }
                         };
-                        // console.log(data);
+                        //console.log(data);
                         res.send(data);
                       }
                     });
+                  }else {
+                      res.send(data);
+                    }
                   }
                 });
         },

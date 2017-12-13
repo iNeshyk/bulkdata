@@ -170,6 +170,7 @@ module.exports = {
     let where = ` WHERE BD.FormID IN (${FormID}) `;
     let q = `SELECT BD.* FROM t020_LabAnalysisLines AS BD
             ${where}`;
+    console.log(q);
     return q;
   },
   addLabAnalysis: (labAnalysis, hashBody) => {
