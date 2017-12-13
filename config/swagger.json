@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии: - Добавили поле DriverSerial, перенесли туда логику поля DriverID. Теперь в DriverID хранится идентификатор НСИ; - Добавили поля VehicleID, TrailerID - идентификатор автомобиля и прицепа НСИ; - Добавиои поля VehicleTypeID, VehicleTypeName - идентифкатор и наименование типа транспортного средства; - Добавиои поля SubVehicleTypeID, SubVehicleTypeName - идентифкатор и наименование подтипа транспортного средства;",
-        "version": "1.5.8",
+        "description": "Новое в версии:\n - Добавили поле DriverSerial, перенесли туда логику поля DriverID. Теперь в DriverID хранится идентификатор НСИ; - Добавили поля VehicleID, TrailerID - идентификатор автомобиля и прицепа НСИ; - Добавиои поля VehicleTypeID, VehicleTypeName - идентифкатор и наименование типа транспортного средства; - Добавиои поля TrailerTypeID, TrailerTypeName - идентифкатор и наименование типа прицепа; - Добавиои поля SubVehicleTypeID, SubVehicleTypeName - идентифкатор и наименование подтипа транспортного средства; - Добавиои поля SubTrailerTypeID, SubTrailerTypeName - идентифкатор и наименование подтипа прицепа;",
+        "version": "1.5.9",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -570,6 +570,30 @@
                     "example": "АВ4567СХ",
                     "description": "номер транспортного средства"
                 },
+                "TrailerTypeID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Уникальный идентификатор типа прицепа в НСИ"
+                },
+                "TrailerTypeName": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "Грузовой",
+                    "description": "Наименование типа прицепа"
+                },
+                "TrailerSubTypeID": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
+                    "description": "Уникальный идентификатор подтипа прицепа в НСИ"
+                },
+                "TrailerSubTypeName": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "Самосвал",
+                    "description": "Наименование подтипа прицепа"
+                },
                 "TrailerID": {
                     "type": "string",
                     "maxLength": 50,
@@ -923,7 +947,7 @@
                 },
                 "Field2Type": {
                     "type": "integer",
-                    "example": "Поле",
+                    "example": 0,
                     "description": "Тип поля или тока. Используется аграрным бизнесом. (Поле - 0, Ток-1, МестоХранения-2, Регион - 4)"
                 },
                 "Field2Adress": {
