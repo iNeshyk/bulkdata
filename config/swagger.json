@@ -906,7 +906,7 @@
                 },
                 "DriverPhone": {
                     "type": "string",
-                    "maxLength": 13,
+                    "maxLength": 40,
                     "example": "+380979003639",
                     "description": "Контактный номер водителя."
                 },
