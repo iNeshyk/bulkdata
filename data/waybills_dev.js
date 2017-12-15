@@ -39,15 +39,17 @@ available updated waybills in the system
                         res.status(505);
                         res.send(err);
                       } else {
+                        if (EntryGUID) {
                           dataQ.forEach(function (columnsQ) {
                             data.forEach(function (columns) {
                                 if (columns.EntryGUID === columnsQ.EntryGUID){
                                     columns.TrackEvents.push(columnsQ);
                                 }
                             });
-                          
+
                           });
-                          res.send(data);
+                        }
+                        res.send(data);
                       }
                     });
                   }
