@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили поле DriverSerial, перенесли туда логику поля DriverID. Теперь в DriverID хранится идентификатор НСИ; - Добавили поля VehicleID, TrailerID - идентификатор автомобиля и прицепа НСИ; - Добавиои поля VehicleTypeID, VehicleTypeName - идентифкатор и наименование типа транспортного средства; - Добавиои поля TrailerTypeID, TrailerTypeName - идентифкатор и наименование типа прицепа; - Добавиои поля SubVehicleTypeID, SubVehicleTypeName - идентифкатор и наименование подтипа транспортного средства; - Добавиои поля SubTrailerTypeID, SubTrailerTypeName - идентифкатор и наименование подтипа прицепа;",
-        "version": "1.5.9",
+        "description": "Новое в версии:\n - Добавили в объект LabAnalysis ;",
+        "version": "1.5.10",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -1160,15 +1160,34 @@
                     "type": "boolean",
                     "description": "Вид движения 0-приход, 1 - расход"
                 },
-                "ItemGUID": {
+                "ItemGroupID": {
                     "type": "string",
                     "maxLength": 56,
+                    "example": "КУКУРУДЗА",
+                    "description": "Индетификатотр группы груза."
+                },
+                "ItemGroupName": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Кукурудза",
+                    "description": "Наименование группы груза (Культура, Пшеница, Соя)."
+                },
+                "ItemID": {
+                    "type": "string",
+                    "maxLength": 100,
                     "example": "КУК3КЛ",
+                    "description": "Индетификатотр груза."
+                },
+                "ItemGUID": {
+                    "type": "string",
+                    "format": "uuid",
+                    "maxLength": 56,
+                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
                     "description": "Индетификатотр груза."
                 },
                 "ItemName": {
                     "type": "string",
-                    "maxLength": 100,
+                    "maxLength": 200,
                     "example": "Кукурудза 3 класу кормові потреби",
                     "description": "Наименование груза."
                 },
