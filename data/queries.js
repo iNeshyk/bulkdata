@@ -1,12 +1,10 @@
 'use strict';
 
 const schema = require('../lib/mssql/schema.js');
-const config  = require('../config/swagger.json');
-const Promise = require('promise');
 
 //_TODO: change to most effective function
 function replacer(key, value){
-  if(typeof value == "string"){
+  if(typeof value === "string"){
     value = value.replace("'","");
     value = value.replace("'","");
     value = value.replace("'","");
@@ -65,11 +63,11 @@ module.exports = {
 
   addWaybills: (waybills, hashBody) => {
 
-    var set  = [];
-    var cols = [];
-    var vals = [];
+    let set  = [];
+    let cols = [];
+    let vals = [];
 
-    //subscrition trigger v 1.0
+    //subscription trigger v 1.0
     //create JSON {UserID, EntryGuid, Active}
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody, replacer)}'
      INSERT INTO t005_UserData
@@ -90,7 +88,7 @@ module.exports = {
     schema.t010_Bulkdata_fields().forEach(
       function(field){
         set.push(`A.${field} = B.${field}`);
-        cols.push(field)
+        cols.push(field);
         vals.push(`B.${field}`);
       }
     );
@@ -175,13 +173,13 @@ module.exports = {
   },
   addLabAnalysis: (labAnalysis, hashBody) => {
 
-    var set  = [];
-    var cols = [];
-    var vals = [];
+    let set  = [];
+    let cols = [];
+    let vals = [];
 
-    var setLines  = [];
-    var colsLines = [];
-    var valsLines = [];
+    let setLines  = [];
+    let colsLines = [];
+    let valsLines = [];
 
     //create JSON {UserID, EntryGuid, Active}
     let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
@@ -203,7 +201,7 @@ module.exports = {
     schema.t015_LabAnalysis_fields().forEach(
       function(field){
         set.push(`A.${field} = B.${field}`);
-        cols.push(field)
+        cols.push(field);
         vals.push(`B.${field}`);
       }
     );
@@ -295,14 +293,14 @@ module.exports = {
   },
   addTrackEvents: (truckEvents) => {
 
-    var set  = [];
-    var cols = [];
-    var vals = [];
+    let set  = [];
+    let cols = [];
+    let vals = [];
 
     schema.t025_TrackEvents_fields().forEach(
       function(field){
         set.push(`A.${field} = B.${field}`);
-        cols.push(field)
+        cols.push(field);
         vals.push(`B.${field}`);
       }
     );
@@ -327,4 +325,4 @@ module.exports = {
             ${where}`;
     return q;
   },
-}
+};
