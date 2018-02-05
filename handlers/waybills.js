@@ -55,7 +55,7 @@ waybills inactive
     /**
      * summary: adds an waybill
      * description: Adds an waybill to the system
-     * parameters: waybill
+     * parameters: sourceID, waybill
      * produces: application/json
      * responses: 201, 400, 409
      */

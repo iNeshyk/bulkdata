@@ -75,7 +75,7 @@ lab analys inactive
     /**
      * summary: adds an waybill
      * description: Adds an laboratory analysis to the system
-     * parameters: labAnalys
+     * parameters: sourceID, labAnalys
      * produces: application/json
      * responses: 201, 400, 409
      * operationId: addLabAnalysis

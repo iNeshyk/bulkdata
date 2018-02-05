@@ -121,7 +121,7 @@ waybills inactive
                 }
               }
             }
-            db.reqPool(q.addWaybills(body, hashBody), {}, function(data, err) {
+            db.reqPool(q.addWaybills(req.query.sourceID, body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);

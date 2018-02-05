@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии:\n - Добавили в объект LabAnalysis ;",
-        "version": "1.5.10",
+        "version": "1.5.11",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -66,8 +66,7 @@
                         "name": "sourceID",
                         "description": "pass an optional source id for looking up current waybills",
                         "required": true,
-                        "type": "string",
-                        "format": "uid"
+                        "type": "string"
                     },
                     {
                         "in": "query",
@@ -166,6 +165,13 @@
                     "application/json"
                 ],
                 "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sourceID",
+                        "description": "pass an optional source id for looking up current waybills",
+                        "required": false,
+                        "type": "string"
+                    },
                     {
                         "in": "body",
                         "name": "waybill",
@@ -342,6 +348,13 @@
                     "application/json"
                 ],
                 "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sourceID",
+                        "description": "pass an optional source id for looking up current waybills",
+                        "required": true,
+                        "type": "string"
+                    },
                     {
                         "in": "body",
                         "name": "labAnalys",
