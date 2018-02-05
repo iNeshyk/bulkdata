@@ -125,7 +125,7 @@ lab analys inactive
               }
             }
 
-            db.reqPool(q.addLabAnalysis(body, hashBody), {}, function(data, err) {
+            db.reqPool(q.addLabAnalysis(req.query.sourceID, body, hashBody), {}, function(data, err) {
               if (err) {
                 res.status(505);
                 res.send(err);

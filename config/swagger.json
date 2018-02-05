@@ -352,7 +352,7 @@
                         "in": "query",
                         "name": "sourceID",
                         "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
+                        "required": false,
                         "type": "string"
                     },
                     {

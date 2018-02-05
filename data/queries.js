@@ -171,7 +171,7 @@ module.exports = {
     console.log(q);
     return q;
   },
-  addLabAnalysis: (labAnalysis, hashBody) => {
+  addLabAnalysis: (sourceID, labAnalysis, hashBody) => {
 
     let set  = [];
     let cols = [];
@@ -194,6 +194,7 @@ module.exports = {
       ON jt.Sha1KeyValue = uc.Sha1KeyValue
       AND uc.Active = 1
       AND uc.RecordType = 'L'
+    WHERE uc.UserID<>'${sourceID}'
     GROUP BY
       uc.UserID,
       jt.EntryGUID; `;
