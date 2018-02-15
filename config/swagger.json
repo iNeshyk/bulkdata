@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили в объект LabAnalysis ;",
-        "version": "1.5.11",
+        "description": "Новое в версии:\n - Поле EntryType в моделі Waybills не обовязкове",
+        "version": "1.5.12",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -475,9 +475,7 @@
             "type": "object",
             "required": [
                 "EntryGUID",
-                "EntryType",
                 "Source",
-                "VehicleType",
                 "ConsigneeRegCode",
                 "OwnerStateRegCode"
             ],
