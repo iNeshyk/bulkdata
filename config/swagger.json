@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Поле EntryType в моделі Waybills не обовязкове",
-        "version": "1.5.12",
+        "description": "Новое в версии:\n - Добавили поля: LocalityInID, LocalityInName, LocalitySubGroupInID, LocalitySubGroupInName, LocalityGroupInID, LocalityGroupInName, LocalityOutID, LocalityOutName, LocalitySubGroupOutID, LocalitySubGroupOutName, LocalityGroupOutID, LocalityGroupOutName.",
+        "version": "1.5.14",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -983,6 +983,78 @@
                     "type": "boolean",
                     "description": "0-не выехал, 1 - выехал"
                 },
+                "LocalityInID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0500100000",
+                    "description": "Код КОАТУУ населеного пункту розвантаження."
+                },
+                "LocalityInName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "м. Вінниця",
+                    "description": "Назва населеного пункту розвантаження."
+                },
+                "LocalitySubGroupInID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0501000000",
+                    "description": "Код КОАТУУ району населенного пункту розвантаження."
+                },
+                "LocalitySubGroupInName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "ВІННИЦЬКИЙ РАЙОН",
+                    "description": "Назва району населенного пункту розвантаження."
+                },
+                "LocalityGroupInID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0500000000",
+                    "description": "Код КОАТУУ населеного пункту розвантаження."
+                },
+                "LocalityGroupInName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "ВІННИЦЬКА ОБЛ.",
+                    "description": "Назва області населеного пункту розвантаження."
+                },
+                "LocalityOutID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0500100000",
+                    "description": "Код КОАТУУ населеного пункту навантаження."
+                },
+                "LocalityOutName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "м. Вінниця",
+                    "description": "Назва населеного пункту навантаження."
+                },
+                "LocalitySubGroupOutID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0501000000",
+                    "description": "Код КОАТУУ району населенного пункту навантаження."
+                },
+                "LocalitySubGroupOutName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "ВІННИЦЬКИЙ РАЙОН",
+                    "description": "Назва району населенного пункту навантаження."
+                },
+                "LocalityGroupOutID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "0500000000",
+                    "description": "Код КОАТУУ області населеного пункту навантаження."
+                },
+                "LocalityGroupOutName": {
+                    "type": "string",
+                    "maxLength": 400,
+                    "example": "ВІННИЦЬКА ОБЛ.",
+                    "description": "Назва області населеного пункту навантаження."
+                },
                 "DepartureDate": {
                     "type": "string",
                     "format": "date-time",
@@ -1014,6 +1086,13 @@
                     "maxLength": 20,
                     "example": "36,355245",
                     "description": "Координата Latitude"
+                },
+                "RequestID": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "3242342",
+                    "description": "Идентификатор заявки на перевозку."
                 },
                 "TrackEvents": {
                     "type": "array",

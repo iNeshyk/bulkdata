@@ -103,7 +103,6 @@ waybills inactive
         201: function (req, res, callback) {
             let body     = req.body;
             let hashBody = [];
-            let usersEntryGuid = [];
 
             for (let i in body) {
               let element = body[i];
