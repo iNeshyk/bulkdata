@@ -1,5 +1,5 @@
 'use strict';
-var dataProvider = require('../data/ping.js_dev');
+var dataProvider = require('../data/ping_dev.js');
 /**
  * Operations on /ping
  */
