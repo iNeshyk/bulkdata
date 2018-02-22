@@ -41,6 +41,13 @@ function replacer(key, value){
 // }
 
 module.exports = {
+  discard:(userID)=>{
+      let q = `UPDATE t005_UserData  
+               SET Active = 0 
+               WHERE UserID = '${userID}'; `;
+      console.log(q);
+      return q;
+  },
   getWaybills: (userID , id, limit) => {
     if (!limit) {
       limit = '1000';

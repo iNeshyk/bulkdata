@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили поля: LocalityInID, LocalityInName, LocalitySubGroupInID, LocalitySubGroupInName, LocalityGroupInID, LocalityGroupInName, LocalityOutID, LocalityOutName, LocalitySubGroupOutID, LocalitySubGroupOutName, LocalityGroupOutID, LocalityGroupOutName.",
-        "version": "1.5.14",
+        "description": "Новое в версии:\n - Добавили поля: LocalityInID, LocalityInName, LocalitySubGroupInID, LocalitySubGroupInName, LocalityGroupInID, LocalityGroupInName, LocalityOutID, LocalityOutName, LocalitySubGroupOutID, LocalitySubGroupOutName, LocalityGroupOutID, LocalityGroupOutName, RequestID. - Добавили возможность отмены подписки ",
+        "version": "1.5.15",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -45,6 +45,39 @@
                     },
                     "400": {
                         "description": "alive = false"
+                    }
+                }
+            }
+        },
+        "/account/discard": {
+            "get": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "discard all waybills from your subscription",
+                "operationId": "discard",
+                "description": "Discard all waybilss from your subscription\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sourceID",
+                        "description": "pass an optional source id for looking up to discard waybills",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error"
+                    },
+                    "500": {
+                        "description": "Error from database"
                     }
                 }
             }
@@ -507,7 +540,7 @@
                 },
                 "EntryType": {
                     "type": "boolean",
-                    "description": "0-приход, 1 - расход"
+                    "description": "false-приход, true - расход"
                 },
                 "Active": {
                     "type": "boolean",
@@ -543,7 +576,7 @@
                 },
                 "VehicleType": {
                     "type": "boolean",
-                    "description": "1=авто, 0-жд"
+                    "description": "true=авто, false-жд"
                 },
                 "VehicleTypeID": {
                     "type": "string",
@@ -981,7 +1014,7 @@
                 },
                 "Departure": {
                     "type": "boolean",
-                    "description": "0-не выехал, 1 - выехал"
+                    "description": "false-не выехал, 1 - выехал"
                 },
                 "LocalityInID": {
                     "type": "string",
