@@ -175,7 +175,7 @@ module.exports = {
     let where = ` WHERE BD.FormID IN (${FormID}) `;
     let q = `SELECT BD.* FROM t020_LabAnalysisLines AS BD
             ${where}`;
-    console.log(q);
+    //console.log(q);
     return q;
   },
   addLabAnalysis: (sourceID, labAnalysis, hashBody) => {
@@ -328,9 +328,15 @@ module.exports = {
       return q1;
   },
   getTrackEvents:(EntryGUID) =>{
-    let where = ` WHERE BD.EntryGUID IN (${EntryGUID}) `;
+    let where = '';
+    if (EntryGUID){
+      where = ` WHERE BD.EntryGUID IN (${EntryGUID}) `;
+    } else {
+      where = ` WHERE BD.EntryGUID = '0000-0000000-0000000' `;
+    }
     let q = `SELECT BD.* FROM t025_TrackEvents AS BD
             ${where}`;
+    //console.log(q);
     return q;
   },
 };

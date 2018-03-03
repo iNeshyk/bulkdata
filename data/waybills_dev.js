@@ -34,12 +34,13 @@ available updated waybills in the system
                         columns.TrackEvents = [];
                     });
                     EntryGUID = EntryGUID.substring(0,EntryGUID.length-1);
+
                     db.reqPool(q.getTrackEvents(EntryGUID), {}, function(dataQ, err){
                       if (err) {
                         res.status(505);
                         res.send(err);
                       } else {
-                        if (EntryGUID) {
+                          if (EntryGUID) {
                           dataQ.forEach(function (columnsQ) {
                             data.forEach(function (columns) {
                                 if (columns.EntryGUID === columnsQ.EntryGUID){
