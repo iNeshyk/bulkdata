@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили поля: LocalityInID, LocalityInName, LocalitySubGroupInID, LocalitySubGroupInName, LocalityGroupInID, LocalityGroupInName, LocalityOutID, LocalityOutName, LocalitySubGroupOutID, LocalitySubGroupOutName, LocalityGroupOutID, LocalityGroupOutName, RequestID. - Добавили возможность отмены подписки ",
-        "version": "1.5.15",
+        "description": "Новое в версии:\n - Увеличили длину полей Certificate1No, Certificate2No",
+        "version": "1.5.16",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -1243,7 +1243,7 @@
                 "Certificate1No": {
                     "type": "string",
                     "minLength": 0,
-                    "maxLength": 40,
+                    "maxLength": 100,
                     "example": "12345678910",
                     "description": "Номер сертификата протокола безопасности."
                 },
@@ -1256,7 +1256,7 @@
                 "Certificate2No": {
                     "type": "string",
                     "minLength": 0,
-                    "maxLength": 40,
+                    "maxLength": 100,
                     "example": "0123456789012",
                     "description": "Номер сертификата протокола ГМО."
                 },
