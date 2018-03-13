@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Увеличили длину полей Certificate1No, Certificate2No",
-        "version": "1.5.16",
+        "description": "Новое в версии:\n - Добавили поля в LabAnalysis - Posted, Source;",
+        "version": "1.5.17",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
