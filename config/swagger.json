@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили поля в LabAnalysis - Posted, Source;",
+        "description": "Новое в версии:\n - Добавили поля в LabAnalysis - Posted, Source; - Добавили поля в Waybills - LastTrackEventDate",
         "version": "1.5.17",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
@@ -1128,10 +1128,18 @@
                 },
                 "RequestID": {
                     "type": "string",
+                    "format": "uuid",
                     "minLength": 0,
                     "maxLength": 100,
                     "example": "3242342",
                     "description": "Идентификатор заявки на перевозку."
+                },
+                "RequestNumber": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 100,
+                    "example": "3242342",
+                    "description": "Номер заявки на перевозку."
                 },
                 "TrackEvents": {
                     "type": "array",
