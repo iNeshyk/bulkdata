@@ -1187,6 +1187,16 @@
                     "example": "Полный.",
                     "description": "Тип лабораторного анализа (полный, расчетный, экспресс)."
                 },
+                "Source": {
+                    "type": "string",
+                    "maxLength": 15,
+                    "example": "ЭЛ01",
+                    "description": "Источник создания документа"
+                },
+                "Posted": {
+                    "type": "boolean",
+                    "description": "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален."
+                },
                 "TransportShipmentID": {
                     "type": "string",
                     "format": "uuid",
