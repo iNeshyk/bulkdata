@@ -1094,6 +1094,12 @@
                     "example": "2012-05-23T18:25:43.511Z",
                     "description": "Дата выезда транспортного средства"
                 },
+                "LastTrackEventDate": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2012-05-23T18:40:50.511Z",
+                    "description": "Дата последнего события"
+                },
                 "LastTrackEventID": {
                     "type": "string",
                     "maxLength": 50,
