@@ -1,9 +1,8 @@
 'use strict';
-var Mockgen = require('./mockgen.js');
-var Promise = require('promise');
-var db = require('../lib/mssql');
-var q  = require('./queries');
-var sha1 = require('sha1');
+let db = require('../lib/mssql');
+let q  = require('./queries');
+let sha1 = require('sha1');
+let cS = require('./customSubscribe.js');
 
 /**
  * Operations on /labAnalysis
@@ -27,7 +26,7 @@ available updated laboratory abalysis in the system
                     res.status(505);
                     res.send(err);
                   } else {
-                    var FormID = '';
+                    let FormID = '';
                     data.forEach(function (columns) {
                         FormID = FormID+`'${columns.FormID}'`+',';
                         columns.Qualities = [];
@@ -44,16 +43,16 @@ available updated laboratory abalysis in the system
                         res.status(505);
                         res.send(err);
                       } else {
-                        for (var j = 0; j < data.length; j++) {
-                            for (var i = 0; i < dataQ.length; i++) {
+                        for (let j = 0; j < data.length; j++) {
+                            for (let i = 0; i < dataQ.length; i++) {
                               if (data[j].FormID === dataQ[i].FormID){
-                                var qi = JSON.parse(JSON.stringify(dataQ[i]));
+                                  let qi = JSON.parse(JSON.stringify(dataQ[i]));
                                 qi.TransportShipmentID = data[j].TransportShipmentID;
                                 data[j].Qualities.push(qi);
                               }
                           }
-                        };
-                        //console.log(data);
+                        }
+
                         res.send(data);
                       }
                     });
@@ -106,7 +105,8 @@ lab analys inactive
 
             let body     = req.body;
             let hashBody = [];
-            let usersEntryGuid = [];
+
+            let currentCs = cS.getCustomSubscribe();
 
             for (let i in body) {
               let element = body[i];
@@ -123,6 +123,28 @@ lab analys inactive
                   });
                 }
               }
+
+                //push AND subscribers
+                //OwnerType & EntryType
+                for (let d=0; d<currentCs.length; d++){
+
+                    let temp_Sha1KeyValue = '';
+                    let temp_Key = '';
+                    let temp_Value='';
+
+                    for (let j = 0; j < currentCs[d].length;j++){
+                        temp_Sha1KeyValue = temp_Sha1KeyValue+currentCs[d][j]+element[currentCs[d][j]];
+                        temp_Key = temp_Key+currentCs[d][j];
+                        temp_Value = temp_Value+element[currentCs[d][j]];
+                    }
+
+                    hashBody.push({
+                        EntryGUID: element.EntryGUID,
+                        Sha1KeyValue: sha1(temp_Sha1KeyValue),
+                        Key: temp_Key,
+                        Value: ""+temp_Value
+                    });
+                }
             }
 
             db.reqPool(q.addLabAnalysis(req.query.sourceID, body, hashBody), {}, function(data, err) {

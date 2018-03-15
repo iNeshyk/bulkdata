@@ -42,11 +42,11 @@ function replacer(key, value){
 
 module.exports = {
   discard:(userID)=>{
-      let q = `UPDATE t005_UserData  
+      let q_discard = `UPDATE t005_UserData  
                SET Active = 0 
                WHERE UserID = '${userID}'; `;
-      console.log(q);
-      return q;
+
+      return q_discard;
   },
   getWaybills: (userID , id, limit) => {
     if (!limit) {
@@ -57,15 +57,15 @@ module.exports = {
       where = ` WHERE BD.EntryGUID IN (${id}) `;
     }
 
-    let q = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD
+    let q_getWaybills = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD
     INNER JOIN t005_UserData AS UD
     ON BD.EntryGUID = UD.EntryGUID
     AND UD.UserID = '${userID}'
     AND UD.Active = 1
     AND UD.RecordType = 'W'
     ${where}`;
-    //console.log(q);
-    return q;
+
+    return q_getWaybills;
   },
   addWaybills: (UserID, waybills, hashBody) => {
 
@@ -73,9 +73,9 @@ module.exports = {
     let cols = [];
     let vals = [];
 
-    //subscription trigger v 1.0
+
     //create JSON {UserID, EntryGuid, Active}
-    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody, replacer)}'
+    let q1_addWaybills = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody, replacer)}'
      INSERT INTO t005_UserData
      SELECT
        uc.UserID AS UserID,
@@ -100,7 +100,7 @@ module.exports = {
       }
     );
 
-    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(waybills, replacer)}'
+    let q2_addWaybills =`declare @json2 nvarchar(max) = '${JSON.stringify(waybills, replacer)}'
       MERGE INTO t010_Bulkdata AS A
       USING (
          SELECT *
@@ -110,13 +110,13 @@ module.exports = {
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
          INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
-      let q = q1+'\n  \n'+q2;
-      //console.log(q);
-      return q;
+      let q_addWaybills = q1_addWaybills+'\n  \n'+q2_addWaybills;
+
+      return q_addWaybills;
 
   },
   patchWaybills: (userID, waybills) => {
-    let q = `declare @json nvarchar(max) = '${JSON.stringify(waybills,replacer)}'
+    let q_patchWaybills = `declare @json nvarchar(max) = '${JSON.stringify(waybills,replacer)}'
       UPDATE t005_UserData
         SET Active = 0 FROM OPENJSON(@json)
           WITH (EntryGUID char(36)) AS jt
@@ -124,10 +124,10 @@ module.exports = {
           t005_UserData.EntryGUID = jt.EntryGUID
           AND t005_UserData.RecordType = 'W'
           AND t005_UserData.UserID = '${userID}'`;
-    return q;
+    return q_patchWaybills;
   },
   delWaybills: (waybills) => {
-    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(waybills)}'
+    let q1_delWaybills = `declare @json1 nvarchar(max) = N'${JSON.stringify(waybills)}'
     INSERT INTO t005_UserData
     SELECT
       uc.UserID AS UserID,
@@ -141,16 +141,16 @@ module.exports = {
     GROUP BY
       uc.UserID,
       jt.EntryGUID; `;
-    let q2 = `declare @json2 nvarchar(max) = '${JSON.stringify(waybills)}'
+    let q2_delWaybills = `declare @json2 nvarchar(max) = '${JSON.stringify(waybills)}'
       UPDATE t010_Bulkdata
         SET Active = 0 FROM OPENJSON(@json2)
           WITH (EntryGUID char(36)) AS jt
         WHERE
           t010_Bulkdata.EntryGUID = jt.EntryGUID`;
 
-    let q = q1+'\n  \n'+q2;
-    //console.log(q);
-    return q;
+    let q_delWaybills = q1_delWaybills+'\n  \n'+q2_delWaybills;
+
+    return q_delWaybills;
   },
   getLabAnalysis: (userID , id, limit) => {
     if (!limit) {
@@ -161,22 +161,22 @@ module.exports = {
       where = ` WHERE BD.FormID IN (${id}) `;
     }
 
-    let q = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
+    let q_getLabAnalysis = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
       ${where}`;
-    //console.log(q);
-    return q;
+
+    return q_getLabAnalysis;
   },
   getLabAnalysisLines:(FormID) =>{
     let where = ` WHERE BD.FormID IN (${FormID}) `;
-    let q = `SELECT BD.* FROM t020_LabAnalysisLines AS BD
+    let q_getLabAnalysisLines = `SELECT BD.* FROM t020_LabAnalysisLines AS BD
             ${where}`;
-    //console.log(q);
-    return q;
+
+    return q_getLabAnalysisLines;
   },
   addLabAnalysis: (sourceID, labAnalysis, hashBody) => {
 
@@ -189,7 +189,7 @@ module.exports = {
     let valsLines = [];
 
     //create JSON {UserID, EntryGuid, Active}
-    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
+    let q1_addLabAnalysis = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
     INSERT INTO t005_UserData
     SELECT DISTINCT
       uc.UserID AS UserID,
@@ -214,7 +214,7 @@ module.exports = {
       }
     );
 
-    let q2=`declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+    let q2_addLabAnalysis =`declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       MERGE INTO t015_LabAnalysis AS A
       USING (
          SELECT DISTINCT *
@@ -228,12 +228,12 @@ module.exports = {
     schema.t020_LabAnalysisLines_fields().forEach(
            function(field){
              setLines.push(`A.${field} = B.${field}`);
-             colsLines.push(field)
+             colsLines.push(field);
              valsLines.push(`B.${field}`);
            }
          );
 
-    let q3=`  MERGE INTO t020_LabAnalysisLines AS A
+    let q3_addLabAnalysis =`  MERGE INTO t020_LabAnalysisLines AS A
            USING (
               SELECT LabAnalysisLines.*
            FROM OPENJSON(@json2) WITH (FormID nchar(36), Qualities nvarchar(max) AS JSON) AS LabAnalysis
@@ -257,14 +257,13 @@ module.exports = {
           WHEN NOT MATCHED THEN
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
 
-    let q = q1+'\n  \n'+q2+'\n  \n'+q3 ;
-    //let q = q1+'\n  \n'+q2;
-    //console.log(q3);
-    return q;
+    let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis+'\n  \n'+q3_addLabAnalysis;
+
+    return q_addLabAnalysis;
 
   },
   patchLabAnalysis: (userID, labAnalysis) => {
-    let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+    let q_patchLabAnalysis = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       UPDATE t005_UserData
         SET Active = 0 FROM OPENJSON(@json)
           WITH (FormID char(36)) AS jt
@@ -272,10 +271,10 @@ module.exports = {
           t005_UserData.EntryGUID = jt.FormID
           AND t005_UserData.RecordType = 'L'
           AND t005_UserData.UserID = '${userID}'`;
-    return q;
+    return q_patchLabAnalysis;
   },
   delLabAnalysis: (labAnalysis) => {
-    let q1 = `declare @json1 nvarchar(max) = N'${JSON.stringify(labAnalysis)}'
+    let q1_delLabAnalysis = `declare @json1 nvarchar(max) = N'${JSON.stringify(labAnalysis)}'
     INSERT INTO t005_UserData
     SELECT
       uc.UserID AS UserID,
@@ -289,15 +288,15 @@ module.exports = {
     GROUP BY
       uc.UserID,
       jt.FormID; `;
-    let q2 = `UPDATE t015_LabAnalysis
+    let q2_delLabAnalysis = `UPDATE t015_LabAnalysis
         SET Active = 0 FROM OPENJSON(@json1)
           WITH (FormID char(36)) AS jt
         WHERE
           t015_LabAnalysis.FormID = jt.FormID`;
 
-    let q = q1+'\n  \n'+q2;
-    //console.log(q);
-    return q;
+    let q_delLabAnalysis = q1_delLabAnalysis+'\n  \n'+q2_delLabAnalysis;
+
+    return q_delLabAnalysis;
   },
   addTrackEvents: (truckEvents) => {
 
@@ -314,7 +313,7 @@ module.exports = {
     );
     //subscrition trigger v 1.0
     //create JSON {UserID, EntryGuid, Active}
-    let q1=`declare @json2 nvarchar(max) = '${JSON.stringify(truckEvents, replacer)}'
+    let q1_addTrackEvents=`declare @json2 nvarchar(max) = '${JSON.stringify(truckEvents, replacer)}'
       MERGE INTO t025_TrackEvents AS A
       USING (
          SELECT *
@@ -324,8 +323,8 @@ module.exports = {
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
          INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
-      //console.log(q1);
-      return q1;
+
+     return q1_addTrackEvents;
   },
   getTrackEvents:(EntryGUID) =>{
     let where = '';
@@ -334,9 +333,8 @@ module.exports = {
     } else {
       where = ` WHERE BD.EntryGUID = '0000-0000000-0000000' `;
     }
-    let q = `SELECT BD.* FROM t025_TrackEvents AS BD
+    let q_getTrackEvents = `SELECT BD.* FROM t025_TrackEvents AS BD
             ${where}`;
-    //console.log(q);
-    return q;
+    return q_getTrackEvents;
   },
 };

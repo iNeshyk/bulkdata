@@ -1,9 +1,8 @@
 'use strict';
-var Mockgen = require('./mockgen.js');
-var Promise = require('promise');
-var db = require('../lib/mssql');
-var q  = require('./queries');
-var sha1 = require('sha1');
+let db = require('../lib/mssql');
+let q  = require('./queries');
+let sha1 = require('sha1');
+let cS = require('./customSubscribe.js');
 /**
  * Operations on /waybills
  */
@@ -28,7 +27,7 @@ available updated waybills in the system
                   }else{
 
                     //join truckEvents to each Waybill object
-                    var EntryGUID = '';
+                    let EntryGUID = '';
                     data.forEach(function (columns) {
                         EntryGUID = EntryGUID+`'${columns.EntryGUID}'`+',';
                         columns.TrackEvents = [];
@@ -105,10 +104,13 @@ waybills inactive
             let body     = req.body;
             let hashBody = [];
 
+            let currentCs = cS.getCustomSubscribe();
+
             for (let i in body) {
               let element = body[i];
               element['EntryInsertDate']   = new Date();
               element['EntryInsertUserID'] = '';
+
               for(let k in element) {
                 if((k==='ConsigneeRegCode') || (k==='EntryGUID') || (k==='OwnerStateRegCode') || (k==='OwnerType')
                       || (k==='ConsigneeType') || (k==='ConsignorType') || (k==='ConsignorRegCode') || (k==='EntryType')){
@@ -120,6 +122,30 @@ waybills inactive
                   });
                 }
               }
+
+              //push AND subscribers
+              //OwnerType & EntryType
+              for (let d=0; d<currentCs.length; d++){
+
+                  let temp_Sha1KeyValue = '';
+                  let temp_Key = '';
+                  let temp_Value='';
+
+                  for (let j = 0; j < currentCs[d].length;j++){
+                      temp_Sha1KeyValue = temp_Sha1KeyValue+currentCs[d][j]+element[currentCs[d][j]];
+                      temp_Key = temp_Key+currentCs[d][j];
+                      temp_Value = temp_Value+element[currentCs[d][j]];
+                  }
+
+                   hashBody.push({
+                       EntryGUID: element.EntryGUID,
+                       Sha1KeyValue: sha1(temp_Sha1KeyValue),
+                       Key: temp_Key,
+                       Value: ""+temp_Value
+                   });
+              }
+
+              //console.log(hashBody);
             }
             db.reqPool(q.addWaybills(req.query.sourceID, body, hashBody), {}, function(data, err) {
               if (err) {
