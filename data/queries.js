@@ -247,6 +247,7 @@ module.exports = {
                   LabAnalysisLines.UOM,
                   LabAnalysisLines.Value,
                   LabAnalysisLines.Value2,
+                  LabAnalysisLines.ContractorValue,
                   LabAnalysisLines.ParentAnalisysCode,
                   LabAnalysisLines.Inclusion,
                   LabAnalysisLines.ShowinLabes) B
