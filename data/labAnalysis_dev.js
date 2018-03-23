@@ -32,9 +32,6 @@ available updated laboratory abalysis in the system
                         columns.Qualities = [];
                     });
                     FormID = FormID.substring(0,FormID.length-1);
-                    if(FormID){
-
-                    }
                     if (FormID){
 
 
