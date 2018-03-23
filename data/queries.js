@@ -193,7 +193,7 @@ module.exports = {
     INSERT INTO t005_UserData
     SELECT DISTINCT
       uc.UserID AS UserID,
-      jt.FormID AS EntryGUID,
+      jt.EntryGUID AS EntryGUID,
       1 AS Active,
       'L' AS RecordType
     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt

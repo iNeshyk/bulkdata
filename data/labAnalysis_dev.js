@@ -136,7 +136,7 @@ lab analys inactive
                     }
 
                     hashBody.push({
-                        EntryGUID: element.EntryGUID,
+                        EntryGUID: element.FormID,
                         Sha1KeyValue: sha1(temp_Sha1KeyValue),
                         Key: temp_Key,
                         Value: ""+temp_Value
