@@ -154,7 +154,7 @@ module.exports = {
   },
   getLabAnalysis: (userID , id, limit) => {
     if (!limit) {
-      limit = '100';
+      limit = '500';
     }
     let where = '';
     if (id) {
