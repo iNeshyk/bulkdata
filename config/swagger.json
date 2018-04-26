@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "info": {
         "description": "Новое в версии:\n - Добавили поля в LabAnalysis - ContractorValue",
-        "version": "1.5.18",
+        "version": "1.5.19",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -549,6 +549,13 @@
                 "Posted": {
                     "type": "boolean",
                     "description": "Если докумнет проведен, флаг установлен в Истина"
+                },
+                "Reserve": {
+                    "type": "integer",
+                    "format": "int32",
+                    "maxLength": 1,
+                    "example": 0,
+                    "description": "Баланс.Может быть пусто, Р, ПР, ПП. Для пусто = 0, Р=1, для ПР = 2, для ПП=3"
                 },
                 "Source": {
                     "type": "string",
