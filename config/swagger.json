@@ -550,7 +550,7 @@
                     "type": "boolean",
                     "description": "Если докумнет проведен, флаг установлен в Истина"
                 },
-                "Reserve": {
+                "Ballance": {
                     "type": "integer",
                     "format": "int32",
                     "maxLength": 1,
