@@ -42,8 +42,8 @@ function replacer(key, value){
 
 module.exports = {
   discard:(userID)=>{
-      let q_discard = `UPDATE t005_UserData  
-               SET Active = 0 
+      let q_discard = `UPDATE t005_UserData
+               SET Active = 0
                WHERE UserID = '${userID}'; `;
 
       return q_discard;
@@ -63,9 +63,21 @@ module.exports = {
     AND UD.UserID = '${userID}'
     AND UD.Active = 1
     AND UD.RecordType = 'W'
-    ${where}`;
+    ${where} ORDER By BD.EntryInsertDate;`;
 
-    return q_getWaybills;
+    let q_setLockedUserData = `UPDATE t005_UserData SET Locked = 1
+    WHERE UserID = '${userID}'
+          AND Active = 1
+          AND RecordType = 'W' AND EntryGUID IN (SELECT TOP ${limit} BD.EntryGUID FROM t010_Bulkdata AS BD
+          INNER JOIN t005_UserData AS UD
+          ON BD.EntryGUID = UD.EntryGUID
+          AND UD.UserID = '${userID}'
+          AND UD.Active = 1
+          AND UD.RecordType = 'W'
+          ${where} ORDER BY BD.EntryInsertDate);`
+    console.log(q_setLockedUserData);
+    return q_setLockedUserData+'\n  \n'+q_getWaybills;
+    // return q_setLockedUserData
   },
   addWaybills: (UserID, waybills, hashBody) => {
 
@@ -81,8 +93,10 @@ module.exports = {
        uc.UserID AS UserID,
        jt.EntryGUID AS EntryGUID,
        1 AS Active,
-       'W' AS RecordType
-     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
+       'W' AS RecordType,
+       jt.Sha1Hash AS Sha1Hash,
+       0 AS Locked
+     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50), Sha1Hash nchar(256)) AS jt
        INNER JOIN t003_UserConfig AS uc
        ON jt.Sha1KeyValue = uc.Sha1KeyValue
        AND uc.Active = 1
@@ -90,7 +104,8 @@ module.exports = {
      WHERE uc.UserID <> '${UserID}'
      GROUP BY
        uc.UserID,
-       jt.EntryGUID; `;
+       jt.EntryGUID,
+       jt.Sha1Hash; `;
 
     schema.t010_Bulkdata_fields().forEach(
       function(field){
@@ -111,7 +126,7 @@ module.exports = {
      WHEN NOT MATCHED THEN
          INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
       let q_addWaybills = q1_addWaybills+'\n  \n'+q2_addWaybills;
-
+      // console.log(q_addWaybills);
       return q_addWaybills;
 
   },
@@ -123,7 +138,8 @@ module.exports = {
         WHERE
           t005_UserData.EntryGUID = jt.EntryGUID
           AND t005_UserData.RecordType = 'W'
-          AND t005_UserData.UserID = '${userID}'`;
+          AND t005_UserData.UserID = '${userID}'
+          AND t005_UserData.Locked = 1`;
     return q_patchWaybills;
   },
   delWaybills: (waybills) => {

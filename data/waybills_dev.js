@@ -108,8 +108,10 @@ waybills inactive
 
             for (let i in body) {
               let element = body[i];
+
+              element['Sha1Hash'] = sha1(JSON.stringify(element));
               element['EntryInsertDate']   = new Date();
-              element['EntryInsertUserID'] = '';
+              element['EntryInsertUserID'] = req.query.sourceID;
 
               for(let k in element) {
                 if((k==='ConsigneeRegCode') || (k==='EntryGUID') || (k==='OwnerStateRegCode') || (k==='OwnerType')
@@ -118,7 +120,8 @@ waybills inactive
                     EntryGUID: element.EntryGUID,
                     Sha1KeyValue: sha1(k+element[k]),
                     Key: k,
-                    Value: element[k]
+                    Value: element[k],
+                    Sha1Hash: element['Sha1Hash']
                   });
                 }
               }
@@ -141,7 +144,8 @@ waybills inactive
                        EntryGUID: element.EntryGUID,
                        Sha1KeyValue: sha1(temp_Sha1KeyValue),
                        Key: temp_Key,
-                       Value: ""+temp_Value
+                       Value: ""+temp_Value,
+                       Sha1Hash: element['Sha1Hash']
                    });
               }
 
