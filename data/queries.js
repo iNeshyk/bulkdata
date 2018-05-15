@@ -75,7 +75,7 @@ module.exports = {
           AND UD.Active = 1
           AND UD.RecordType = 'W'
           ${where} ORDER BY BD.EntryInsertDate);`
-    console.log(q_setLockedUserData);
+    // console.log(q_setLockedUserData);
     return q_setLockedUserData+'\n  \n'+q_getWaybills;
     // return q_setLockedUserData
   },
