@@ -301,8 +301,8 @@ module.exports = {
         WHERE
           t005_UserData.EntryGUID = jt.FormID
           AND t005_UserData.RecordType = 'L'
-          AND t005_UserData.UserID = '${userID}
-          AND t005_UserData.Locked = 1'`;
+          AND t005_UserData.UserID = '${userID}'
+          AND t005_UserData.Locked = 1`;
     return q_patchLabAnalysis;
   },
   delLabAnalysis: (labAnalysis) => {
