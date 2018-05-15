@@ -193,7 +193,7 @@ module.exports = {
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
-      ${where}`;
+      ${where} ORDER BY BD.EntryInsertDate`;
 
     return q_setLockedUserData_LabAnalysis+'\n  \n'+q_getLabAnalysis;
   },
