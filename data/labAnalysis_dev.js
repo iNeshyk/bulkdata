@@ -107,6 +107,7 @@ lab analys inactive
 
             for (let i in body) {
               let element = body[i];
+              element['Sha1Hash'] = sha1(JSON.stringify(element));
               element['EntryInsertDate']   = new Date();
               element['EntryInsertUserID'] = ' ';
               for(let k in element) {
@@ -116,7 +117,8 @@ lab analys inactive
                     EntryGUID: element.FormID,
                     Sha1KeyValue: sha1(k+element[k]),
                     Key: k,
-                    Value: element[k]
+                    Value: element[k],
+                    Sha1Hash: element['Sha1Hash']
                   });
                 }
               }

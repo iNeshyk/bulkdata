@@ -176,6 +176,16 @@ module.exports = {
     if (id) {
       where = ` WHERE BD.FormID IN (${id}) `;
     }
+    let q_setLockedUserData_LabAnalysis = `UPDATE t005_UserData SET Locked = 1
+    WHERE UserID = '${userID}'
+          AND Active = 1
+          AND RecordType = 'L' AND EntryGUID IN (SELECT TOP ${limit} BD.FormID FROM t015_LabAnalysis AS BD
+          INNER JOIN t005_UserData AS UD
+          ON BD.FormID = UD.EntryGUID
+          AND UD.UserID = '${userID}'
+          AND UD.Active = 1
+          AND UD.RecordType = 'L'
+          ${where} ORDER BY BD.EntryInsertDate);`;
 
     let q_getLabAnalysis = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
@@ -185,7 +195,7 @@ module.exports = {
       AND UD.RecordType = 'L'
       ${where}`;
 
-    return q_getLabAnalysis;
+    return q_setLockedUserData_LabAnalysis+'\n  \n'+q_getLabAnalysis;
   },
   getLabAnalysisLines:(FormID) =>{
     let where = ` WHERE BD.FormID IN (${FormID}) `;
@@ -211,8 +221,10 @@ module.exports = {
       uc.UserID AS UserID,
       jt.EntryGUID AS EntryGUID,
       1 AS Active,
-      'L' AS RecordType
-    FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
+      'L' AS RecordType,
+      jt.Sha1Hash AS Sha1Hash,
+      0 AS Locked
+    FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50),Sha1Hash nchar(256)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON jt.Sha1KeyValue = uc.Sha1KeyValue
       AND uc.Active = 1
@@ -220,7 +232,8 @@ module.exports = {
     WHERE uc.UserID<>'${sourceID}'
     GROUP BY
       uc.UserID,
-      jt.EntryGUID; `;
+      jt.EntryGUID,
+      jt.Sha1Hash; `;
 
     schema.t015_LabAnalysis_fields().forEach(
       function(field){
@@ -276,7 +289,7 @@ module.exports = {
 
     let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis+'\n  \n'+q3_addLabAnalysis;
     //let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis;
-    console.log(q_addLabAnalysis);
+    // console.log(q_addLabAnalysis);
     return q_addLabAnalysis;
 
   },
@@ -288,7 +301,8 @@ module.exports = {
         WHERE
           t005_UserData.EntryGUID = jt.FormID
           AND t005_UserData.RecordType = 'L'
-          AND t005_UserData.UserID = '${userID}'`;
+          AND t005_UserData.UserID = '${userID}
+          AND t005_UserData.Locked = 1'`;
     return q_patchLabAnalysis;
   },
   delLabAnalysis: (labAnalysis) => {
