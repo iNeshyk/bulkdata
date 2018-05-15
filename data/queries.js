@@ -96,7 +96,7 @@ module.exports = {
        'W' AS RecordType,
        jt.Sha1Hash AS Sha1Hash,
        0 AS Locked
-     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50), Sha1Hash nchar(256)) AS jt
+     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50), Sha1Hash nvarchar(256)) AS jt
        INNER JOIN t003_UserConfig AS uc
        ON jt.Sha1KeyValue = uc.Sha1KeyValue
        AND uc.Active = 1
@@ -224,7 +224,7 @@ module.exports = {
       'L' AS RecordType,
       jt.Sha1Hash AS Sha1Hash,
       0 AS Locked
-    FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50),Sha1Hash nchar(256)) AS jt
+    FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50),Sha1Hash nvarchar(256)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON jt.Sha1KeyValue = uc.Sha1KeyValue
       AND uc.Active = 1
