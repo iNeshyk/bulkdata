@@ -57,7 +57,7 @@ module.exports = {
       where = ` WHERE BD.EntryGUID IN (${id}) `;
     }
 
-    let q_getWaybills = `SELECT DISTINCT TOP ${limit} * FROM t010_Bulkdata AS BD
+    let q_getWaybills = `SELECT DISTINCT TOP ${limit} BD.* FROM t010_Bulkdata AS BD
     INNER JOIN t005_UserData AS UD
     ON BD.EntryGUID = UD.EntryGUID
     AND UD.UserID = '${userID}'
