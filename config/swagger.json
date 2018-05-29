@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили поля в LabAnalysis - ContractorValue",
-        "version": "1.5.19",
+        "description": "Новое в версии:\n - Добавили возможность постановки на подписку произвольные объекты Waybills and LabAnalysis",
+        "version": "1.5.20",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
             "email": "ineshyk@prncp.org"
@@ -56,7 +56,7 @@
                 ],
                 "summary": "discard all waybills from your subscription",
                 "operationId": "discard",
-                "description": "Discard all waybilss from your subscription\n",
+                "description": "Discard all waybilss and labanalysis from your subscription\n",
                 "produces": [
                     "application/json"
                 ],
@@ -67,6 +67,94 @@
                         "description": "pass an optional source id for looking up to discard waybills",
                         "required": true,
                         "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error"
+                    },
+                    "500": {
+                        "description": "Error from database"
+                    }
+                }
+            }
+        },
+        "/account/waybills/data": {
+            "post": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "post an array of waybill to subscription",
+                "operationId": "waybilss_data",
+                "description": "Post an array of waybill to subscription\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sourceID",
+                        "description": "pass an optional source id for looking up to put an array of waybills to subsription",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "waybill",
+                        "description": "An array of waybill to subscription",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/WaybillKey"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Error"
+                    },
+                    "500": {
+                        "description": "Error from database"
+                    }
+                }
+            }
+        },
+        "/account/labAnalysis/data": {
+            "post": {
+                "tags": [
+                    "developers"
+                ],
+                "summary": "post an array of waybill to subscription",
+                "operationId": "waybilss_labAnalysis",
+                "description": "Post an array of Laboratory analysis to subscription\n",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sourceID",
+                        "description": "pass an optional source id for looking up to put an array of Laboratory analysis to subsription",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "waybill",
+                        "description": "An array of Laboratory analysis to subscription",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/LabAnalysKey"
+                            }
+                        }
                     }
                 ],
                 "responses": {

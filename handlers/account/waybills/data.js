@@ -1,24 +1,24 @@
 'use strict';
-var dataProvider = require('../../data/account/discard_dev.js');
+var dataProvider = require('../../../data/account/waybills/data_dev.js');
 /**
- * Operations on /account/discard
+ * Operations on /account/waybills/data
  */
 module.exports = {
     /**
-     * summary: discard all waybills from your subscription
-     * description: Discard all waybilss and labanalysis from your subscription
+     * summary: post an array of waybill to subscription
+     * description: Post an array of waybill to subscription
 
-     * parameters: sourceID
+     * parameters: sourceID, waybill
      * produces: application/json
      * responses: 200, 400, 500
      */
-    get: function discard(req, res, next) {
+    post: function waybilss_data(req, res, next) {
         /**
          * Get the data for response 200
          * For response `default` status 200 is used.
          */
         var status = 200;
-        var provider = dataProvider['get']['200'];
+        var provider = dataProvider['post']['200'];
         provider(req, res, function (err, data) {
             if (err) {
                 next(err);

@@ -1,27 +1,27 @@
 'use strict';
-var Mockgen = require('../mockgen.js');
+var Mockgen = require('../../mockgen.js');
 /**
- * Operations on /account/discard
+ * Operations on /account/waybills/data
  */
 module.exports = {
     /**
-     * summary: discard all waybills from your subscription
-     * description: Discard all waybilss and labanalysis from your subscription
+     * summary: post an array of waybill to subscription
+     * description: Post an array of waybill to subscription
 
-     * parameters: sourceID
+     * parameters: sourceID, waybill
      * produces: application/json
      * responses: 200, 400, 500
-     * operationId: discard
+     * operationId: waybilss_data
      */
-    get: {
+    post: {
         200: function (req, res, callback) {
             /**
              * Using mock data generator module.
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
+                path: '/account/waybills/data',
+                operation: 'post',
                 response: '200'
             }, callback);
         },
@@ -31,8 +31,8 @@ module.exports = {
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
+                path: '/account/waybills/data',
+                operation: 'post',
                 response: '400'
             }, callback);
         },
@@ -42,8 +42,8 @@ module.exports = {
              * Replace this by actual data for the api.
              */
             Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
+                path: '/account/waybills/data',
+                operation: 'post',
                 response: '500'
             }, callback);
         }

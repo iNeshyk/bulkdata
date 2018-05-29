@@ -41,6 +41,34 @@ function replacer(key, value){
 // }
 
 module.exports = {
+  waybill_subscribe:(userID,waybills)=>{
+
+    let q = `declare @json nvarchar(max) = '${JSON.stringify(waybills,replacer)}'
+      UPDATE t005_UserData
+        SET Active = 1, Locked = 0 FROM OPENJSON(@json)
+          WITH (EntryGUID char(36)) AS jt
+        WHERE
+          t005_UserData.EntryGUID = jt.EntryGUID
+          AND t005_UserData.RecordType = 'W'
+          AND t005_UserData.UserID = '${userID}'`
+
+    return q;
+
+  },
+  labAnalys_subscribe:(userID,labAnalysis)=>{
+
+    let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+      UPDATE t005_UserData
+        SET Active = 0, Locked = 1 FROM OPENJSON(@json)
+          WITH (FormID char(36)) AS jt
+        WHERE
+          t005_UserData.EntryGUID = jt.FormID
+          AND t005_UserData.RecordType = 'L'
+          AND t005_UserData.UserID = '${userID}'`;
+
+    return q;
+
+  },
   discard:(userID)=>{
       let q_discard = `UPDATE t005_UserData
                SET Active = 0
