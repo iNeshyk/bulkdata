@@ -617,7 +617,7 @@
                 },
                 "VehicleStateNo": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 20,
                     "example": "АВ4567СХ",
                     "description": "номер транспортного средства"
                 },

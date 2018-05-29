@@ -8,7 +8,7 @@ module.exports = {
      * summary: check service alive status
      * description: Checking service status
 
-     * parameters: 
+     * parameters:
      * produces: application/json
      * responses: 200, 400
      */
