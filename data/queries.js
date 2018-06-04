@@ -177,7 +177,9 @@ module.exports = {
       uc.UserID AS UserID,
       jt.EntryGUID AS EntryGUID,
       1 AS Active,
-      'W' AS RecordType
+      'W' AS RecordType,
+      '0' AS Sha1Hash,
+      0 AS Locked
     FROM OPENJSON(@json1) WITH (EntryGUID char(36)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON uc.Active = 1
@@ -193,7 +195,6 @@ module.exports = {
           t010_Bulkdata.EntryGUID = jt.EntryGUID`;
 
     let q_delWaybills = q1_delWaybills+'\n  \n'+q2_delWaybills;
-
     return q_delWaybills;
   },
   getLabAnalysis: (userID , id, limit) => {
@@ -340,7 +341,9 @@ module.exports = {
       uc.UserID AS UserID,
       jt.FormID AS EntryGUID,
       1 AS Active,
-      'L' AS RecordType
+      'L' AS RecordType,
+      '0' AS Sha1Hash,
+      0 AS Locked
     FROM OPENJSON(@json1) WITH (FormID char(36)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON uc.Active = 1

@@ -1236,6 +1236,12 @@
                     "example": "3242342",
                     "description": "Номер заявки на перевозку."
                 },
+                "LoadPointName": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "example": "Силос 2",
+                    "description": "Наименование места погрузки/разгрузки на елеваторе"
+                },
                 "TrackEvents": {
                     "type": "array",
                     "items": {
