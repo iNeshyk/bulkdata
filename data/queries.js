@@ -348,7 +348,7 @@ module.exports = {
     GETDATE(),
     @json2)`;
 
-    console.log(q_UsersRequestLog);
+    // console.log(q_UsersRequestLog);
     return q_patchLabAnalysis+'\n  \n'+q_UsersRequestLog;
 
   },
