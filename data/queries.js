@@ -342,14 +342,14 @@ module.exports = {
     //             AND t005_UserData.UserID = '${userID}'
     //             AND t005_UserData.Locked = 1`;
 
-    let q_UsersRequestLog = `declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
-    INSERT INTO t903_UsersRequestLog (UserID, InsertDate, QueryBody)
-    VALUES('${userID}',
-    GETDATE(),
-    @json2)`;
+    // let q_UsersRequestLog = `declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+    // INSERT INTO t903_UsersRequestLog (UserID, InsertDate, QueryBody)
+    // VALUES('${userID}',
+    // GETDATE(),
+    // @json2)`;
 
     // console.log(q_UsersRequestLog);
-    return q_patchLabAnalysis+'\n  \n'+q_UsersRequestLog;
+    return q_patchLabAnalysis;
 
   },
   delLabAnalysis: (labAnalysis) => {
