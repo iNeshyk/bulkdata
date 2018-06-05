@@ -332,7 +332,25 @@ module.exports = {
           AND t005_UserData.RecordType = 'L'
           AND t005_UserData.UserID = '${userID}'
           AND t005_UserData.Locked = 1`;
-    return q_patchLabAnalysis;
+    // let q_patchLabAnalysis2 = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+    //         UPDATE t005_UserData
+    //           SET Active = 0 FROM OPENJSON(@json)
+    //             WITH (FormID char(36)) AS jt
+    //           WHERE
+    //             t005_UserData.EntryGUID = jt.FormID
+    //             AND t005_UserData.RecordType = 'L'
+    //             AND t005_UserData.UserID = '${userID}'
+    //             AND t005_UserData.Locked = 1`;
+
+    let q_UsersRequestLog = `declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
+    INSERT INTO t903_UsersRequestLog (UserID, InsertDate, QueryBody)
+    VALUES('${userID}',
+    GETDATE(),
+    @json2)`;
+
+    console.log(q_UsersRequestLog);
+    return q_patchLabAnalysis+'\n  \n'+q_UsersRequestLog;
+
   },
   delLabAnalysis: (labAnalysis) => {
     let q1_delLabAnalysis = `declare @json1 nvarchar(max) = N'${JSON.stringify(labAnalysis)}'
