@@ -208,7 +208,7 @@ module.exports = {
     let q_setLockedUserData_LabAnalysis = `UPDATE t005_UserData SET Locked = 1
     WHERE UserID = '${userID}'
           AND Active = 1
-          AND RecordType = 'L' AND EntryGUID IN (SELECT DISTINCT TOP '${limit}' BD.FormID FROM t015_LabAnalysis AS BD
+          AND RecordType = 'L' AND EntryGUID IN (SELECT DISTINCT TOP ${limit} BD.FormID FROM t015_LabAnalysis AS BD
           INNER JOIN t005_UserData AS UD
           ON BD.FormID = UD.EntryGUID
           AND UD.UserID = '${userID}'
@@ -216,7 +216,7 @@ module.exports = {
           AND UD.RecordType = 'L'
           ${where} ORDER BY BD.EntryInsertDate);`;
 
-    let q_getLabAnalysis = `SELECT DISTINCT TOP '${limit}' BD.* FROM t015_LabAnalysis AS BD
+    let q_getLabAnalysis = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
