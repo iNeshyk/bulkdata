@@ -205,26 +205,28 @@ module.exports = {
     if (id) {
       where = ` WHERE BD.FormID IN (${id}) `;
     }
-    let q_setLockedUserData_LabAnalysis = `UPDATE t005_UserData SET Locked = 1
-    WHERE UserID = '${userID}'
-          AND Active = 1
-          AND RecordType = 'L' AND EntryGUID IN (SELECT DISTINCT TOP ${limit} BD.FormID FROM t015_LabAnalysis AS BD
-          INNER JOIN t005_UserData AS UD
-          ON BD.FormID = UD.EntryGUID
-          AND UD.UserID = '${userID}'
-          AND UD.Active = 1
-          AND UD.RecordType = 'L'
-          ${where} ORDER BY BD.EntryInsertDate);`;
-
-    let q_getLabAnalysis = `SELECT DISTINCT TOP ${limit} BD.* FROM t015_LabAnalysis AS BD
+    let q_tempquery = `
+    SELECT DISTINCT TOP ${limit} BD.*
+    INTO #tempLA_${userID}
+    FROM t015_LabAnalysis AS BD
     INNER JOIN t005_UserData AS UD
       ON BD.FormID = UD.EntryGUID
       AND UD.UserID = '${userID}'
       AND UD.Active = 1
       AND UD.RecordType = 'L'
-      ${where} ORDER BY BD.EntryInsertDate`;
+      ${where} ORDER BY BD.EntryInsertDate;`;
 
-    return q_setLockedUserData_LabAnalysis+'\n  \n'+q_getLabAnalysis;
+    let q_setLockedUserData_LabAnalysis = `
+    UPDATE t005_UserData SET Locked = 1
+    WHERE UserID = '${userID}'
+          AND Active = 1
+          AND RecordType = 'L' AND EntryGUID IN (SELECT T.FormID FROM #tempLA_${userID} AS T);`;
+
+    let q_getLabAnalysis = `SELECT * FROM #tempLA_${userID};`;
+
+    let q_destroy = `DROP TABLE #tempLA_${userID};`;
+
+    return q_tempquery+'\n  \n'+q_setLockedUserData_LabAnalysis+'\n  \n'+q_getLabAnalysis+'\n  \n'+q_destroy;
   },
   getLabAnalysisLines:(FormID) =>{
     let where = ` WHERE BD.FormID IN (${FormID}) `;
