@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Новое в версии:\n - Добавили возможность постановки на подписку произвольные объекты Waybills and LabAnalysis",
+        "description": "Новое в версии:\n - Увеличили длину поля Seals",
         "version": "1.5.20",
         "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
         "contact": {
@@ -1021,7 +1021,7 @@
                 },
                 "Seals": {
                     "type": "string",
-                    "maxLength": 100,
+                    "maxLength": 200,
                     "example": "464565,3464364,3252352",
                     "description": "Перечень пломб (ЗПУ)."
                 },
