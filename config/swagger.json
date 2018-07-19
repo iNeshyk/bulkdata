@@ -922,6 +922,12 @@
                     "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )",
                     "description": "Наименование станции получателя."
                 },
+                "HarvestYear": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2017-01-01T00:00:00.000Z",
+                    "description": "Год урожая."
+                },
                 "ItemGroupID": {
                     "type": "string",
                     "maxLength": 56,
@@ -976,6 +982,12 @@
                     "format": "int32",
                     "example": 70000,
                     "description": "Нетто."
+                },
+                "AccountingWeight": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 65430,
+                    "description": "Зачетный вес."
                 },
                 "ShipmentMethod": {
                     "type": "string",
