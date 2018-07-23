@@ -995,6 +995,12 @@
                     "example": "FCA",
                     "description": "Условия поставки (CPT, FCA)"
                 },
+                "StandardWeightElevator": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 65436,
+                    "description": "Зачетный вес."
+                },
                 "ConsignorGrossWeight": {
                     "type": "integer",
                     "format": "int32",
