@@ -983,12 +983,6 @@
                     "example": 70000,
                     "description": "Нетто."
                 },
-                "AccountingWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 65430,
-                    "description": "Зачетный вес."
-                },
                 "ShipmentMethod": {
                     "type": "string",
                     "maxLength": 15,
@@ -1408,6 +1402,12 @@
                     "format": "date-time",
                     "example": "2017-03-09T14:40:43.511Z",
                     "description": "Дата сертификата протокола ГМО."
+                },
+                "CertificateWeightGMO": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 2000,
+                    "description": "Вес ссертификата ГМО."
                 },
                 "Certificate3No": {
                     "type": "string",
