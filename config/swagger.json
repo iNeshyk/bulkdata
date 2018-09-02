@@ -741,7 +741,7 @@
                 },
                 "TrailerStateNo": {
                     "type": "string",
-                    "maxLength": 15,
+                    "maxLength": 25,
                     "example": "ВП2812СМ",
                     "description": "номер прицепа"
                 },
