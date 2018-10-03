@@ -1254,6 +1254,16 @@
                     "example": "Силос 2",
                     "description": "Наименование места погрузки/разгрузки на елеваторе"
                 },
+                "ContainerID": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "",
+                    "description": "Номер контейнера"
+                },
+                "isContainer": {
+                    "type": "boolean",
+                    "description": "Флаг наличия контейнера (1-есть контейнер, 0-отсутствует)"
+                },
                 "TrackEvents": {
                     "type": "array",
                     "items": {
