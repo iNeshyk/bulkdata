@@ -123,7 +123,8 @@ module.exports = {
        1 AS Active,
        'W' AS RecordType,
        jt.Sha1Hash AS Sha1Hash,
-       0 AS Locked
+       0 AS Locked,
+       CONVERT (datetime, GETDATE()) AS InsertDate
      FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50), Sha1Hash nvarchar(256)) AS jt
        INNER JOIN t003_UserConfig AS uc
        ON jt.Sha1KeyValue = uc.Sha1KeyValue
@@ -254,7 +255,8 @@ module.exports = {
       1 AS Active,
       'L' AS RecordType,
       jt.Sha1Hash AS Sha1Hash,
-      0 AS Locked
+      0 AS Locked,
+      CONVERT (datetime, GETDATE()) AS InsertDate
     FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50),Sha1Hash nvarchar(256)) AS jt
       INNER JOIN t003_UserConfig AS uc
       ON jt.Sha1KeyValue = uc.Sha1KeyValue
