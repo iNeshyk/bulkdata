@@ -138,7 +138,7 @@ waybills inactive
                       temp_Sha1KeyValue = temp_Sha1KeyValue+currentCs[d][j]+element[currentCs[d][j]];
                       temp_Key = temp_Key+currentCs[d][j];
                       temp_Value = temp_Value+element[currentCs[d][j]];
-                      console.log(temp_Key);
+                      console.log( sha1(temp_Sha1KeyValue));
                   }
 
                    hashBody.push({
