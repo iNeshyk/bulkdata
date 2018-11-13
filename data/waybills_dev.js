@@ -103,14 +103,14 @@ waybills inactive
         201: function (req, res, callback) {
             let body     = req.body;
             let hashBody = [];
-
+            let entryInsertDate = new Date();
             let currentCs = cS.getCustomSubscribe();
 
             for (let i in body) {
               let element = body[i];
 
               element['Sha1Hash'] = sha1(JSON.stringify(element));
-              element['EntryInsertDate']   = new Date();
+              element['EntryInsertDate']   = entryInsertDate;
               element['EntryInsertUserID'] = req.query.sourceID;
 
               for(let k in element) {
@@ -138,7 +138,7 @@ waybills inactive
                       temp_Sha1KeyValue = temp_Sha1KeyValue+currentCs[d][j]+element[currentCs[d][j]];
                       temp_Key = temp_Key+currentCs[d][j];
                       temp_Value = temp_Value+element[currentCs[d][j]];
-                      console.log( sha1(temp_Sha1KeyValue));
+                      // console.log( sha1(temp_Sha1KeyValue));
                   }
 
                    hashBody.push({

@@ -102,13 +102,13 @@ lab analys inactive
 
             let body     = req.body;
             let hashBody = [];
-
+            let entryInsertDate = new Date();
             let currentCs = cS.getCustomSubscribe();
 
             for (let i in body) {
               let element = body[i];
               element['Sha1Hash'] = sha1(JSON.stringify(element));
-              element['EntryInsertDate']   = new Date();
+              element['EntryInsertDate']   = entryInsertDate;
               element['EntryInsertUserID'] = ' ';
               for(let k in element) {
                 if((k==='ConsigneeRegCode') || (k==='FormID') || (k==='OwnerStateRegCode') || (k==='OwnerType')
