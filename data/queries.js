@@ -59,7 +59,7 @@ module.exports = {
 
     let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
       UPDATE t005_UserData
-        SET Active = 0, Locked = 1 FROM OPENJSON(@json)
+        SET Active = 1, Locked = 0 FROM OPENJSON(@json)
           WITH (FormID char(36)) AS jt
         WHERE
           t005_UserData.EntryGUID = jt.FormID
