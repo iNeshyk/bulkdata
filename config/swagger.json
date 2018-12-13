@@ -665,7 +665,7 @@
                 },
                 "RFID": {
                     "type": "string",
-                    "maxLength": 100,
+                    "maxLength": 24,
                     "example": "E2005120360301271270944B",
                     "description": "RFID идентификатор товарной операции. Используется для контрольного периметра."
                 },
@@ -1557,11 +1557,24 @@
                     "example": "",
                     "description": "Строковое значение показателя."
                 },
+                "ValueFact": {
+                    "type": "string",
+                    "minLength": 0,
+                    "maxLength": 40,
+                    "example": "",
+                    "description": "Строковое фактическое значение показателя."
+                },
                 "Value2": {
                     "type": "number",
                     "format": "double",
                     "example": 2,
                     "description": "Числовое знаениче показателя."
+                },
+                "Value2Fact": {
+                  "type": "number",
+                  "format": "double",
+                  "example": 2,
+                  "description": "Числовое знаениче показателя."
                 },
                 "ContractorValue": {
                     "type": "string",
