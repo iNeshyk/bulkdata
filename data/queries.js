@@ -85,7 +85,9 @@ module.exports = {
       where = ` WHERE BD.EntryGUID IN (${id}) `;
     }
 
-    let q_getWaybills = `SELECT DISTINCT TOP ${limit} BD.* FROM t010_Bulkdata AS BD
+    let temp_q_getWaybills = `SELECT DISTINCT TOP ${limit} BD.*
+    INTO #tempWB_${userID}
+    FROM t010_Bulkdata AS BD
     INNER JOIN t005_UserData AS UD
     ON BD.EntryGUID = UD.EntryGUID
     AND UD.UserID = '${userID}'
@@ -95,16 +97,15 @@ module.exports = {
 
     let q_setLockedUserData = `UPDATE t005_UserData SET Locked = 1
     WHERE UserID = '${userID}'
-          AND Active = 1
-          AND RecordType = 'W' AND EntryGUID IN (SELECT TOP ${limit} BD.EntryGUID FROM t010_Bulkdata AS BD
-          INNER JOIN t005_UserData AS UD
-          ON BD.EntryGUID = UD.EntryGUID
-          AND UD.UserID = '${userID}'
-          AND UD.Active = 1
-          AND UD.RecordType = 'W'
-          ${where} ORDER BY BD.EntryInsertDate);`
+    AND Active = 1
+    AND RecordType = 'W' AND EntryGUID IN (SELECT TOP ${limit} BD.EntryGUID FROM  #tempWB_${userID} AS BD);`;
+
+    let q_getWaybills = `SELECT * FROM #tempWB_${userID};`;
+
+    let q_destroy_waybills = `DROP TABLE #tempWB_${userID};`;
+
     // console.log(q_setLockedUserData);
-    return q_setLockedUserData+'\n  \n'+q_getWaybills;
+    return temp_q_getWaybills+'\n  \n'+q_setLockedUserData+'\n  \n'+q_getWaybills+'\n  \n'+q_destroy_waybills;
     // return q_setLockedUserData
   },
   addWaybills: (UserID, waybills, hashBody) => {
