@@ -1,1668 +1,1545 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "description": "Новое в версии:\n - Увеличили длину поля Seals",
-        "version": "1.5.20",
-        "title": "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
-        "contact": {
-            "email": "ineshyk@prncp.org"
-        },
-        "license": {
-            "name": "MIT",
-            "url": "https://opensource.org/licenses/MIT"
-        }
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Новое в версии:\n - Увеличили длину поля Seals",
+    "version" : "1.5.20",
+    "title" : "Bulkdata API - хранилище для товарно-транспортных накладных и лабораторных анализов.",
+    "contact" : {
+      "email" : "ineshyk@prncp.org"
     },
-    "tags": [
-        {
-            "name": "developers",
-            "description": "Operations available to regular developers"
-        },
-        {
-            "name": "all",
-            "description": "Operations available to all requests"
-        }
-    ],
-    "schemes": [
-        "https",
-        "http"
-    ],
-    "paths": {
-        "/ping": {
-            "get": {
-                "tags": [
-                    "all",
-                    "developers"
-                ],
-                "summary": "check service alive status",
-                "operationId": "ping",
-                "description": "Checking service status\n",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "alive = true"
-                    },
-                    "400": {
-                        "description": "alive = false"
-                    }
-                }
-            }
-        },
-        "/account/discard": {
-            "get": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "discard all waybills from your subscription",
-                "operationId": "discard",
-                "description": "Discard all waybilss and labanalysis from your subscription\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up to discard waybills",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "400": {
-                        "description": "Error"
-                    },
-                    "500": {
-                        "description": "Error from database"
-                    }
-                }
-            }
-        },
-        "/account/waybills/data": {
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "post an array of waybill to subscription",
-                "operationId": "waybilss_data",
-                "description": "Post an array of waybill to subscription\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up to put an array of waybills to subsription",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "waybill",
-                        "description": "An array of waybill to subscription",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "400": {
-                        "description": "Error"
-                    },
-                    "500": {
-                        "description": "Error from database"
-                    }
-                }
-            }
-        },
-        "/account/labAnalysis/data": {
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "post an array of waybill to subscription",
-                "operationId": "waybilss_labAnalysis",
-                "description": "Post an array of Laboratory analysis to subscription\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up to put an array of Laboratory analysis to subsription",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "waybill",
-                        "description": "An array of Laboratory analysis to subscription",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "400": {
-                        "description": "Error"
-                    },
-                    "500": {
-                        "description": "Error from database"
-                    }
-                }
-            }
-        },
-        "/waybills": {
-            "get": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "get all waybills to you account",
-                "operationId": "getWaybills",
-                "description": "By passing in the appropriate options, you can get\navailable updated waybills in the system\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "id",
-                        "description": "pass an optional id for looking up current waybill",
-                        "required": false,
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "uid"
-                        }
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "maximum number of records to return",
-                        "required": false,
-                        "type": "integer",
-                        "format": "int32",
-                        "minimum": 0,
-                        "maximum": 1000
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Waybill"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "set waybills inactive",
-                "operationId": "pushWaybills",
-                "description": "By passing in the appropriate options, you can set\nwaybills inactive\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
-                    {
-                        "in": "body",
-                        "name": "waybillKey",
-                        "description": "Waybill to incative",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "adds an waybill",
-                "operationId": "addWaybill",
-                "description": "Adds an waybill to the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "waybill",
-                        "description": "Waybill to add",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Waybill"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "waybill created"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "409": {
-                        "description": "an existing waybill already exists"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an waybill",
-                "operationId": "delWaybill",
-                "description": "Delete an waybill from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delWaybill",
-                        "description": "Waybill to delete",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/WaybillKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "waybill deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    }
-                }
-            }
-        },
-        "/labAnalysis": {
-            "get": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "get all lab analysis to you account",
-                "operationId": "getlabAnalysis",
-                "description": "By passing in the appropriate options, you can get\navailable updated laboratory abalysis in the system\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current laboratory analysis",
-                        "required": true,
-                        "type": "string",
-                        "format": "uid"
-                    },
-                    {
-                        "in": "query",
-                        "name": "id",
-                        "description": "pass an optional id for looking up current lab analys",
-                        "required": false,
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "format": "uid"
-                        }
-                    },
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "description": "maximum number of records to return",
-                        "required": false,
-                        "type": "integer",
-                        "format": "int32",
-                        "minimum": 0,
-                        "maximum": 1000
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalys"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "patch": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "set waybills inactive",
-                "operationId": "pushLabAnalysis",
-                "description": "By passing in the appropriate options, you can set\nlab analys inactive\n",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current laboratory analysis",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "labAnalysKey",
-                        "description": "Laboratory analys to incative",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "search results matching criteria",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "bad input parameter"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "adds an waybill",
-                "operationId": "addLabAnalysis",
-                "description": "Adds an laboratory analysis to the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "sourceID",
-                        "description": "pass an optional source id for looking up current waybills",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "labAnalys",
-                        "description": "Laboratory analysis to add",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalys"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "lab analysis created"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "409": {
-                        "description": "an existing analysis already exists"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "delete an lab analys",
-                "operationId": "delLabAnalys",
-                "description": "Delete an laboratory analys from the system",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "delLabAnalys",
-                        "description": "Laboratory analys to delete",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/LabAnalysKey"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "laboratory analys deleted"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    }
-                }
-            }
-        },
-        "/trackEvents": {
-            "post": {
-                "tags": [
-                    "developers"
-                ],
-                "summary": "Post states by the waybills",
-                "operationId": "postStates",
-                "description": "By passing in the appropriate options, you can post\nstates for the waybills\n",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "States",
-                        "description": "States to add",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/TrackEvenet"
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "States added"
-                    },
-                    "400": {
-                        "description": "invalid input, object invalid"
-                    },
-                    "409": {
-                        "description": "an existing posts already exists"
-                    }
-                }
-            }
-        }
-    },
-    "definitions": {
-        "WaybillKey": {
-            "type": "object",
-            "required": [
-                "EntryGUID"
-            ],
-            "properties": {
-                "EntryGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
-                }
-            }
-        },
-        "Waybill": {
-            "type": "object",
-            "required": [
-                "EntryGUID",
-                "Source",
-                "ConsigneeRegCode",
-                "OwnerStateRegCode"
-            ],
-            "properties": {
-                "EntryGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-                    "description": "Уникальный идентификатор товарной операции"
-                },
-                "OwnerEntryGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": false,
-                    "example": "f390f1ee-6c54-4b01-90e6-d701748f0812",
-                    "description": "Для связи приходной операции с расходной операцией (если есть такая возмможность)"
-                },
-                "Complex": {
-                    "type": "boolean",
-                    "description": "Когда в одном ТС несколько грузов или контрагентов. Тогда общая масса груза в этом ТС (комплексном)), разбиватеся на подчиненные операции. Подчиненные операции имеют ссылку на комплексную. Сумма нетто в подчиненных равно нетто в комплексной. Применять себе в учет нужно все подчиненные или только комплексную."
-                },
-                "ComplexID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "567687ee-2311-4b01-32f4-d701748f0851",
-                    "description": "Это подчиненная операция. Здесь хранится ссылка на ID комплексную."
-                },
-                "EntryType": {
-                    "type": "boolean",
-                    "description": "false-приход, true - расход"
-                },
-                "Active": {
-                    "type": "boolean",
-                    "description": "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален"
-                },
-                "Posted": {
-                    "type": "boolean",
-                    "description": "Если докумнет проведен, флаг установлен в Истина"
-                },
-                "Ballance": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Баланс.Может быть пусто, Р, ПР, ПП. Для пусто = 0, Р=1, для ПР = 2, для ПП=3"
-                },
-                "Source": {
-                    "type": "string",
-                    "maxLength": 20,
-                    "example": "ЭЛ01",
-                    "description": "Здесь указываем код БД, откуда сгенерирована запись: UE-новая ККУ, UTP-старая ККУ, AD - агродата, TBT-трансбалк, и т.д."
-                },
-                "BarCode": {
-                    "type": "string",
-                    "maxLength": 14,
-                    "example": "20100000001234",
-                    "description": "Штрихкод в формате EAN13 операции на первичном документе (ТТН, расходной налкадной)."
-                },
-                "NFC": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "01-01-18-94",
-                    "description": "Идентификатор NFC метки товарной операции. Используется аграрным бизнессом."
-                },
-                "RFID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "E2005120360301271270944B",
-                    "description": "RFID идентификатор товарной операции. Используется для контрольного периметра."
-                },
-                "VehicleType": {
-                    "type": "boolean",
-                    "description": "true=авто, false-жд"
-                },
-                "VehicleTypeID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Уникальный идентификатор типа транспортного средства в НСИ"
-                },
-                "VehicleTypeName": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Грузовой",
-                    "description": "Наименование типа транспортного средства"
-                },
-                "VehicleSubTypeID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Уникальный идентификатор подтипа транспортного средства в НСИ"
-                },
-                "VehicleSubTypeName": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Самосвал",
-                    "description": "Наименование подтипа транспортного средства"
-                },
-                "VehicleID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Идентификатор транспортного средства в НСИ"
-                },
-                "VehicleStateNo": {
-                    "type": "string",
-                    "maxLength": 20,
-                    "example": "АВ4567СХ",
-                    "description": "номер транспортного средства"
-                },
-                "TrailerTypeID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Уникальный идентификатор типа прицепа в НСИ"
-                },
-                "TrailerTypeName": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Грузовой",
-                    "description": "Наименование типа прицепа"
-                },
-                "TrailerSubTypeID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Уникальный идентификатор подтипа прицепа в НСИ"
-                },
-                "TrailerSubTypeName": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Самосвал",
-                    "description": "Наименование подтипа прицепа"
-                },
-                "TrailerID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Идентификатор прицепа в НСИ"
-                },
-                "TrailerStateNo": {
-                    "type": "string",
-                    "maxLength": 25,
-                    "example": "ВП2812СМ",
-                    "description": "номер прицепа"
-                },
-                "DocumentDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-04-23T18:25:43.511Z",
-                    "description": "Дата создания документа"
-                },
-                "DocumentNumber": {
-                    "type": "string",
-                    "maxLength": 30,
-                    "example": "ЭЛ01-20170101-001",
-                    "description": "Номер, сгенерированный при создании документа"
-                },
-                "WaybillNo": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "9678711",
-                    "description": "Номер ТТН"
-                },
-                "WaybillDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-04-23T18:25:43.511Z",
-                    "description": "Дата ТТН отправителя."
-                },
-                "PostingDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-04-23T18:25:43.511Z",
-                    "description": "Дата движения по балансу на карточке клиента (приход/списание)."
-                },
-                "ShipmentDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-04-23T18:25:43.511Z",
-                    "description": "Дата отправки ТС в адрес получателя (дата выезда)."
-                },
-                "OwnerStateName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Дружба НОВА ТОВ",
-                    "description": "Владелец груза. С чьей карточки списан груз или на чью карточку оприходован."
-                },
-                "OwnerType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "OwnerStateRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "31333767",
-                    "description": "Код едрпоу сосбтвенника (ИНН)."
-                },
-                "ShippingAgentStateName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "ФОП Поляков",
-                    "description": "Транспортно-экспедиционная организация, которая осуществляет (организовывает) перевозку."
-                },
-                "ShippingAgentStateRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "78425984",
-                    "description": "Код едрпоу перевозчика (ИНН)."
-                },
-                "OrderAgentStateName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Дружба Нова, СТОВ",
-                    "description": "Кто заказывает перевозку (оплачивает перевозчику за услуги). В основном для автоперевозок."
-                },
-                "OrderAgentStateRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "31333767",
-                    "description": "Код едрпоу заказчика (ИНН)."
-                },
-                "ConsignorName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Миргородська дільниця",
-                    "description": "Предприятие - отправитель груза."
-                },
-                "ConsignorRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "05581898",
-                    "description": "Код едрпоу предприятия отправителя (ИНН)."
-                },
-                "ConsignorType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "ConsigneeName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Линовицька дільниця",
-                    "description": "Предприятие - получатель груза."
-                },
-                "ConsigneeRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "31834605",
-                    "description": "Код едрпоу предприятия получателя (ИНН)."
-                },
-                "ConsigneeType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "ShipmentLocationName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "ООО Миргородський елеватор",
-                    "description": "Склад-отправитель название."
-                },
-                "ShipmentNAVLocationCode": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "NAV64",
-                    "description": "Склад-отправитель из классификатора NAV17."
-                },
-                "ShipmentLocationAdress": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "Полтавська обл., м. Миргород, вул. Петрівська, 15.",
-                    "description": "Адрес склада-отправителя"
-                },
-                "DestinationLocationName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "ООО Тис зеро",
-                    "description": "Склад-получатель название."
-                },
-                "DestinationNAVLocationCode": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "NAV22",
-                    "description": "Склад-получатель из классификатора NAV17."
-                },
-                "DestinationLocationAdress": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
-                    "description": "Адрес склада-получателя."
-                },
-                "ShipmentRWStationCode": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "example": "447801",
-                    "description": "Код станции отправления из классификатора ЖД станций."
-                },
-                "ShipmentRWStationName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "МИРГОРОД",
-                    "description": "Наименование станции отправителя."
-                },
-                "DestinationRWStationCode": {
-                    "type": "string",
-                    "maxLength": 10,
-                    "example": "403002",
-                    "description": "Код станции получателя из классификатора ЖД станций."
-                },
-                "DestinationRWStationName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )",
-                    "description": "Наименование станции получателя."
-                },
-                "HarvestYear": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-01-01T00:00:00.000Z",
-                    "description": "Год урожая."
-                },
-                "ItemGroupID": {
-                    "type": "string",
-                    "maxLength": 56,
-                    "example": "КУКУРУДЗА",
-                    "description": "Индетификатотр группы груза."
-                },
-                "ItemGroupName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Кукурудза",
-                    "description": "Наименование группы груза (Культура, Пшеница, Соя)."
-                },
-                "ItemID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "КУК3КЛ",
-                    "description": "Индетификатотр груза."
-                },
-                "ItemGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "maxLength": 56,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-                    "description": "Индетификатотр груза."
-                },
-                "ItemName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Кукурудза 3 класу кормові потреби",
-                    "description": "Наименование груза."
-                },
-                "ItemNavCode": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "NAV5",
-                    "description": "Код груза из классификатора."
-                },
-                "GrossWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 95010,
-                    "description": "Брутто."
-                },
-                "VehicleWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 25010,
-                    "description": "Тара."
-                },
-                "NetWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 70000,
-                    "description": "Нетто."
-                },
-                "ShipmentMethod": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "FCA",
-                    "description": "Условия поставки (CPT, FCA)"
-                },
-                "StandardWeightElevator": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 65436,
-                    "description": "Зачетный вес."
-                },
-                "ConsignorGrossWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 92700,
-                    "description": "Брутто. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
-                },
-                "ConsignorVehicleWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 12100,
-                    "description": "Тара. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
-                },
-                "ConsignorWeight": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 80600,
-                    "description": "Нетто. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
-                },
-                "TruckModel": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "КАМАЗ",
-                    "description": "Марка транспортного средства."
-                },
-                "TruckModelType": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "65206",
-                    "description": "Модель транспортного средства."
-                },
-                "TruckVechicleType": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "полуприцеп",
-                    "description": "Тип транспортного средства (автомобиль, вагон, тягач, полуприцеп, цистерна)."
-                },
-                "Seals": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "464565,3464364,3252352",
-                    "description": "Перечень пломб (ЗПУ)."
-                },
-                "DriverID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "69e45b7e-e3eb-4746-4ec2-74666602f617",
-                    "description": "Идентификатор водителя в системе НСИ"
-                },
-                "DriverSerial": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "РМА201869",
-                    "description": "Серия и номер водительского удост-ния."
-                },
-                "DriverName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Кобальский Петро Васильович",
-                    "description": "ФИО водителя."
-                },
-                "DriverPhone": {
-                    "type": "string",
-                    "maxLength": 40,
-                    "example": "+380979003639",
-                    "description": "Контактный номер водителя."
-                },
-                "Field1Name": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "901813145809",
-                    "description": "Код поля или тока. Используется аграрным бизнесом."
-                },
-                "Field1Type": {
-                    "type": "integer",
-                    "example": 0,
-                    "description": "Тип поля или тока. Используется аграрным бизнесом. (Поле - 0, Ток-1, МестоХранения-2, Регион - 4)."
-                },
-                "Field1Adress": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
-                    "description": "Адрес поля или тока."
-                },
-                "Field1Percent": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 80,
-                    "description": "Процент заполнения грузом. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
-                },
-                "Field1Mositure": {
-                    "type": "number",
-                    "format": "doble",
-                    "example": 14.3,
-                    "description": "Влажность груза."
-                },
-                "Field2Name": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "901813145809",
-                    "description": "Код второго  поля или тока. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
-                },
-                "Field2Type": {
-                    "type": "integer",
-                    "example": 0,
-                    "description": "Тип поля или тока. Используется аграрным бизнесом. (Поле - 0, Ток-1, МестоХранения-2, Регион - 4)"
-                },
-                "Field2Adress": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
-                    "description": "Адрес поля или тока."
-                },
-                "Field2Percent": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 20,
-                    "description": "Процент заполнения грузом. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
-                },
-                "Field2Mositure": {
-                    "type": "number",
-                    "format": "doble",
-                    "example": 15.6,
-                    "description": "Влажность груза."
-                },
-                "Departure": {
-                    "type": "boolean",
-                    "description": "false-не выехал, 1 - выехал"
-                },
-                "LocalityInID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0500100000",
-                    "description": "Код КОАТУУ населеного пункту розвантаження."
-                },
-                "LocalityInName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "м. Вінниця",
-                    "description": "Назва населеного пункту розвантаження."
-                },
-                "LocalitySubGroupInID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0501000000",
-                    "description": "Код КОАТУУ району населенного пункту розвантаження."
-                },
-                "LocalitySubGroupInName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "ВІННИЦЬКИЙ РАЙОН",
-                    "description": "Назва району населенного пункту розвантаження."
-                },
-                "LocalityGroupInID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0500000000",
-                    "description": "Код КОАТУУ населеного пункту розвантаження."
-                },
-                "LocalityGroupInName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "ВІННИЦЬКА ОБЛ.",
-                    "description": "Назва області населеного пункту розвантаження."
-                },
-                "LocalityOutID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0500100000",
-                    "description": "Код КОАТУУ населеного пункту навантаження."
-                },
-                "LocalityOutName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "м. Вінниця",
-                    "description": "Назва населеного пункту навантаження."
-                },
-                "LocalitySubGroupOutID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0501000000",
-                    "description": "Код КОАТУУ району населенного пункту навантаження."
-                },
-                "LocalitySubGroupOutName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "ВІННИЦЬКИЙ РАЙОН",
-                    "description": "Назва району населенного пункту навантаження."
-                },
-                "LocalityGroupOutID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "0500000000",
-                    "description": "Код КОАТУУ області населеного пункту навантаження."
-                },
-                "LocalityGroupOutName": {
-                    "type": "string",
-                    "maxLength": 400,
-                    "example": "ВІННИЦЬКА ОБЛ.",
-                    "description": "Назва області населеного пункту навантаження."
-                },
-                "DepartureDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-05-23T18:25:43.511Z",
-                    "description": "Дата выезда транспортного средства"
-                },
-                "LastTrackEventDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-05-23T18:40:50.511Z",
-                    "description": "Дата последнего события"
-                },
-                "LastTrackEventID": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "UPLOAD",
-                    "description": "Идентификатор текущего статуса"
-                },
-                "LastTrackEventName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Выгрузка на элеваторе",
-                    "description": "Наименование текущего статуса"
-                },
-                "LastLon": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "34,241414",
-                    "description": "Координата Longitude"
-                },
-                "LastLat": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "36,355245",
-                    "description": "Координата Latitude"
-                },
-                "RequestID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "3242342",
-                    "description": "Идентификатор заявки на перевозку."
-                },
-                "RequestNumber": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "3242342",
-                    "description": "Номер заявки на перевозку."
-                },
-                "LoadPointName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Силос 2",
-                    "description": "Наименование места погрузки/разгрузки на елеваторе"
-                },
-                "ContainerID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "",
-                    "description": "Номер контейнера"
-                },
-                "isContainer": {
-                    "type": "boolean",
-                    "description": "Флаг наличия контейнера (1-есть контейнер, 0-отсутствует)"
-                },
-                "TrackEvents": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/TrackEvenet"
-                    },
-                    "description": "Таблица с событиями транспортного средства."
-                }
-            }
-        },
-        "LabAnalysKey": {
-            "type": "object",
-            "required": [
-                "FormID"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456"
-                }
-            }
-        },
-        "LabAnalys": {
-            "type": "object",
-            "required": [
-                "FormID",
-                "Type",
-                "TransportShipmentID",
-                "Active",
-                "ConsigneeRegCode"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456",
-                    "description": "Уникальный идентификатор лабораторного анализа."
-                },
-                "Type": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "Полный.",
-                    "description": "Тип лабораторного анализа (полный, расчетный, экспресс)."
-                },
-                "Source": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "ЭЛ01",
-                    "description": "Источник создания документа"
-                },
-                "Posted": {
-                    "type": "boolean",
-                    "description": "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален."
-                },
-                "TransportShipmentID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-                    "description": "Уникальный идентификатор товарной операции."
-                },
-                "Active": {
-                    "type": "boolean",
-                    "description": "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален."
-                },
-                "OwnerStateRegCode": {
-                    "type": "string",
-                    "maxLength": 12,
-                    "example": "31333767",
-                    "description": "Код едрпоу сосбтвенника (ИНН)."
-                },
-                "ConsigneeRegCode": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "31333767",
-                    "description": "Код едрпоу предприятия получателя (ИНН)."
-                },
-                "ConsignorRegCode": {
-                    "type": "string",
-                    "maxLength": 15,
-                    "example": "25255267",
-                    "description": "Код едрпоу предприятия отправителя (ИНН)."
-                },
-                "No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "ЭЛ01-0004534566",
-                    "description": "Номер анализной карточки."
-                },
-                "Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-15T18:25:43.511Z"
-                },
-                "ScanCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "0123456789123",
-                    "description": "Дата анализной карточки"
-                },
-                "HarvestYear": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-01-01T00:00:00.000Z",
-                    "description": "Год урожая."
-                },
-                "WaybillNo": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 30,
-                    "example": "ЭЛ01-20170315-001",
-                    "description": "Номер товарной операции, к которой подвязан документ."
-                },
-                "WaybillDate": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-14T14:40:43.511Z",
-                    "description": "Дата товарной операции, к которой подвязан документ."
-                },
-                "Certificate1No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "12345678910",
-                    "description": "Номер сертификата протокола безопасности."
-                },
-                "Certificate1Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-10T14:40:43.511Z",
-                    "description": "Дата сертификата протокола безопасности."
-                },
-                "Certificate2No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "0123456789012",
-                    "description": "Номер сертификата протокола ГМО."
-                },
-                "Certificate2Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-09T14:40:43.511Z",
-                    "description": "Дата сертификата протокола ГМО."
-                },
-                "CertificateWeightGMO": {
-                    "type": "integer",
-                    "format": "int32",
-                    "example": 2000,
-                    "description": "Вес ссертификата ГМО."
-                },
-                "Certificate3No": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "12345678910",
-                    "description": "Номер сертификата качества."
-                },
-                "Certificate3Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2017-03-10T14:40:43.511Z",
-                    "description": "Дата сертификата качества."
-                },
-                "EntryType": {
-                    "type": "boolean",
-                    "description": "Вид движения 0-приход, 1 - расход"
-                },
-                "ItemGroupID": {
-                    "type": "string",
-                    "maxLength": 56,
-                    "example": "КУКУРУДЗА",
-                    "description": "Индетификатотр группы груза."
-                },
-                "ItemGroupName": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "Кукурудза",
-                    "description": "Наименование группы груза (Культура, Пшеница, Соя)."
-                },
-                "ItemID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "КУК3КЛ",
-                    "description": "Индетификатотр груза."
-                },
-                "ItemGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "maxLength": 56,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-                    "description": "Индетификатотр груза."
-                },
-                "ItemName": {
-                    "type": "string",
-                    "maxLength": 200,
-                    "example": "Кукурудза 3 класу кормові потреби",
-                    "description": "Наименование груза."
-                },
-                "ItemNavCode": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "NAV5",
-                    "description": "Код груза из классификатора."
-                },
-                "LabOperator": {
-                    "type": "string",
-                    "maxLength": 50,
-                    "example": "Васильева А.П.",
-                    "description": "ФИО Лаборанта, который провел анализ"
-                },
-                "OwnerType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "ConsigneeType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "ConsignorType": {
-                    "type": "integer",
-                    "format": "int32",
-                    "maxLength": 1,
-                    "example": 0,
-                    "description": "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
-                },
-                "Qualities": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/LabAnalysLine"
-                    },
-                    "description": "Таблица с качественными показателями."
-                }
-            }
-        },
-        "LabAnalysLine": {
-            "type": "object",
-            "required": [
-                "FormID",
-                "AnalisysCode",
-                "AnalisysName",
-                "ValueType"
-            ],
-            "properties": {
-                "FormID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "z256561ee-6c54-4b01-90e6-d701748f0456",
-                    "description": "Уникальный идентификатор лабораторного анализа."
-                },
-                "AnalisysCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 50,
-                    "example": "МинеральнаяПримесь",
-                    "description": "Идентификатор качественных показателей. "
-                },
-                "AnalisysName": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "Минеральная примесь",
-                    "description": "Наименование качественного показателя."
-                },
-                "ValueType": {
-                    "type": "boolean",
-                    "description": "Тип значения (0-число, 1-строка)."
-                },
-                "UOM": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "%",
-                    "description": "Единица измерения."
-                },
-                "Value": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "",
-                    "description": "Строковое значение показателя."
-                },
-                "ValueFact": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 40,
-                    "example": "",
-                    "description": "Строковое фактическое значение показателя."
-                },
-                "Value2": {
-                    "type": "number",
-                    "format": "double",
-                    "example": 2,
-                    "description": "Числовое знаениче показателя."
-                },
-                "Value2Fact": {
-                  "type": "number",
-                  "format": "double",
-                  "example": 2,
-                  "description": "Числовое знаениче показателя."
-                },
-                "ContractorValue": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "18.2",
-                    "description": "Значение показателя."
-                },
-                "ParentAnalisysCode": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 50,
-                    "example": "СорнаяПримесь",
-                    "description": "Уникальный идентификатор родителя качественного показателя."
-                },
-                "Inclusion": {
-                    "type": "boolean",
-                    "description": "Признак влияния значения текущего показателя на итоговый показатель владельца."
-                },
-                "ShowinLabes": {
-                    "type": "boolean",
-                    "description": "Признак отображения текущего показателя в печатной форме документа."
-                }
-            }
-        },
-        "TrackEvenet": {
-            "type": "object",
-            "required": [
-                "EventID",
-                "EntryGUID",
-                "Date"
-            ],
-            "properties": {
-                "EventID": {
-                    "type": "string",
-                    "maxLength": 100,
-                    "example": "UPLOAD",
-                    "description": "Уникальный идентификатор состояния."
-                },
-                "EventName": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "Выгруза на эелеваторе",
-                    "description": "Наименование события рейса"
-                },
-                "EntryGUID": {
-                    "type": "string",
-                    "format": "uuid",
-                    "uniqueItems": true,
-                    "example": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-                    "description": "Уникальный идентификатор товарной операции"
-                },
-                "Date": {
-                    "type": "string",
-                    "format": "date-time",
-                    "example": "2012-04-23T18:25:43.511Z",
-                    "description": "Дата регистрации события."
-                },
-                "WaybillNumber": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 50,
-                    "example": "ЭЛ01-170103-002",
-                    "description": "Номер документа"
-                },
-                "UserName": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 100,
-                    "example": "Иванов П.П.",
-                    "description": "ФИО Пользователя"
-                },
-                "Lon": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "34,241414",
-                    "description": "Координата Longitude"
-                },
-                "Lat": {
-                    "type": "string",
-                    "minLength": 0,
-                    "maxLength": 20,
-                    "example": "36,355245",
-                    "description": "Координата Latitude"
-                }
-            }
-        }
+    "license" : {
+      "name" : "MIT",
+      "url" : "https://opensource.org/licenses/MIT"
     }
+  },
+  "tags" : [ {
+    "name" : "developers",
+    "description" : "Operations available to regular developers"
+  }, {
+    "name" : "all",
+    "description" : "Operations available to all requests"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "paths" : {
+    "/ping" : {
+      "get" : {
+        "tags" : [ "all", "developers" ],
+        "summary" : "check service alive status",
+        "operationId" : "ping",
+        "description" : "Checking service status\n",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "alive = true"
+          },
+          "400" : {
+            "description" : "alive = false"
+          }
+        }
+      }
+    },
+    "/account/discard" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "discard all waybills from your subscription",
+        "operationId" : "discard",
+        "description" : "Discard all waybilss and labanalysis from your subscription\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up to discard waybills",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "400" : {
+            "description" : "Error"
+          },
+          "500" : {
+            "description" : "Error from database"
+          }
+        }
+      }
+    },
+    "/account/waybills/data" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "post an array of waybill to subscription",
+        "operationId" : "waybilss_data",
+        "description" : "Post an array of waybill to subscription\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up to put an array of waybills to subsription",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "waybill",
+          "description" : "An array of waybill to subscription",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/WaybillKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "400" : {
+            "description" : "Error"
+          },
+          "500" : {
+            "description" : "Error from database"
+          }
+        }
+      }
+    },
+    "/account/labAnalysis/data" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "post an array of waybill to subscription",
+        "operationId" : "waybilss_labAnalysis",
+        "description" : "Post an array of Laboratory analysis to subscription\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up to put an array of Laboratory analysis to subsription",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "waybill",
+          "description" : "An array of Laboratory analysis to subscription",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LabAnalysKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success"
+          },
+          "400" : {
+            "description" : "Error"
+          },
+          "500" : {
+            "description" : "Error from database"
+          }
+        }
+      }
+    },
+    "/waybills" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "get all waybills to you account",
+        "operationId" : "getWaybills",
+        "description" : "By passing in the appropriate options, you can get\navailable updated waybills in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current waybills",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "query",
+          "name" : "id",
+          "description" : "pass an optional id for looking up current waybill",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "uid"
+          }
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0,
+          "maximum" : 1000
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Waybill"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "developers" ],
+        "summary" : "set waybills inactive",
+        "operationId" : "pushWaybills",
+        "description" : "By passing in the appropriate options, you can set\nwaybills inactive\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current waybills",
+          "required" : true,
+          "type" : "string",
+          "format" : "uid"
+        }, {
+          "in" : "body",
+          "name" : "waybillKey",
+          "description" : "Waybill to incative",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/WaybillKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/WaybillKey"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "adds an waybill",
+        "operationId" : "addWaybill",
+        "description" : "Adds an waybill to the system",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current waybills",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "waybill",
+          "description" : "Waybill to add",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/Waybill"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "waybill created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing waybill already exists"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "developers" ],
+        "summary" : "delete an waybill",
+        "operationId" : "delWaybill",
+        "description" : "Delete an waybill from the system",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "delWaybill",
+          "description" : "Waybill to delete",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/WaybillKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "waybill deleted"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/labAnalysis" : {
+      "get" : {
+        "tags" : [ "developers" ],
+        "summary" : "get all lab analysis to you account",
+        "operationId" : "getlabAnalysis",
+        "description" : "By passing in the appropriate options, you can get\navailable updated laboratory abalysis in the system\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current laboratory analysis",
+          "required" : true,
+          "type" : "string",
+          "format" : "uid"
+        }, {
+          "in" : "query",
+          "name" : "id",
+          "description" : "pass an optional id for looking up current lab analys",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "uid"
+          }
+        }, {
+          "in" : "query",
+          "name" : "limit",
+          "description" : "maximum number of records to return",
+          "required" : false,
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0,
+          "maximum" : 1000
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LabAnalys"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "patch" : {
+        "tags" : [ "developers" ],
+        "summary" : "set waybills inactive",
+        "operationId" : "pushLabAnalysis",
+        "description" : "By passing in the appropriate options, you can set\nlab analys inactive\n",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current laboratory analysis",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "labAnalysKey",
+          "description" : "Laboratory analys to incative",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LabAnalysKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "search results matching criteria",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LabAnalysKey"
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "adds an waybill",
+        "operationId" : "addLabAnalysis",
+        "description" : "Adds an laboratory analysis to the system",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "query",
+          "name" : "sourceID",
+          "description" : "pass an optional source id for looking up current waybills",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "labAnalys",
+          "description" : "Laboratory analysis to add",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LabAnalys"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "lab analysis created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing analysis already exists"
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "developers" ],
+        "summary" : "delete an lab analys",
+        "operationId" : "delLabAnalys",
+        "description" : "Delete an laboratory analys from the system",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "delLabAnalys",
+          "description" : "Laboratory analys to delete",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LabAnalysKey"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "laboratory analys deleted"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        }
+      }
+    },
+    "/trackEvents" : {
+      "post" : {
+        "tags" : [ "developers" ],
+        "summary" : "Post states by the waybills",
+        "operationId" : "postStates",
+        "description" : "By passing in the appropriate options, you can post\nstates for the waybills\n",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "States",
+          "description" : "States to add",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/TrackEvenet"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "States added"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing posts already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "WaybillKey" : {
+      "type" : "object",
+      "required" : [ "EntryGUID" ],
+      "properties" : {
+        "EntryGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        }
+      }
+    },
+    "Waybill" : {
+      "type" : "object",
+      "required" : [ "EntryGUID", "Source", "ConsigneeRegCode", "OwnerStateRegCode" ],
+      "properties" : {
+        "EntryGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "description" : "Уникальный идентификатор товарной операции"
+        },
+        "OwnerEntryGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : false,
+          "example" : "f390f1ee-6c54-4b01-90e6-d701748f0812",
+          "description" : "Для связи приходной операции с расходной операцией (если есть такая возмможность)"
+        },
+        "Complex" : {
+          "type" : "boolean",
+          "description" : "Когда в одном ТС несколько грузов или контрагентов. Тогда общая масса груза в этом ТС (комплексном)), разбиватеся на подчиненные операции. Подчиненные операции имеют ссылку на комплексную. Сумма нетто в подчиненных равно нетто в комплексной. Применять себе в учет нужно все подчиненные или только комплексную."
+        },
+        "ComplexID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "567687ee-2311-4b01-32f4-d701748f0851",
+          "description" : "Это подчиненная операция. Здесь хранится ссылка на ID комплексную."
+        },
+        "EntryType" : {
+          "type" : "boolean",
+          "description" : "false-приход, true - расход"
+        },
+        "Active" : {
+          "type" : "boolean",
+          "description" : "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален"
+        },
+        "Posted" : {
+          "type" : "boolean",
+          "description" : "Если докумнет проведен, флаг установлен в Истина"
+        },
+        "Ballance" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Баланс.Может быть пусто, Р, ПР, ПП. Для пусто = 0, Р=1, для ПР = 2, для ПП=3"
+        },
+        "Source" : {
+          "type" : "string",
+          "maxLength" : 20,
+          "example" : "ЭЛ01",
+          "description" : "Здесь указываем код БД, откуда сгенерирована запись: UE-новая ККУ, UTP-старая ККУ, AD - агродата, TBT-трансбалк, и т.д."
+        },
+        "BarCode" : {
+          "type" : "string",
+          "maxLength" : 14,
+          "example" : "20100000001234",
+          "description" : "Штрихкод в формате EAN13 операции на первичном документе (ТТН, расходной налкадной)."
+        },
+        "NFC" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "01-01-18-94",
+          "description" : "Идентификатор NFC метки товарной операции. Используется аграрным бизнессом."
+        },
+        "RFID" : {
+          "type" : "string",
+          "maxLength" : 24,
+          "example" : "E2005120360301271270944B",
+          "description" : "RFID идентификатор товарной операции. Используется для контрольного периметра."
+        },
+        "VehicleType" : {
+          "type" : "boolean",
+          "description" : "true=авто, false-жд"
+        },
+        "VehicleTypeID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Уникальный идентификатор типа транспортного средства в НСИ"
+        },
+        "VehicleTypeName" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "Грузовой",
+          "description" : "Наименование типа транспортного средства"
+        },
+        "VehicleSubTypeID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Уникальный идентификатор подтипа транспортного средства в НСИ"
+        },
+        "VehicleSubTypeName" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "Самосвал",
+          "description" : "Наименование подтипа транспортного средства"
+        },
+        "VehicleID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Идентификатор транспортного средства в НСИ"
+        },
+        "VehicleStateNo" : {
+          "type" : "string",
+          "maxLength" : 20,
+          "example" : "АВ4567СХ",
+          "description" : "номер транспортного средства"
+        },
+        "TrailerTypeID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Уникальный идентификатор типа прицепа в НСИ"
+        },
+        "TrailerTypeName" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "Грузовой",
+          "description" : "Наименование типа прицепа"
+        },
+        "TrailerSubTypeID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Уникальный идентификатор подтипа прицепа в НСИ"
+        },
+        "TrailerSubTypeName" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "Самосвал",
+          "description" : "Наименование подтипа прицепа"
+        },
+        "TrailerID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Идентификатор прицепа в НСИ"
+        },
+        "TrailerStateNo" : {
+          "type" : "string",
+          "maxLength" : 25,
+          "example" : "ВП2812СМ",
+          "description" : "номер прицепа"
+        },
+        "DocumentDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-04-23T18:25:43.511Z",
+          "description" : "Дата создания документа"
+        },
+        "DocumentNumber" : {
+          "type" : "string",
+          "maxLength" : 30,
+          "example" : "ЭЛ01-20170101-001",
+          "description" : "Номер, сгенерированный при создании документа"
+        },
+        "WaybillNo" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "9678711",
+          "description" : "Номер ТТН"
+        },
+        "WaybillDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-04-23T18:25:43.511Z",
+          "description" : "Дата ТТН отправителя."
+        },
+        "PostingDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-04-23T18:25:43.511Z",
+          "description" : "Дата движения по балансу на карточке клиента (приход/списание)."
+        },
+        "ShipmentDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-04-23T18:25:43.511Z",
+          "description" : "Дата отправки ТС в адрес получателя (дата выезда)."
+        },
+        "OwnerStateName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Дружба НОВА ТОВ",
+          "description" : "Владелец груза. С чьей карточки списан груз или на чью карточку оприходован."
+        },
+        "OwnerType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "OwnerStateRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "31333767",
+          "description" : "Код едрпоу сосбтвенника (ИНН)."
+        },
+        "ShippingAgentStateName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "ФОП Поляков",
+          "description" : "Транспортно-экспедиционная организация, которая осуществляет (организовывает) перевозку."
+        },
+        "ShippingAgentStateRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "78425984",
+          "description" : "Код едрпоу перевозчика (ИНН)."
+        },
+        "OrderAgentStateName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Дружба Нова, СТОВ",
+          "description" : "Кто заказывает перевозку (оплачивает перевозчику за услуги). В основном для автоперевозок."
+        },
+        "OrderAgentStateRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "31333767",
+          "description" : "Код едрпоу заказчика (ИНН)."
+        },
+        "ConsignorName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Миргородська дільниця",
+          "description" : "Предприятие - отправитель груза."
+        },
+        "ConsignorRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "05581898",
+          "description" : "Код едрпоу предприятия отправителя (ИНН)."
+        },
+        "ConsignorType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "ConsigneeName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Линовицька дільниця",
+          "description" : "Предприятие - получатель груза."
+        },
+        "ConsigneeRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "31834605",
+          "description" : "Код едрпоу предприятия получателя (ИНН)."
+        },
+        "ConsigneeType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "ShipmentLocationName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "ООО Миргородський елеватор",
+          "description" : "Склад-отправитель название."
+        },
+        "ShipmentNAVLocationCode" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "NAV64",
+          "description" : "Склад-отправитель из классификатора NAV17."
+        },
+        "ShipmentLocationAdress" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "Полтавська обл., м. Миргород, вул. Петрівська, 15.",
+          "description" : "Адрес склада-отправителя"
+        },
+        "DestinationLocationName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "ООО Тис зеро",
+          "description" : "Склад-получатель название."
+        },
+        "DestinationNAVLocationCode" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "NAV22",
+          "description" : "Склад-получатель из классификатора NAV17."
+        },
+        "DestinationLocationAdress" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "Одесская область, Лиманский район, с Визирка, ул.Чапаева, д.60",
+          "description" : "Адрес склада-получателя."
+        },
+        "ShipmentRWStationCode" : {
+          "type" : "string",
+          "maxLength" : 10,
+          "example" : "447801",
+          "description" : "Код станции отправления из классификатора ЖД станций."
+        },
+        "ShipmentRWStationName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "МИРГОРОД",
+          "description" : "Наименование станции отправителя."
+        },
+        "DestinationRWStationCode" : {
+          "type" : "string",
+          "maxLength" : 10,
+          "example" : "403002",
+          "description" : "Код станции получателя из классификатора ЖД станций."
+        },
+        "DestinationRWStationName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "ЧОРНОМОРСЬКА ( ЕКСП. ДЛЯ ТІС )",
+          "description" : "Наименование станции получателя."
+        },
+        "HarvestYear" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-01-01T00:00:00.000Z",
+          "description" : "Год урожая."
+        },
+        "ItemGroupID" : {
+          "type" : "string",
+          "maxLength" : 56,
+          "example" : "КУКУРУДЗА",
+          "description" : "Индетификатотр группы груза."
+        },
+        "ItemGroupName" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "Кукурудза",
+          "description" : "Наименование группы груза (Культура, Пшеница, Соя)."
+        },
+        "ItemID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "КУК3КЛ",
+          "description" : "Индетификатотр груза."
+        },
+        "ItemGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "maxLength" : 56,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "description" : "Индетификатотр груза."
+        },
+        "ItemName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Кукурудза 3 класу кормові потреби",
+          "description" : "Наименование груза."
+        },
+        "ItemNavCode" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "NAV5",
+          "description" : "Код груза из классификатора."
+        },
+        "GrossWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 95010,
+          "description" : "Брутто."
+        },
+        "VehicleWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 25010,
+          "description" : "Тара."
+        },
+        "NetWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 70000,
+          "description" : "Нетто."
+        },
+        "ShipmentMethod" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "FCA",
+          "description" : "Условия поставки (CPT, FCA)"
+        },
+        "StandardWeightElevator" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 65436,
+          "description" : "Зачетный вес."
+        },
+        "ConsignorGrossWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 92700,
+          "description" : "Брутто. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
+        },
+        "ConsignorVehicleWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 12100,
+          "description" : "Тара. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
+        },
+        "ConsignorWeight" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 80600,
+          "description" : "Нетто. Заполняется получателем в приходных операциях (вес по документу, сопровождающий груз)."
+        },
+        "TruckModel" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "КАМАЗ",
+          "description" : "Марка транспортного средства."
+        },
+        "TruckModelType" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "65206",
+          "description" : "Модель транспортного средства."
+        },
+        "TruckVechicleType" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "полуприцеп",
+          "description" : "Тип транспортного средства (автомобиль, вагон, тягач, полуприцеп, цистерна)."
+        },
+        "Seals" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "464565,3464364,3252352",
+          "description" : "Перечень пломб (ЗПУ)."
+        },
+        "DriverID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "69e45b7e-e3eb-4746-4ec2-74666602f617",
+          "description" : "Идентификатор водителя в системе НСИ"
+        },
+        "DriverSerial" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "РМА201869",
+          "description" : "Серия и номер водительского удост-ния."
+        },
+        "DriverName" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "Кобальский Петро Васильович",
+          "description" : "ФИО водителя."
+        },
+        "DriverPhone" : {
+          "type" : "string",
+          "maxLength" : 40,
+          "example" : "+380979003639",
+          "description" : "Контактный номер водителя."
+        },
+        "Field1Name" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "901813145809",
+          "description" : "Код поля или тока. Используется аграрным бизнесом."
+        },
+        "Field1Type" : {
+          "type" : "integer",
+          "example" : 0,
+          "description" : "Тип поля или тока. Используется аграрным бизнесом. (Поле - 0, Ток-1, МестоХранения-2, Регион - 4)."
+        },
+        "Field1Adress" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
+          "description" : "Адрес поля или тока."
+        },
+        "Field1Percent" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 80,
+          "description" : "Процент заполнения грузом. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
+        },
+        "Field1Mositure" : {
+          "type" : "number",
+          "format" : "doble",
+          "example" : 14.3,
+          "description" : "Влажность груза."
+        },
+        "Field2Name" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "901813145809",
+          "description" : "Код второго  поля или тока. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
+        },
+        "Field2Type" : {
+          "type" : "integer",
+          "example" : 0,
+          "description" : "Тип поля или тока. Используется аграрным бизнесом. (Поле - 0, Ток-1, МестоХранения-2, Регион - 4)"
+        },
+        "Field2Adress" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "СУМСЬКА обл., Роменський район, с. КОСАРІВЩИНА",
+          "description" : "Адрес поля или тока."
+        },
+        "Field2Percent" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 20,
+          "description" : "Процент заполнения грузом. Используется аграрным бизнесом. Заполняется, когда в одну товарную операцию погружено груз с нескольких полей."
+        },
+        "Field2Mositure" : {
+          "type" : "number",
+          "format" : "doble",
+          "example" : 15.6,
+          "description" : "Влажность груза."
+        },
+        "Departure" : {
+          "type" : "boolean",
+          "description" : "false-не выехал, 1 - выехал"
+        },
+        "LocalityInID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0500100000",
+          "description" : "Код КОАТУУ населеного пункту розвантаження."
+        },
+        "LocalityInName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "м. Вінниця",
+          "description" : "Назва населеного пункту розвантаження."
+        },
+        "LocalitySubGroupInID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0501000000",
+          "description" : "Код КОАТУУ району населенного пункту розвантаження."
+        },
+        "LocalitySubGroupInName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "ВІННИЦЬКИЙ РАЙОН",
+          "description" : "Назва району населенного пункту розвантаження."
+        },
+        "LocalityGroupInID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0500000000",
+          "description" : "Код КОАТУУ населеного пункту розвантаження."
+        },
+        "LocalityGroupInName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "ВІННИЦЬКА ОБЛ.",
+          "description" : "Назва області населеного пункту розвантаження."
+        },
+        "LocalityOutID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0500100000",
+          "description" : "Код КОАТУУ населеного пункту навантаження."
+        },
+        "LocalityOutName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "м. Вінниця",
+          "description" : "Назва населеного пункту навантаження."
+        },
+        "LocalitySubGroupOutID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0501000000",
+          "description" : "Код КОАТУУ району населенного пункту навантаження."
+        },
+        "LocalitySubGroupOutName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "ВІННИЦЬКИЙ РАЙОН",
+          "description" : "Назва району населенного пункту навантаження."
+        },
+        "LocalityGroupOutID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "0500000000",
+          "description" : "Код КОАТУУ області населеного пункту навантаження."
+        },
+        "LocalityGroupOutName" : {
+          "type" : "string",
+          "maxLength" : 400,
+          "example" : "ВІННИЦЬКА ОБЛ.",
+          "description" : "Назва області населеного пункту навантаження."
+        },
+        "DepartureDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-05-23T18:25:43.511Z",
+          "description" : "Дата выезда транспортного средства"
+        },
+        "LastTrackEventDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-05-23T18:40:50.511Z",
+          "description" : "Дата последнего события"
+        },
+        "LastTrackEventID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "UPLOAD",
+          "description" : "Идентификатор текущего статуса"
+        },
+        "LastTrackEventName" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "Выгрузка на элеваторе",
+          "description" : "Наименование текущего статуса"
+        },
+        "LastLon" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "34,241414",
+          "description" : "Координата Longitude"
+        },
+        "LastLat" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "36,355245",
+          "description" : "Координата Latitude"
+        },
+        "RequestID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "3242342",
+          "description" : "Идентификатор заявки на перевозку."
+        },
+        "RequestNumber" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "3242342",
+          "description" : "Номер заявки на перевозку."
+        },
+        "LoadPointName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Силос 2",
+          "description" : "Наименование места погрузки/разгрузки на елеваторе"
+        },
+        "ContainerID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "",
+          "description" : "Номер контейнера"
+        },
+        "isContainer" : {
+          "type" : "boolean",
+          "description" : "Флаг наличия контейнера (1-есть контейнер, 0-отсутствует)"
+        },
+        "TrackEvents" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TrackEvenet"
+          },
+          "description" : "Таблица с событиями транспортного средства."
+        }
+      }
+    },
+    "LabAnalysKey" : {
+      "type" : "object",
+      "required" : [ "FormID" ],
+      "properties" : {
+        "FormID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "z256561ee-6c54-4b01-90e6-d701748f0456"
+        }
+      }
+    },
+    "LabAnalys" : {
+      "type" : "object",
+      "required" : [ "FormID", "Type", "TransportShipmentID", "Active", "ConsigneeRegCode" ],
+      "properties" : {
+        "FormID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "z256561ee-6c54-4b01-90e6-d701748f0456",
+          "description" : "Уникальный идентификатор лабораторного анализа."
+        },
+        "Type" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "Полный.",
+          "description" : "Тип лабораторного анализа (полный, расчетный, экспресс)."
+        },
+        "Source" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "ЭЛ01",
+          "description" : "Источник создания документа"
+        },
+        "Posted" : {
+          "type" : "boolean",
+          "description" : "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален."
+        },
+        "TransportShipmentID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "description" : "Уникальный идентификатор товарной операции."
+        },
+        "Active" : {
+          "type" : "boolean",
+          "description" : "Если какие-либо данные удаляются у источника данных, устанавливается = нет. 0=удален."
+        },
+        "OwnerStateRegCode" : {
+          "type" : "string",
+          "maxLength" : 12,
+          "example" : "31333767",
+          "description" : "Код едрпоу сосбтвенника (ИНН)."
+        },
+        "ConsigneeRegCode" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "31333767",
+          "description" : "Код едрпоу предприятия получателя (ИНН)."
+        },
+        "ConsignorRegCode" : {
+          "type" : "string",
+          "maxLength" : 15,
+          "example" : "25255267",
+          "description" : "Код едрпоу предприятия отправителя (ИНН)."
+        },
+        "No" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "ЭЛ01-0004534566",
+          "description" : "Номер анализной карточки."
+        },
+        "Date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-03-15T18:25:43.511Z"
+        },
+        "ScanCode" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "0123456789123",
+          "description" : "Дата анализной карточки"
+        },
+        "HarvestYear" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-01-01T00:00:00.000Z",
+          "description" : "Год урожая."
+        },
+        "WaybillNo" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 30,
+          "example" : "ЭЛ01-20170315-001",
+          "description" : "Номер товарной операции, к которой подвязан документ."
+        },
+        "WaybillDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-03-14T14:40:43.511Z",
+          "description" : "Дата товарной операции, к которой подвязан документ."
+        },
+        "Certificate1No" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "12345678910",
+          "description" : "Номер сертификата протокола безопасности."
+        },
+        "Certificate1Date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-03-10T14:40:43.511Z",
+          "description" : "Дата сертификата протокола безопасности."
+        },
+        "Certificate2No" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "0123456789012",
+          "description" : "Номер сертификата протокола ГМО."
+        },
+        "Certificate2Date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-03-09T14:40:43.511Z",
+          "description" : "Дата сертификата протокола ГМО."
+        },
+        "CertificateWeightGMO" : {
+          "type" : "integer",
+          "format" : "int32",
+          "example" : 2000,
+          "description" : "Вес ссертификата ГМО."
+        },
+        "Certificate3No" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 40,
+          "example" : "12345678910",
+          "description" : "Номер сертификата качества."
+        },
+        "Certificate3Date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2017-03-10T14:40:43.511Z",
+          "description" : "Дата сертификата качества."
+        },
+        "EntryType" : {
+          "type" : "boolean",
+          "description" : "Вид движения 0-приход, 1 - расход"
+        },
+        "ItemGroupID" : {
+          "type" : "string",
+          "maxLength" : 56,
+          "example" : "КУКУРУДЗА",
+          "description" : "Индетификатотр группы груза."
+        },
+        "ItemGroupName" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "Кукурудза",
+          "description" : "Наименование группы груза (Культура, Пшеница, Соя)."
+        },
+        "ItemID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "КУК3КЛ",
+          "description" : "Индетификатотр груза."
+        },
+        "ItemGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "maxLength" : 56,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "description" : "Индетификатотр груза."
+        },
+        "ItemName" : {
+          "type" : "string",
+          "maxLength" : 200,
+          "example" : "Кукурудза 3 класу кормові потреби",
+          "description" : "Наименование груза."
+        },
+        "ItemNavCode" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "NAV5",
+          "description" : "Код груза из классификатора."
+        },
+        "LabOperator" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "Васильева А.П.",
+          "description" : "ФИО Лаборанта, который провел анализ"
+        },
+        "OwnerType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип владельца груза (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "ConsigneeType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип получателя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "ConsignorType" : {
+          "type" : "integer",
+          "format" : "int32",
+          "maxLength" : 1,
+          "example" : 0,
+          "description" : "Тип отправителя (0 - сторонние, 1 - Кернел, 2- ДАПР."
+        },
+        "Qualities" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LabAnalysLine"
+          },
+          "description" : "Таблица с качественными показателями."
+        }
+      }
+    },
+    "LabAnalysLine" : {
+      "type" : "object",
+      "required" : [ "FormID", "AnalisysCode", "AnalisysName", "ValueType" ],
+      "properties" : {
+        "FormID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "z256561ee-6c54-4b01-90e6-d701748f0456",
+          "description" : "Уникальный идентификатор лабораторного анализа."
+        },
+        "AnalisysCode" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 50,
+          "example" : "МинеральнаяПримесь",
+          "description" : "Идентификатор качественных показателей. "
+        },
+        "AnalisysName" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "Минеральная примесь",
+          "description" : "Наименование качественного показателя."
+        },
+        "ValueType" : {
+          "type" : "boolean",
+          "description" : "Тип значения (0-число, 1-строка)."
+        },
+        "UOM" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "%",
+          "description" : "Единица измерения."
+        },
+        "Value" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 40,
+          "example" : "",
+          "description" : "Строковое значение показателя."
+        },
+        "ValueFact" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 40,
+          "example" : "",
+          "description" : "Строковое фактическое значение показателя."
+        },
+        "Value2" : {
+          "type" : "number",
+          "format" : "double",
+          "example" : 2.0,
+          "description" : "Числовое знаениче показателя."
+        },
+        "Value2Fact" : {
+          "type" : "number",
+          "format" : "double",
+          "example" : 2.0,
+          "description" : "Числовое фактическое знаениче показателя."
+        },
+        "ContractorValue" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "18.2",
+          "description" : "Значение показателя."
+        },
+        "ParentAnalisysCode" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 50,
+          "example" : "СорнаяПримесь",
+          "description" : "Уникальный идентификатор родителя качественного показателя."
+        },
+        "Inclusion" : {
+          "type" : "boolean",
+          "description" : "Признак влияния значения текущего показателя на итоговый показатель владельца."
+        },
+        "ShowinLabes" : {
+          "type" : "boolean",
+          "description" : "Признак отображения текущего показателя в печатной форме документа."
+        },
+        "SubStandart" : {
+          "type" : "boolean",
+          "description" : "Признак некондиционного качества."
+        }
+      }
+    },
+    "TrackEvenet" : {
+      "type" : "object",
+      "required" : [ "EventID", "EntryGUID", "Date" ],
+      "properties" : {
+        "EventID" : {
+          "type" : "string",
+          "maxLength" : 100,
+          "example" : "UPLOAD",
+          "description" : "Уникальный идентификатор состояния."
+        },
+        "EventName" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "Выгруза на эелеваторе",
+          "description" : "Наименование события рейса"
+        },
+        "EntryGUID" : {
+          "type" : "string",
+          "format" : "uuid",
+          "uniqueItems" : true,
+          "example" : "d290f1ee-6c54-4b01-90e6-d701748f0851",
+          "description" : "Уникальный идентификатор товарной операции"
+        },
+        "Date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-04-23T18:25:43.511Z",
+          "description" : "Дата регистрации события."
+        },
+        "WaybillNumber" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 50,
+          "example" : "ЭЛ01-170103-002",
+          "description" : "Номер документа"
+        },
+        "UserName" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 100,
+          "example" : "Иванов П.П.",
+          "description" : "ФИО Пользователя"
+        },
+        "Lon" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "34,241414",
+          "description" : "Координата Longitude"
+        },
+        "Lat" : {
+          "type" : "string",
+          "minLength" : 0,
+          "maxLength" : 20,
+          "example" : "36,355245",
+          "description" : "Координата Latitude"
+        }
+      }
+    }
+  }
 }

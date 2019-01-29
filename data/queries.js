@@ -317,7 +317,9 @@ module.exports = {
                   LabAnalysisLines.ContractorValue,
                   LabAnalysisLines.ParentAnalisysCode,
                   LabAnalysisLines.Inclusion,
-                  LabAnalysisLines.ShowinLabes) B
+                  LabAnalysisLines.ShowinLabes,
+                  LabAnalysisLines.SubStandart
+                ) B
            ON (A.FormID = B.FormID AND A.AnalisysCode = B.AnalisysCode)
 
           WHEN MATCHED THEN
@@ -327,7 +329,7 @@ module.exports = {
 
     let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis+'\n  \n'+q3_addLabAnalysis;
     //let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis;
-    // console.log(q_addLabAnalysis);
+    console.log(q_addLabAnalysis);
     return q_addLabAnalysis;
 
   },
