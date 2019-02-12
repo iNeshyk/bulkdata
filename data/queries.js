@@ -198,7 +198,7 @@ module.exports = {
           t010_Bulkdata.EntryGUID = jt.EntryGUID`;
 
     let q_delWaybills = q1_delWaybills+'\n  \n'+q2_delWaybills;
-    console.log(q_delWaybills);
+    // console.log(q_delWaybills);
     return q_delWaybills;
   },
   getLabAnalysis: (userID , id, limit) => {
@@ -329,7 +329,7 @@ module.exports = {
 
     let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis+'\n  \n'+q3_addLabAnalysis;
     //let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis;
-    console.log(q_addLabAnalysis);
+    // console.log(q_addLabAnalysis);
     return q_addLabAnalysis;
 
   },
