@@ -2,7 +2,6 @@
 
 const schema = require('../lib/mssql/schema.js');
 
-//_TODO: change to most effective function
 function replacer(key, value){
   if(typeof value === "string"){
     value = value.replace("'","");
@@ -13,32 +12,6 @@ function replacer(key, value){
   }
   return value;
 }
-//END_TODO: change to most effective function
-
-// function getSubscriptionTrigger(triggerType){
-//   //subscrition trigger v 2.0
-//   `MERGE INTO t005_UserData AS A
-//   USING(
-//   SELECT
-//     uc.UserID AS UserID,
-//     jt.EntryGUID AS EntryGUID,
-//     1 AS Active,
-//     '${triggerType}' AS RecordType
-//   FROM OPENJSON(@json1) WITH (EntryGUID char(36), Sha1KeyValue varchar(50)) AS jt
-//     INNER JOIN t003_UserConfig AS uc
-//     ON jt.Sha1KeyValue = uc.Sha1KeyValue
-//     AND uc.Active = 1
-//     AND uc.RecordType = '${triggerType}'
-//   GROUP BY
-//     uc.UserID,
-//     jt.EntryGUID) B
-//     ON (A.EntryGUID = B.EntryGUID AND A.UserID = B.UserID AND B.RecordType = '${triggerType}')
-//   WHEN MATCHED THEN
-//     UPDATE SET (????)
-//   WHEN NOT MATCHED THEN
-//     INSERT (????)
-//      `;
-// }
 
 module.exports = {
   waybill_subscribe:(userID,waybills)=>{
@@ -55,6 +28,7 @@ module.exports = {
     return q;
 
   },
+
   labAnalys_subscribe:(userID,labAnalysis)=>{
 
     let q = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
@@ -104,9 +78,8 @@ module.exports = {
 
     let q_destroy_waybills = `DROP TABLE #tempWB_${userID};`;
 
-    // console.log(q_setLockedUserData);
     return temp_q_getWaybills+'\n  \n'+q_setLockedUserData+'\n  \n'+q_getWaybills+'\n  \n'+q_destroy_waybills;
-    // return q_setLockedUserData
+
   },
   addWaybills: (UserID, waybills, hashBody) => {
 
@@ -114,8 +87,6 @@ module.exports = {
     let cols = [];
     let vals = [];
 
-
-    //create JSON {UserID, EntryGuid, Active}
     let q1_addWaybills = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody, replacer)}'
      INSERT INTO t005_UserData
      SELECT
@@ -155,9 +126,9 @@ module.exports = {
          UPDATE SET ${set.join(' , ')}
      WHEN NOT MATCHED THEN
          INSERT (${cols.join(',')}) VALUES (${vals.join(',')});`;
-      let q_addWaybills = q1_addWaybills+'\n  \n'+q2_addWaybills;
-      // console.log(q_addWaybills);
-      return q_addWaybills;
+    let q_addWaybills = q1_addWaybills+'\n  \n'+q2_addWaybills;
+
+    return q_addWaybills;
 
   },
   patchWaybills: (userID, waybills) => {
@@ -198,7 +169,7 @@ module.exports = {
           t010_Bulkdata.EntryGUID = jt.EntryGUID`;
 
     let q_delWaybills = q1_delWaybills+'\n  \n'+q2_delWaybills;
-    // console.log(q_delWaybills);
+
     return q_delWaybills;
   },
   getLabAnalysis: (userID , id, limit) => {
@@ -249,7 +220,6 @@ module.exports = {
     let colsLines = [];
     let valsLines = [];
 
-    //create JSON {UserID, EntryGuid, Active}
     let q1_addLabAnalysis = `declare @json1 nvarchar(max) = N'${JSON.stringify(hashBody)}'
     INSERT INTO t005_UserData
     SELECT DISTINCT
@@ -328,8 +298,7 @@ module.exports = {
               INSERT (${colsLines.join(',')}) VALUES (${valsLines.join(',')});`;
 
     let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis+'\n  \n'+q3_addLabAnalysis;
-    //let q_addLabAnalysis = q1_addLabAnalysis+'\n  \n'+q2_addLabAnalysis;
-    // console.log(q_addLabAnalysis);
+
     return q_addLabAnalysis;
 
   },
@@ -343,23 +312,7 @@ module.exports = {
           AND t005_UserData.RecordType = 'L'
           AND t005_UserData.UserID = '${userID}'
           AND t005_UserData.Locked = 1`;
-    // let q_patchLabAnalysis2 = `declare @json nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
-    //         UPDATE t005_UserData
-    //           SET Active = 0 FROM OPENJSON(@json)
-    //             WITH (FormID char(36)) AS jt
-    //           WHERE
-    //             t005_UserData.EntryGUID = jt.FormID
-    //             AND t005_UserData.RecordType = 'L'
-    //             AND t005_UserData.UserID = '${userID}'
-    //             AND t005_UserData.Locked = 1`;
 
-    // let q_UsersRequestLog = `declare @json2 nvarchar(max) = '${JSON.stringify(labAnalysis,replacer)}'
-    // INSERT INTO t903_UsersRequestLog (UserID, InsertDate, QueryBody)
-    // VALUES('${userID}',
-    // GETDATE(),
-    // @json2)`;
-
-    // console.log(q_UsersRequestLog);
     return q_patchLabAnalysis;
 
   },

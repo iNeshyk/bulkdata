@@ -8,16 +8,7 @@ var sha1 = require('sha1');
  * Operations on /truckEvents
  */
 module.exports = {
-    /**
-     * summary: Post states by the waybills
-     * description: By passing in the appropriate options, you can post
-states for the waybills
-
-     * parameters: States
-     * produces: application/json
-     * responses: 201, 400, 409
-     * operationId: postStates
-     */
+  
     post: {
         201: function (req, res, callback) {
           db.reqPool(q.addTrackEvents(req.body), {}, function(data, err) {

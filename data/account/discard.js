@@ -15,37 +15,13 @@ module.exports = {
      */
     get: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
-                response: '200'
-            }, callback);
+
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
-                response: '400'
-            }, callback);
+            back);
         },
         500: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/account/discard',
-                operation: 'get',
-                response: '500'
-            }, callback);
+
         }
     }
 };

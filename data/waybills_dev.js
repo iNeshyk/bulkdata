@@ -80,15 +80,7 @@ waybills inactive
                 });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/waybills',
-            //     operation: 'patch',
-            //     response: '400'
-            // }, callback);
+
         }
     },
     /**
@@ -126,8 +118,6 @@ waybills inactive
                 }
               }
 
-              //push AND subscribers
-              //OwnerType & EntryType
               for (let d=0; d<currentCs.length; d++){
 
                   let temp_Sha1KeyValue = '';
@@ -138,7 +128,6 @@ waybills inactive
                       temp_Sha1KeyValue = temp_Sha1KeyValue+currentCs[d][j]+element[currentCs[d][j]];
                       temp_Key = temp_Key+currentCs[d][j];
                       temp_Value = temp_Value+element[currentCs[d][j]];
-                      // console.log( sha1(temp_Sha1KeyValue));
                   }
 
                    hashBody.push({
@@ -151,7 +140,6 @@ waybills inactive
 
               }
 
-              //console.log(hashBody);
             }
             db.reqPool(q.addWaybills(req.query.sourceID, body, hashBody), {}, function(data, err) {
               if (err) {

@@ -26,26 +26,10 @@ module.exports = {
               });
         },
         400: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/account/labAnalysis/data',
-            //     operation: 'post',
-            //     response: '400'
-            // }, callback);
+
         },
         500: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            // Mockgen().responses({
-            //     path: '/account/labAnalysis/data',
-            //     operation: 'post',
-            //     response: '500'
-            // }, callback);
+            
         }
     }
 };

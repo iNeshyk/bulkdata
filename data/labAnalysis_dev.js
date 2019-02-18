@@ -123,9 +123,7 @@ lab analys inactive
                 }
               }
 
-                //push AND subscribers
-                //OwnerType & EntryType
-                for (let d=0; d<currentCs.length; d++){
+              for (let d=0; d<currentCs.length; d++){
 
                     let temp_Sha1KeyValue = '';
                     let temp_Key = '';
