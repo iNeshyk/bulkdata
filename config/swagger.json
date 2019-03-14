@@ -1481,7 +1481,7 @@
           "type" : "boolean",
           "description" : "Признак отображения текущего показателя в печатной форме документа."
         },
-        "SubStandard" : {
+        "SubStandart" : {
           "type" : "boolean",
           "description" : "Признак некондиционного качества."
         }
