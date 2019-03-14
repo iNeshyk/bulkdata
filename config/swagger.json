@@ -1150,6 +1150,12 @@
           "example" : "",
           "description" : "Номер контейнера"
         },
+        "StorageOrderID" : {
+          "type" : "string",
+          "maxLength" : 50,
+          "example" : "ЭЛ01-00001",
+          "description" : "Идентификатор заявки на отгрузку"
+        },
         "isContainer" : {
           "type" : "boolean",
           "description" : "Флаг наличия контейнера (1-есть контейнер, 0-отсутствует)"
@@ -1475,7 +1481,7 @@
           "type" : "boolean",
           "description" : "Признак отображения текущего показателя в печатной форме документа."
         },
-        "SubStandart" : {
+        "SubStandard" : {
           "type" : "boolean",
           "description" : "Признак некондиционного качества."
         }
